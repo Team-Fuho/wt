@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     # MVC stuff
     'blog',
     'search',
+    'gallery',
     # Stuff
     'wagtail.locales',
     # API engine

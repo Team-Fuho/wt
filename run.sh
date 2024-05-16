@@ -1,3 +1,5 @@
+rm -rv static
+python manage.py collectstatic
 python manage.py migrate --noinput
 gunicorn fuhoblog.wsgi:application
 # optional, if on windows

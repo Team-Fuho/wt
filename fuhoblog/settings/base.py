@@ -29,10 +29,15 @@ INSTALLED_APPS = [
     'search',
     'gallery',
     # Stuff
-    'wagtail.locales',
+    # 'wagtail.contrib.modeladmin',
+    'wagtail_modeladmin',
+    # 'wagtail.locales',
+    # 'wagtailtrans',
+    'wagtail.contrib.simple_translation',
+    'wagtail_localize',
+    'wagtail_localize.locales',
     # API engine
     'wagtail.api.v2',
-    'rest_framework',
     # Whatever
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
@@ -63,6 +68,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    # 'django.middleware.locale.LocaleMiddleware',
+    # 'wagtail.core.middleware.SiteMiddleware',
+    # 'wagtailtrans.middleware.TranslationMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]
 
@@ -122,7 +130,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'vi'
 
 TIME_ZONE = 'Asia/Ho_Chi_Minh'
 
@@ -131,6 +139,8 @@ USE_I18N = True
 USE_L10N = False
 
 USE_TZ = True
+
+WAGTAIL_I18N_ENABLED = True
 
 WAGTAIL_CONTENT_LANGUAGES = LANGUAGES = [
     ('vi', 'Tiếng Việt'),

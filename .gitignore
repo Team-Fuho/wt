@@ -169,4 +169,7 @@ poetry.toml
 
 ## run based stuff
 
-media
+/media/
+/static/
+.coverage
+.ruff_cache

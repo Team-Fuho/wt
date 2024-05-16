@@ -17,6 +17,7 @@ class BlogPage(Page):
     thumb = models.ImageField('Thumbnail', blank=True)
     intro = models.CharField(max_length=250)
     body = RichTextField(blank=True)
+    localize_default_translation_mode = "simple"
 
     search_fields = Page.search_fields + [
         index.SearchField('intro'),

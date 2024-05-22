@@ -13,7 +13,14 @@ from wagtail.search import index
 
 class Picture(Page):
     date = models.DateField('Post Date')
-    image = models.ImageField('Picture', blank=True)
+    image = models.ForeignKey(
+        'wagtailimages.Image',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=False,
+        related_name='+',
+    )
+
     cap = models.CharField('Caption', max_length=1024)
 
     search_fields = Page.search_fields + [

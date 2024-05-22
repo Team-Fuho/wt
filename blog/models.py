@@ -14,10 +14,16 @@ from wagtail.search import index
 
 class BlogPage(Page):
     date = models.DateField('Post date')
-    thumb = models.ImageField('Thumbnail', blank=True)
+    thumb = models.ForeignKey(
+        'wagtailimages.Image',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=False,
+        related_name='+',
+    )
     intro = models.CharField(max_length=250)
     body = RichTextField(blank=True)
-    localize_default_translation_mode = "simple"
+    localize_default_translation_mode = 'simple'
 
     search_fields = Page.search_fields + [
         index.SearchField('intro'),

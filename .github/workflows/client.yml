@@ -17,6 +17,10 @@ jobs:
         with:
           node-version: '18'
 
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
       - name: Install dependencies
         run: pnpm install
 
@@ -33,6 +37,6 @@ jobs:
           echo "registry=https://npm.pkg.github.com/" >> .npmrc
 
       - name: Publish to GitHub Packages
-        run: pnpm publish --access public
+        run: pnpm publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

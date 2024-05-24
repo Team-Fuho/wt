@@ -26,7 +26,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 INSTALLED_APPS = [
     # MVC stuff
     'blog',
-    'search',
+    # 'search',
     'gallery',
     # Stuff
     # 'wagtail.contrib.modeladmin',

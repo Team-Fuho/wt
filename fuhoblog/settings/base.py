@@ -12,10 +12,14 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import dotenv
+
+dotenv.load_dotenv()
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
+SECRET_KEY = os.environ['SECRET_KEY'] or ''
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -26,7 +30,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 INSTALLED_APPS = [
     # MVC stuff
     'blog',
-    'search',
+    # 'search',
     'gallery',
     # Stuff
     # 'wagtail.contrib.modeladmin',
@@ -37,6 +41,7 @@ INSTALLED_APPS = [
     'wagtail_localize',
     'wagtail_localize.locales',
     # API engine
+    'rest_framework',
     'wagtail.api.v2',
     # Whatever
     'wagtail.contrib.forms',

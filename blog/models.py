@@ -28,6 +28,7 @@ class BlogPage(Page):
     search_fields = Page.search_fields + [
         index.SearchField('intro'),
         index.SearchField('body'),
+        index.SearchField('seo_title')
     ]
 
     content_panels = Page.content_panels + [

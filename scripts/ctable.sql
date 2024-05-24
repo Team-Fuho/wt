@@ -1,0 +1,2 @@
+DROP DATABASE wagtail;
+CREATE DATABASE wagtail CHARACTER SET utf8mb4;

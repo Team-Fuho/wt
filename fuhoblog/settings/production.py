@@ -3,7 +3,9 @@ from .base import *
 import os
 from urllib.parse import urlparse
 
-DEBUG = False
+DEBUG = False or (
+    os.environ['DJANGO_DEBUG'] is not None and os.environ['DJANGO_DEBUG'] == 'True'
+)
 
 if SECRET_KEY == '':
     print('no SECRET_KEY env')
@@ -14,16 +16,16 @@ WAGTAILSEARCH_BACKENDS = WAGTAILSEARCH_BACKENDS
 
 if os.environ.get('DATABASE') is not None:
     try:
-        DATABASE_ENVIRON = urlparse(os.environ['DASTABASE'])
+        DATABASE_ENVIRON = urlparse(os.environ['DATABASE'])
         if DATABASE_ENVIRON.scheme == 'mysql':
             DATABASES |= {
                 'default': {
                     'ENGINE': 'django.db.backends.mysql',
-                    'NAME': os.environ['MYSQL_DATABASE'],
-                    'USER': os.environ['MYSQL_PASSWORD'],
-                    'PASSWORD': os.environ['MYSQL_PASSWORD'],
-                    'HOST': os.environ['MYSQL_HOST'],
-                    'PORT': os.environ['MYSQL_PORT'],
+                    'NAME': DATABASE_ENVIRON.path.replace('/', '') or 'wagtail',
+                    'USER': DATABASE_ENVIRON.username or 'root',
+                    'PASSWORD': DATABASE_ENVIRON.password or '',
+                    'HOST': DATABASE_ENVIRON.hostname or 'localhost',
+                    'PORT': int(DATABASE_ENVIRON.port) or 3306,
                 },
             }
         else:

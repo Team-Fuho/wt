@@ -11,7 +11,7 @@ ALLOWED_HOSTS = ['*']
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-INSTALLED_APPS += ['rest_framework']
+INSTALLED_APPS += []
 
 try:
     from .local import *

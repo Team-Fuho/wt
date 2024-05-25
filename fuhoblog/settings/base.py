@@ -19,7 +19,7 @@ dotenv.load_dotenv()
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
-SECRET_KEY = os.environ["SECRET_KEY"] or ""
+SECRET_KEY = os.environ['SECRET_KEY'] or ''
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'wagtail_localize',
     'wagtail_localize.locales',
     # API engine
+    'rest_framework',
     'wagtail.api.v2',
     # Whatever
     'wagtail.contrib.forms',
@@ -191,5 +192,3 @@ WAGTAILSEARCH_BACKENDS = {
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 WAGTAILADMIN_BASE_URL = 'http://example.com'
-
-CSRF_COOKIE_SECURE = True

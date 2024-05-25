@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - boilerplate
 
 jobs:
   build-and-publish:
@@ -37,6 +38,7 @@ jobs:
           echo "registry=https://npm.pkg.github.com/" >> .npmrc
 
       - name: Publish to GitHub Packages
+        if: github.ref == 'refs/heads/boilerplate'
         run: pnpm publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -39,7 +39,7 @@ if os.environ['OPENSEARCH_HOST'] is not None:
         'default': {
             'BACKEND': 'wagtail.search.backends.elasticsearch7',
             'URLS': [os.environ['OPENSEARCH_HOST']],
-            'INDEX': 'blog',
+            'INDEX': 'fuhoblog',
             'TIMEOUT': 5,
             'OPTIONS': {},
             'INDEX_SETTINGS': {},

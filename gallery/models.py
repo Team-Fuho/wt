@@ -25,6 +25,7 @@ class Picture(Page):
 
     search_fields = Page.search_fields + [
         index.SearchField('cap'),
+        index.SearchField('seo_title'),
     ]
 
     content_panels = Page.content_panels + [

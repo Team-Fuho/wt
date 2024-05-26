@@ -17,6 +17,7 @@ type GenericQueryOptions = {
 	offset?: number;
 	limit?: number;
 	search?: string;
+	search_operator?: "and" | "or";
 	locale?: Context["lang"];
 	slug?: string;
 };
@@ -65,5 +66,3 @@ export class Model<K extends string[], T extends ModelData<K>> {
 		return fetch(this.requestBuilder(options)).then((ok) => ok.json());
 	}
 }
-
-export abstract class Searchable {}

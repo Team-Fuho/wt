@@ -3,9 +3,9 @@ from .base import *
 import os
 from urllib.parse import urlparse
 
-DEBUG = False or (
-    os.environ['DJANGO_DEBUG'] is not None and os.environ['DJANGO_DEBUG'] == 'True'
-)
+os.environ.setdefault('DJANGO_DEBUG', 'False')
+
+DEBUG = False or (os.environ['DJANGO_DEBUG'] == 'True')
 
 if SECRET_KEY == '':
     print('no SECRET_KEY env')

@@ -326,3 +326,4 @@ pip-selfcheck.json
 /media/
 /static/
 .coverage
+!scripts

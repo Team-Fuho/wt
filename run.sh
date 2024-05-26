@@ -1,4 +1,5 @@
-export DJANGO_SETTINGS_MODULE="fuhoblog.settings.production"
+#!/bin/sh
+source scripts/prod.env
 rm -rv static
 python manage.py collectstatic
 python manage.py migrate --noinput

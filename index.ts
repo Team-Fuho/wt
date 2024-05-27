@@ -66,3 +66,6 @@ export class Model<K extends string[], T extends ModelData<K>> {
 		return fetch(this.requestBuilder(options)).then((ok) => ok.json());
 	}
 }
+
+import { BlogPage } from "./blog/models";
+export { BlogPage };

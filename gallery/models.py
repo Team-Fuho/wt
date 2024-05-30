@@ -12,7 +12,6 @@ from wagtail.search import index
 
 
 class Picture(Page):
-    date = models.DateField('Post Date')
     image = models.ForeignKey(
         'wagtailimages.Image',
         on_delete=models.SET_NULL,
@@ -29,16 +28,11 @@ class Picture(Page):
     ]
 
     content_panels = Page.content_panels + [
-        FieldPanel('date'),
         FieldPanel('cap'),
         FieldPanel('image'),
     ]
 
     api_fields = [
-        APIField(
-            'date',
-            serializer=DateField(format='%Y-%m-%dT%H:%M:%SZ'),
-        ),
         APIField('cap'),
         APIField('image'),
         # APIField(

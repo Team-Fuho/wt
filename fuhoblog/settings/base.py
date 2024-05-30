@@ -19,7 +19,7 @@ dotenv.load_dotenv()
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
-SECRET_KEY = os.environ['SECRET_KEY'] or ''
+SECRET_KEY = os.environ.get('SECRET_KEY') or ''
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -30,7 +30,6 @@ SECRET_KEY = os.environ['SECRET_KEY'] or ''
 INSTALLED_APPS = [
     # MVC stuff
     'blog',
-    # 'search',
     'gallery',
     # Stuff
     # 'wagtail.contrib.modeladmin',
@@ -179,7 +178,7 @@ MEDIA_URL = '/media/'
 
 # Wagtail settings
 
-WAGTAIL_SITE_NAME = 'fuhoblog'
+WAGTAIL_SITE_NAME = 'Team Fuho'
 
 # Search
 # https://docs.wagtail.org/en/stable/topics/search/backends.html
@@ -189,6 +188,43 @@ WAGTAILSEARCH_BACKENDS = {
     }
 }
 
+WAGTAILADMIN_RICH_TEXT_EDITORS = {
+    'default': {
+        'WIDGET': 'wagtail.admin.rich_text.DraftailRichTextArea',
+        'OPTIONS': {
+            'features': [
+                'h1',
+                'h2',
+                'h3',
+                'h4',
+                'h5',
+                'h6',
+                'bold',
+                'italic',
+                'ol',
+                'ul',
+                'hr',
+                'link',
+                'document-link',
+                'image',
+                'embed',
+                'code',
+                'superscript',
+                'subscript',
+                'strikethrough',
+                'blockquote',
+            ]
+        },
+    }
+}
+
+
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-WAGTAILADMIN_BASE_URL = 'http://example.com'
+WAGTAILADMIN_BASE_URL = os.environ.setdefault("API_BASE", "http://example.com")
+WAGTAIL_ALLOW_UNICODE_SLUGS = False
+WAGTAIL_USAGE_COUNT_ENABLED = True
+
+WAGTAIL_DATE_FORMAT = '%d.%m.%Y.'
+WAGTAIL_DATETIME_FORMAT = '%d.%m.%Y. %H:%M'
+WAGTAIL_TIME_FORMAT = '%H:%M'

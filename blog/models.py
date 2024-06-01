@@ -20,11 +20,11 @@ class BlogPage(Page):
         Image,
         on_delete=models.SET_NULL,
         null=True,
-        blank=False,
+        blank=True,
         related_name='+',
     )
 
-    intro = models.CharField(max_length=250)
+    intro = models.CharField(max_length=250, blank=True)
     body = RichTextField(blank=True)
     localize_default_translation_mode = 'simple'
 
@@ -45,11 +45,9 @@ class BlogPage(Page):
         """
         Generate rendition set (might trouble api client though)
         """
-        global THUMB_RENDITIONS
-
         return dict(
             (k, self.thumb.get_rendition(v).full_url)
-            for k, v in THUMB_RENDITIONS.items()
+            for k, v in self.THUMB_RENDITIONS.items()
         )
 
     api_fields = [
@@ -59,4 +57,4 @@ class BlogPage(Page):
         # APIField(
         #     'authors'
         # ),  # This will nest the relevant BlogPageAuthor objects in the API response
-    ]       
+    ]

@@ -1,8 +1,12 @@
 const LANGUAGES = ["vi", "en"] as const;
 
+type OrdinalType = boolean | string | number
+type SerializableType = Date | URL | OrdinalType
+type GenericType = SerializableType | Record<string, SerializableType>
+
 export type ModelData<T extends string[]> = Record<
 	T[number],
-	boolean | string | number | Date
+	GenericType
 >;
 
 /**
@@ -22,12 +26,12 @@ type GenericQueryOptions = {
 	slug?: string;
 };
 
-type ManualQueryOptions<T extends string[]> = {
-	fields?: (T[number] | `${T[number]}(${string})`)[];
+type ManualQueryOptions<T extends string, U extends Record<T, Record<string, string>>> = {
+	fields?: (T | `${T}(${U[T][string]})`)[];
 };
 
-type QueryOptions<K extends string[]> = GenericQueryOptions &
-	ManualQueryOptions<K>;
+type QueryOptions<K extends string, U extends Record<K, Record<string, string>>> = GenericQueryOptions &
+	ManualQueryOptions<K, U>;
 
 export class Model<K extends string[], T extends ModelData<K>> {
 	readonly ctx: Context;
@@ -37,7 +41,7 @@ export class Model<K extends string[], T extends ModelData<K>> {
 		this.kind = kind;
 	}
 
-	requestBuilder(options: QueryOptions<K>): URL {
+	requestBuilder(options: QueryOptions<K[number], T>): URL {
 		const params = new URLSearchParams(
 			Object.assign(
 				{},
@@ -62,10 +66,10 @@ export class Model<K extends string[], T extends ModelData<K>> {
 		return url;
 	}
 
-	async query(options: QueryOptions<K>): Promise<T[]> {
+	async query(options: QueryOptions<K[number], T>): Promise<T[]> {
 		return fetch(this.requestBuilder(options)).then((ok) => ok.json());
 	}
 }
 
-import { BlogPage } from "./blog/models";
+import { BlogPage } from "./models.legacy";
 export { BlogPage };

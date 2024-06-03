@@ -58,3 +58,6 @@ export class Model<T> {
         return fetch(this.requestBuilder(options, id)).then((ok) => ok.json());
     }
 }
+
+import * as Models from "./models"
+export { Models }

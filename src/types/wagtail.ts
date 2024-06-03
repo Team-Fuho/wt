@@ -30,8 +30,6 @@ export type GenericResponseExtended = {
         alias_of: string | null,
         parent: GenericResponse,
     },
-    body?: string,
-    intro?: string,
 }
 
 export type TResponse = GenericResponse & GenericResponseExtended

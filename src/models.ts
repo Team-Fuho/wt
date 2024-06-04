@@ -5,7 +5,7 @@ export function BlogPage(ctx: Context) {
         intro: string,
         body: string,
         thumbnail_set: Record<string, string>
-    }>("gallery.Picture", ctx)
+    }>("blog.BlogPage", ctx)
 }
 
 export function GalleryPicture(ctx: Context) {

@@ -52,10 +52,15 @@ export class Model<T> {
     }
 
     /**
-     * @todo generic return type
+     * @description to return stuff, ofc
      */
-    async query(options: GenericParameter, id?: number): Promise<(TResponse & T)[]> {
-        return fetch(this.requestBuilder(options, id)).then((ok) => ok.json());
+    async query(options: GenericParameter, id?: number, init?: RequestInit): Promise<{
+        meta: {
+            total_count: Number
+        },
+        items: (TResponse & T)[]
+    }> {
+        return fetch(this.requestBuilder(options, id), Object.assign({}, init)).then((ok) => ok.json());
     }
 }
 

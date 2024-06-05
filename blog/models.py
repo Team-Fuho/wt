@@ -36,6 +36,10 @@ class BlogPage(Page, TFRenditionGroup):
     ]
 
     @property
+    def blog_date(self):
+        return self.first_published_at
+
+    @property
     def thumbnail_set(self):
         return self.rendition_set(
             self.thumb,
@@ -49,6 +53,7 @@ class BlogPage(Page, TFRenditionGroup):
     api_fields = [
         APIField('body'),
         APIField('intro'),
+        APIField('blog_date'),
         APIField('thumbnail_set'),
         # APIField(
         #     'authors'

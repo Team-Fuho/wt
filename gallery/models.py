@@ -35,6 +35,10 @@ class Picture(Page, TFRenditionGroup):
     ]
 
     @property
+    def image_date(self):
+        return self.image.created_at
+
+    @property
     def image_set(self):
         return self.rendition_set(
             self.image,
@@ -49,6 +53,7 @@ class Picture(Page, TFRenditionGroup):
     api_fields = [
         APIField('cap'),
         APIField('image'),
+        APIField('image_date'),
         APIField('image_set'),
         # APIField(
         #     'authors'

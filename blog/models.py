@@ -4,27 +4,22 @@ from wagtail.fields import RichTextField
 from wagtail.admin.panels import FieldPanel
 from wagtail.api import APIField
 from wagtail.search import index
-from wagtail.images.models import Image
+
+from base.models import TFImage, TFRenditionGroup
 
 # keep the definition of BlogIndexPage model, and add the BlogPage model:
 
 
-class BlogPage(Page):
-    THUMB_RENDITIONS = {
-        'featured/large': 'fill-740x324',
-        'featured/medium': 'fill-316x178|jpegquality-75',
-        'media/facebook': 'fill-1280x628',
-        'media/x': 'fill-800x418',
-    }
+class BlogPage(Page, TFRenditionGroup):
     thumb = models.ForeignKey(
-        Image,
+        TFImage,
         on_delete=models.SET_NULL,
         null=True,
-        blank=False,
+        blank=True,
         related_name='+',
     )
 
-    intro = models.CharField(max_length=250)
+    intro = models.CharField(max_length=250, blank=True)
     body = RichTextField(blank=True)
     localize_default_translation_mode = 'simple'
 
@@ -41,22 +36,26 @@ class BlogPage(Page):
     ]
 
     @property
-    def thumbnail_set(self) -> dict[str, str]:
-        """
-        Generate rendition set (might trouble api client though)
-        """
-        global THUMB_RENDITIONS
+    def blog_date(self):
+        return self.first_published_at
 
-        return dict(
-            (k, self.thumb.get_rendition(v).full_url)
-            for k, v in THUMB_RENDITIONS.items()
+    @property
+    def thumbnail_set(self):
+        return self.rendition_set(
+            self.thumb,
+            TFRenditionGroup.base
+            | {
+                'featured/large': 'fill-740x324',
+                'featured/medium': 'fill-316x178|jpegquality-75',
+            },
         )
 
     api_fields = [
         APIField('body'),
         APIField('intro'),
+        APIField('blog_date'),
         APIField('thumbnail_set'),
         # APIField(
         #     'authors'
         # ),  # This will nest the relevant BlogPageAuthor objects in the API response
-    ]       
+    ]

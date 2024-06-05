@@ -3,6 +3,8 @@ from wagtail.models import Page
 from wagtail.admin.panels import FieldPanel
 from wagtail.api import APIField
 
+from base.models import TFImage
+
 from rest_framework.fields import DateField
 
 # add this:
@@ -13,7 +15,7 @@ from wagtail.search import index
 
 class Picture(Page):
     image = models.ForeignKey(
-        'wagtailimages.Image',
+        TFImage,
         on_delete=models.SET_NULL,
         null=True,
         blank=False,

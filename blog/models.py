@@ -4,7 +4,8 @@ from wagtail.fields import RichTextField
 from wagtail.admin.panels import FieldPanel
 from wagtail.api import APIField
 from wagtail.search import index
-from wagtail.images.models import Image
+
+from base.models import TFImage
 
 # keep the definition of BlogIndexPage model, and add the BlogPage model:
 
@@ -17,7 +18,7 @@ class BlogPage(Page):
         'media/x': 'fill-800x418',
     }
     thumb = models.ForeignKey(
-        Image,
+        TFImage,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,

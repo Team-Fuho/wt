@@ -28,6 +28,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY') or ''
 # Application definition
 
 INSTALLED_APPS = [
+    "base",
     # MVC stuff
     'blog',
     'gallery',
@@ -151,6 +152,7 @@ WAGTAIL_CONTENT_LANGUAGES = LANGUAGES = [
     ('en', 'English'),
 ]
 
+WAGTAILIMAGES_IMAGE_MODEL = 'base.TFImage'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/

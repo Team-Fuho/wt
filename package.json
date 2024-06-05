@@ -1,6 +1,6 @@
 {
   "name": "@team-fuho/wt",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "",
   "type": "commonjs",
   "main": "dist/index.js",

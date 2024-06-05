@@ -11,6 +11,7 @@ export function BlogPage(ctx: Context) {
 export function GalleryPicture(ctx: Context) {
     return new Model<{
         cap: string,
-        image: string
+        image: string,
+        image_set: Record<string, string>
     }>("gallery.Picture", ctx)
 }

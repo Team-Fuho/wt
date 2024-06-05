@@ -30,17 +30,16 @@ export class Model<T> {
     requestBuilder(options: GenericParameter, id?: number): Request {
         const params = new URLSearchParams(
             Object.assign(
-                {},
                 {
                     type: this.kind,
-                    ...Object.keys(options).reduce(
-                        (p, k) =>
-                            Object.assign({}, p, {
-                                [k]: options[k].toString(),
-                            }),
-                        {},
-                    ),
-                },
+                    format: "json"
+                }, Object.keys(options).reduce(
+                    (p, k) =>
+                        Object.assign({}, p, {
+                            [k]: options[k].toString(),
+                        }),
+                    {},
+                ),
             ),
         );
         const url = new URL(this.ctx.host);

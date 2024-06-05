@@ -17,4 +17,4 @@ function ConstructModel() {
 test("URL Deserialization", () => expect(ConstructModel().requestBuilder({
     offset: 1,
     limit: 1,
-}).url).eq("http://localhost:8000/api/v2/pages?type=blog.BlogPage&offset=1&limit=1"))
+}).url).eq("http://localhost:8000/api/v2/pages?type=blog.BlogPage&format=json&offset=1&limit=1"))

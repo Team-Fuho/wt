@@ -19,10 +19,12 @@ export interface Context {
     lang: (typeof LANGUAGES)[number];
 }
 
+export type Hook<T> = { transform: SerdeTrait<any, string>, fields: T[] }[]
+
 export class Model<T> {
     readonly ctx: Context;
     readonly kind: string;
-    constructor(kind: `${string}.${string}`, ctx: Context) {
+    constructor(kind: `${string}.${string}`, ctx: Context, hook: Hook<keyof T> = []) {
         this.ctx = ctx;
         this.kind = kind;
     }
@@ -64,4 +66,5 @@ export class Model<T> {
 }
 
 import * as Models from "./models"
+import { SerdeTrait } from "./serde";
 export { Models }

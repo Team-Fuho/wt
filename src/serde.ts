@@ -21,7 +21,7 @@ export interface SerdeTrait<S, T> {
  * Why 2 params? well it verify the args pass in. The first is the constructor class,
  * the seconth is the dataclass of the structor. It is like struct and impl, yk
  */
-export abstract class MetaSerde<S extends CtorNStr<A>, A> implements SerdeTrait<A, String> {
+export abstract class MetaSerde<S extends CtorNStr<A>, A> implements SerdeTrait<A, string> {
     abstract readonly kind: string;
     abstract readonly ctor: S;
     to(i: A): string {

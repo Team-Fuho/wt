@@ -47,3 +47,15 @@ class TFRendition(AbstractRendition):
 
     class Meta:
         unique_together = (('image', 'filter_spec', 'focal_point_key'),)
+
+
+class TFRenditionGroup:
+    base = {
+        'media/facebook': 'fill-1280x628',
+        'media/x': 'fill-800x418',
+    }
+
+    def rendition_set(
+        self, image: TFImage, rset: dict[str, str] = {}
+    ) -> dict[str, str]:
+        return dict((k, image.get_rendition(v).full_url) for k, v in (rset).items())

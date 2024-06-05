@@ -5,18 +5,12 @@ from wagtail.admin.panels import FieldPanel
 from wagtail.api import APIField
 from wagtail.search import index
 
-from base.models import TFImage
+from base.models import TFImage, TFRenditionGroup
 
 # keep the definition of BlogIndexPage model, and add the BlogPage model:
 
 
-class BlogPage(Page):
-    THUMB_RENDITIONS = {
-        'featured/large': 'fill-740x324',
-        'featured/medium': 'fill-316x178|jpegquality-75',
-        'media/facebook': 'fill-1280x628',
-        'media/x': 'fill-800x418',
-    }
+class BlogPage(Page, TFRenditionGroup):
     thumb = models.ForeignKey(
         TFImage,
         on_delete=models.SET_NULL,
@@ -42,13 +36,14 @@ class BlogPage(Page):
     ]
 
     @property
-    def thumbnail_set(self) -> dict[str, str]:
-        """
-        Generate rendition set (might trouble api client though)
-        """
-        return dict(
-            (k, self.thumb.get_rendition(v).full_url)
-            for k, v in self.THUMB_RENDITIONS.items()
+    def thumbnail_set(self):
+        return self.rendition_set(
+            self.thumb,
+            TFRenditionGroup.base
+            | {
+                'featured/large': 'fill-740x324',
+                'featured/medium': 'fill-316x178|jpegquality-75',
+            },
         )
 
     api_fields = [

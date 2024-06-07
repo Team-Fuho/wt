@@ -18,6 +18,17 @@ export interface Context {
 
 export type Hook<T> = { transform: SerdeTrait<any, string>; fields: T[] }[]
 
+type GenericResponse = {
+    error?: string
+}
+type GenericItemResponse<ExpandedSchema> = TResponse & ExpandedSchema
+type GenericListResponse<ExpandedSchema> = {
+    meta: {
+        total_count: number
+    }
+    items: GenericItemResponse<ExpandedSchema>[]
+}
+
 export class Model<T> {
     readonly ctx: Context
     readonly kind: string
@@ -56,30 +67,88 @@ export class Model<T> {
         return request
     }
 
-    /**
-     * @description to return stuff, ofc
-     */
-    async query(options: GenericParameter, id?: number, init?: RequestInit) {
-        return fetch(this.requestBuilder(options, id), Object.assign({}, init))
-            .then(
-                (ok) =>
-                    ok.json() as Promise<{
-                        meta: {
-                            total_count: Number
-                        }
-                        items: (TResponse & T)[]
-                    }>
+    private async fetch<T>(
+        options: GenericParameter,
+        id?: number,
+        init?: RequestInit
+    ) {
+        return await new Promise<GenericResponse & T>((ok, err) =>
+            fetch(
+                this.requestBuilder(options, id),
+                Object.assign(
+                    {
+                        headers: {
+                            'User-Agent': 'BoilerplateClient',
+                        },
+                    } as RequestInit,
+                    init
+                )
             )
-            .then((ok) => {
-                this.hook.map((hook) => {
-                    hook.fields.map(
-                        (field) =>
+                .then((ok) => ok.json())
+                .then((j: GenericResponse) => {
+                    if (j.error) {
+                        err(new Error('WagtailQueryError: ' + j.error))
+                        return
+                    }
+                    // @ts-ignore
+                    ok(j)
+                })
+        )
+    }
+
+    /**
+     * @description to return many stuff, ofc
+     */
+    async query(
+        options: GenericParameter,
+        init?: RequestInit
+    ): Promise<GenericResponse & GenericListResponse<T>> {
+        const query = this.fetch<GenericListResponse<T>>(
+            options,
+            undefined,
+            init
+        )
+        if (this.hook.length == 0) return query
+        return query.then((r) => {
+            this.hook.forEach((h) => {
+                r.items = r.items.map((i) => {
+                    h.fields.forEach(
+                        (f) =>
                             // @ts-ignore
-                            (ok[field] = hook.transform.from(ok[field]))
+                            (i[f] = h.transform.from(i[f]))
                     )
-                    return ok
+                    return i
                 })
             })
+            return r
+        })
+    }
+
+    /**
+     * @description to return one stuff
+     */
+    async queryOne(
+        options: GenericParameter & {
+            /**
+             * @deprecated Everything by default
+             */
+            fields?: string
+        },
+        id: number,
+        init?: RequestInit
+    ): Promise<GenericResponse & GenericItemResponse<T>> {
+        const query = this.fetch<GenericItemResponse<T>>(options, id, init)
+        if (this.hook.length == 0) return query
+        return query.then((r) => {
+            this.hook.forEach((h) => {
+                h.fields.forEach(
+                    (f) =>
+                        // @ts-ignore
+                        (r[f] = h.transform.from(r[f]))
+                )
+            })
+            return r
+        })
     }
 }
 

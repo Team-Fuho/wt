@@ -9,7 +9,8 @@
     "/dist"
   ],
   "scripts": {
-    "test": "biome check && vitest --run --typecheck",
+    "fmt": "biome check --fix",
+    "test": "biome lint && vitest --run --typecheck",
     "build": "tsc"
   },
   "keywords": [],

@@ -1,13 +1,16 @@
-import { Model, Context } from "./index.legacy";
+import { Model, type Context } from "./index.legacy"
 
-const blogPageFields = ["intro", "body", "thumbnail_set"];
+const blogPageFields = ["intro", "body", "thumbnail_set"]
 
 export const BlogPage = (ctx: Context) =>
-	new Model<
-		typeof blogPageFields,
-		{
-			intro: string;
-			body: string;
-			thumbnail_set: Record<(`featured/${"large" | "medium"}`) | (`media/${"facebook" | "x"}`), string>
-		}
-	>(ctx, "blog.BlogPage");
+    new Model<
+        typeof blogPageFields,
+        {
+            intro: string
+            body: string
+            thumbnail_set: Record<
+                `featured/${"large" | "medium"}` | `media/${"facebook" | "x"}`,
+                string
+            >
+        }
+    >(ctx, "blog.BlogPage")

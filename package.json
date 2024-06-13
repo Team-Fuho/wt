@@ -1,6 +1,6 @@
 {
   "name": "@team-fuho/wt",
-  "version": "1.3.3",
+  "version": "1.4.0",
   "description": "",
   "type": "commonjs",
   "main": "dist/index.js",
@@ -9,13 +9,14 @@
     "/dist"
   ],
   "scripts": {
-    "test": "vitest --run --typecheck",
+    "test": "biome check && vitest --run --typecheck",
     "build": "tsc"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@biomejs/biome": "1.8.1",
     "typescript": "^5.4.5",
     "vitest": "^1.6.0"
   }

@@ -1,6 +1,4 @@
-import { GenericParameter, TResponse } from './types/wagtail'
-
-const LANGUAGES = ['vi', 'en'] as const
+import type { GenericParameter, TResponse } from "./types/wagtail"
 
 type OrdinalType = boolean | string | number
 type SerializableType = Date | URL | OrdinalType
@@ -13,10 +11,10 @@ export type ModelData<T extends string[]> = Record<T[number], GenericType>
  */
 export interface Context {
     host: string
-    lang: (typeof LANGUAGES)[number]
+    lang: string
 }
 
-export type Hook<T> = { transform: SerdeTrait<any, string>; fields: T[] }[]
+export type Hook<Y, T> = { transform: SerdeTrait<Y, string>; fields: T[] }[]
 
 type GenericResponse = {
     error?: string
@@ -29,14 +27,20 @@ type GenericListResponse<ExpandedSchema> = {
     items: GenericItemResponse<ExpandedSchema>[]
 }
 
+type GenericResponseValues<T> =
+    GenericItemResponse<T>[keyof GenericItemResponse<T>]
+
 export class Model<T> {
     readonly ctx: Context
     readonly kind: string
-    private readonly hook: Hook<keyof T>
+    private readonly hook: Hook<
+        GenericResponseValues<T>,
+        keyof GenericItemResponse<T>
+    >
     constructor(
         kind: `${string}.${string}`,
         ctx: Context,
-        hook: Hook<keyof T> = []
+        hook: Hook<GenericResponseValues<T>, keyof GenericItemResponse<T>> = [],
     ) {
         this.ctx = ctx
         this.kind = kind
@@ -48,19 +52,19 @@ export class Model<T> {
             Object.assign(
                 {
                     type: this.kind,
-                    format: 'json',
+                    format: "json",
                 },
                 Object.keys(options).reduce(
                     (p, k) =>
                         Object.assign({}, p, {
                             [k]: options[k].toString(),
                         }),
-                    {}
-                )
-            )
+                    {},
+                ),
+            ),
         )
         const url = new URL(this.ctx.host)
-        url.pathname = '/api/v2/pages' + ((id && '/' + id) || '')
+        url.pathname = `/api/v2/pages${(id && `/${id}`) || ""}`
         url.search = params.toString()
 
         const request = new Request(url)
@@ -70,7 +74,7 @@ export class Model<T> {
     private async fetch<T>(
         options: GenericParameter,
         id?: number,
-        init?: RequestInit
+        init?: RequestInit,
     ) {
         return await new Promise<GenericResponse & T>((ok, err) =>
             fetch(
@@ -78,22 +82,33 @@ export class Model<T> {
                 Object.assign(
                     {
                         headers: {
-                            'User-Agent': 'BoilerplateClient',
+                            "User-Agent": "BoilerplateClient",
                         },
                     } as RequestInit,
-                    init
-                )
+                    init,
+                ),
             )
                 .then((ok) => ok.json())
                 .then((j: GenericResponse) => {
                     if (j.error) {
-                        err(new Error('WagtailQueryError: ' + j.error))
+                        err(new Error(`WagtailQueryError: ${j.error}`))
                         return
                     }
                     // @ts-ignore
                     ok(j)
-                })
+                }),
         )
+    }
+
+    private hookTransform(r: GenericItemResponse<T>) {
+        const y = r
+        for (const h of this.hook) {
+            for (const f of h.fields) {
+                // @ts-ignore
+                r[f] = h.transform.from(r[f])
+            }
+        }
+        return y
     }
 
     /**
@@ -101,26 +116,19 @@ export class Model<T> {
      */
     async query(
         options: GenericParameter,
-        init?: RequestInit
+        init?: RequestInit,
     ): Promise<GenericResponse & GenericListResponse<T>> {
         const query = this.fetch<GenericListResponse<T>>(
             options,
             undefined,
-            init
+            init,
         )
-        if (this.hook.length == 0) return query
+        if (this.hook.length === 0) return query
         return query.then((r) => {
-            this.hook.forEach((h) => {
-                r.items = r.items.map((i) => {
-                    h.fields.forEach(
-                        (f) =>
-                            // @ts-ignore
-                            (i[f] = h.transform.from(i[f]))
-                    )
-                    return i
-                })
-            })
-            return r
+            return {
+                ...r,
+                items: r.items.map(this.hookTransform),
+            }
         })
     }
 
@@ -135,23 +143,16 @@ export class Model<T> {
             fields?: string
         },
         id: number,
-        init?: RequestInit
+        init?: RequestInit,
     ): Promise<GenericResponse & GenericItemResponse<T>> {
         const query = this.fetch<GenericItemResponse<T>>(options, id, init)
-        if (this.hook.length == 0) return query
+        if (this.hook.length === 0) return query
         return query.then((r) => {
-            this.hook.forEach((h) => {
-                h.fields.forEach(
-                    (f) =>
-                        // @ts-ignore
-                        (r[f] = h.transform.from(r[f]))
-                )
-            })
-            return r
+            return this.hookTransform(r)
         })
     }
 }
 
-import * as Models from './models'
-import { SerdeTrait } from './serde'
+import * as Models from "./models"
+import type { SerdeTrait } from "./serde"
 export { Models }

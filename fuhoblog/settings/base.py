@@ -24,10 +24,18 @@ SECRET_KEY = os.environ.setdefault('SECRET_KEY', '')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
+# WAGTAIL_WORDPRESS_IMPORTER_SOURCE_DOMAIN = "service.teamfuho.net"
+# WORDPRESS_IMPORT_HOOKS_ITEMS_TO_CACHE = {
+#     "attachment": {
+#         "DATA_TAG": "thumbnail_id",
+#         "FUNCTION": "blog.import_hooks.header_image_processor",
+#     }
+# }
 
 # Application definition
 
 INSTALLED_APPS = [
+    # "wagtail_wordpress_import",
     "base",
     # MVC stuff
     'blog',

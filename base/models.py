@@ -5,6 +5,15 @@ from django.db import models
 
 from wagtail.images.models import Image, AbstractImage, AbstractRendition
 
+from urllib import parse
+from pathlib import PurePath
+
+from fuhoblog.settings.base import WAGTAILADMIN_BASE_URL
+
+from django.utils import timezone
+
+import re
+
 
 class TFFuncGroup(Page):
     label = models.CharField(max_length=255, unique=True)
@@ -35,7 +44,9 @@ class TFImage(AbstractImage):
     def save(self, *args, **kwargs):
         """On save, update timestamps"""
         if not self.id and not self.created_at:
-            self.created_at = kwargs.get('created_at') or datetime.datetime.now()
+            self.created_at = kwargs.get('created_at') or datetime.datetime.now(
+                tz=timezone.get_current_timezone()
+            )
         return super().save(*args, **kwargs)
 
 
@@ -49,6 +60,42 @@ class TFRendition(AbstractRendition):
         unique_together = (('image', 'filter_spec', 'focal_point_key'),)
 
 
+PARSED_URL = parse.urlparse(WAGTAILADMIN_BASE_URL)
+
+
+def urlpthn(weirdPath: str) -> str:
+    global PARSED_URL
+    return parse.urlunparse(
+        (
+            PARSED_URL.scheme,
+            PARSED_URL.netloc,
+            '/'.join(
+                parse.quote_plus(seg)
+                for seg in (PurePath(weirdPath).as_posix()).split('/')
+            ),
+            None,
+            '',
+            '',
+        )
+    )
+
+
+RES_FROM_REND = re.compile(r'^\D{4,5}-(\d{1,8})\D(\d{1,8})')
+
+
+def rfr(rnd: str) -> tuple[int, int]:
+    """
+    get resolution from rendition (i believe i could, so)
+    """
+    global RES_FROM_REND
+    m = re.match(RES_FROM_REND, rnd)
+    return m
+
+
+def img_obj(r: AbstractRendition):
+    return {'url': r.full_url, 'res': [r.width, r.height]}
+
+
 class TFRenditionGroup:
     base = {
         'media/facebook': 'fill-1280x628',
@@ -58,4 +105,9 @@ class TFRenditionGroup:
     def rendition_set(
         self, image: TFImage, rset: dict[str, str] = {}
     ) -> dict[str, str]:
-        return dict((k, image.get_rendition(v).full_url) for k, v in (rset).items())
+        return dict((k, img_obj(image.get_rendition(v))) for k, v in (rset).items()) | {
+            'default/full': {
+                'url': urlpthn('/media/' + image.get_upload_to(image.filename)),
+                'res': [image.width, image.height],
+            },
+        }

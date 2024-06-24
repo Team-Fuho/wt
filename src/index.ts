@@ -47,7 +47,11 @@ export class Model<T> {
         this.hook = hook
     }
 
-    requestBuilder(options: GenericParameter, id?: number): Request {
+    requestBuilder(
+        ctx: Context,
+        options: GenericParameter,
+        id?: number,
+    ): Request {
         const params = new URLSearchParams(
             Object.assign(
                 {
@@ -63,7 +67,7 @@ export class Model<T> {
                 ),
             ),
         )
-        const url = new URL(this.ctx.host)
+        const url = new URL(ctx.host)
         url.pathname = `/api/v2/pages${(id && `/${id}`) || ""}`
         url.search = params.toString()
 
@@ -72,13 +76,14 @@ export class Model<T> {
     }
 
     private async fetch<T>(
+        ctx: Context,
         options: GenericParameter,
         id?: number,
         init?: RequestInit,
     ) {
         return await new Promise<GenericResponse & T>((ok, err) =>
             fetch(
-                this.requestBuilder(options, id),
+                this.requestBuilder(ctx, options, id),
                 Object.assign(
                     {
                         headers: {
@@ -100,42 +105,60 @@ export class Model<T> {
         )
     }
 
-    private hookTransform(r: GenericItemResponse<T>) {
-        const y = r
-        for (const h of this.hook) {
-            for (const f of h.fields) {
-                // @ts-ignore
-                r[f] = h.transform.from(r[f])
-            }
+    private hookTransform() {
+        // const y = { ...r }
+
+        // for (const h of this.hook) {
+        //     for (const f of h.fields) {
+        //         // @ts-ignore
+        //         y[f] = h.transform.from(r[f])
+        //     }
+        // }
+
+        // return y
+        if (!this) {
+            throw "WagtailClient: this Model is undefined?"
         }
-        return y
+        return (r: GenericItemResponse<T>) =>
+            this.hook.reduce(
+                (x, h) =>
+                    Object.assign(
+                        x,
+                        h.fields.map((f) => ({
+                            // @ts-ignore
+                            [f]: h.transform.from(r[f]),
+                        })),
+                    ),
+                r as GenericItemResponse<T>,
+            )
     }
 
     /**
      * @description to return many stuff, ofc
      */
     async query(
+        ctx: Context,
         options: GenericParameter,
         init?: RequestInit,
     ): Promise<GenericResponse & GenericListResponse<T>> {
         const query = this.fetch<GenericListResponse<T>>(
+            ctx,
             options,
             undefined,
             init,
         )
         if (this.hook.length === 0) return query
-        return query.then((r) => {
-            return {
-                ...r,
-                items: r.items.map(this.hookTransform),
-            }
-        })
+        return query.then((r) => ({
+            ...r,
+            items: r.items.map(this.hookTransform()),
+        }))
     }
 
     /**
      * @description to return one stuff
      */
     async queryOne(
+        ctx: Context,
         options: GenericParameter & {
             /**
              * @deprecated Everything by default
@@ -145,11 +168,9 @@ export class Model<T> {
         id: number,
         init?: RequestInit,
     ): Promise<GenericResponse & GenericItemResponse<T>> {
-        const query = this.fetch<GenericItemResponse<T>>(options, id, init)
+        const query = this.fetch<GenericItemResponse<T>>(ctx, options, id, init)
         if (this.hook.length === 0) return query
-        return query.then((r) => {
-            return this.hookTransform(r)
-        })
+        return query.then((r) => this.hookTransform()(r))
     }
 }
 

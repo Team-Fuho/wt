@@ -3,6 +3,16 @@ from .base import *
 import os
 from urllib.parse import urlparse
 
+import sentry_sdk
+
+if os.environ.get('SENTRY_DSN') is not None:
+    sentry_sdk.init(
+        dsn=os.environ.get('SENTRY_DSN'),
+        # Set traces_sample_rate to 1.0 to capture 100%
+        # of transactions for performance monitoring.
+        traces_sample_rate=1.0,
+    )
+
 os.environ.setdefault('DJANGO_DEBUG', 'False')
 
 DEBUG = False or (os.environ['DJANGO_DEBUG'] == 'True')
@@ -25,7 +35,7 @@ if os.environ.get('DATABASE') is not None:
                     'USER': DATABASE_ENVIRON.username or 'root',
                     'PASSWORD': DATABASE_ENVIRON.password or '',
                     'HOST': DATABASE_ENVIRON.hostname or 'localhost',
-                    'PORT': int(DATABASE_ENVIRON.port) or 3306,
+                    'PORT': int(DATABASE_ENVIRON.port or 3306) or 3306,
                 },
             }
         else:

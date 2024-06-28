@@ -6,3 +6,4 @@ wagtail-localize==1.9
 wagtail_modeladmin==2.0
 python-dotenv
 mysqlclient
+sentry-sdk[django]

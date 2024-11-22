@@ -15,10 +15,16 @@ function ConstructModel() {
 
 // aint this straight out stupid?
 test("URL Serialization", () => {
-    const constructed = ConstructModel().requestBuilder({
-        offset: 1,
-        limit: 1,
-    })
+    const constructed = ConstructModel().requestBuilder(
+        {
+            host: "http://localhost:8000",
+            lang: "vi",
+        },
+        {
+            offset: 1,
+            limit: 1,
+        },
+    )
     // console.log(constructed)
     expect(constructed.url).eq(
         "http://localhost:8000/api/v2/pages?type=blog.BlogPage&format=json&offset=1&limit=1",

@@ -63,13 +63,17 @@ class BlogPage(
 
     @property
     def thumbnail_set(self):
-        return self.rendition_set(
-            self.thumb,
-            TFRenditionGroup.base
-            | {
-                'featured/large': 'fill-740x324',
-                'featured/medium': 'fill-316x178|jpegquality-75',
-            },
+        return (
+            self.rendition_set(
+                self.thumb,
+                TFRenditionGroup.base
+                | {
+                    'featured/large': 'fill-740x324',
+                    'featured/medium': 'fill-316x178|jpegquality-75',
+                },
+            )
+            if self.thumb is not None
+            else []
         )
 
     api_fields = [

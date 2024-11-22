@@ -1,0 +1,20 @@
+[project]
+name = "wt"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+
+dependencies = [
+    "django>=4.2,<4.3",
+    "wagtail>=6,<7",
+    "gunicorn==22",
+    "elasticsearch==7.13.4",
+    "wagtail-localize==1.9",
+    "wagtail-modeladmin==2.0",
+    "python-dotenv",
+    "mysqlclient",
+    "sentry-sdk[django]",
+    "wagtail-grapple>=0.27.0",
+    "wagtail-headless-preview>=0.8.0",
+]

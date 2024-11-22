@@ -1,4 +1,4 @@
-from .base import *
+from .base import *  # noqa: F403
 
 import os
 from urllib.parse import urlparse
@@ -17,12 +17,12 @@ os.environ.setdefault('DJANGO_DEBUG', 'False')
 
 DEBUG = False or (os.environ['DJANGO_DEBUG'] == 'True')
 
-if SECRET_KEY == '':
+if SECRET_KEY == '':  # noqa: F405
     print('no SECRET_KEY env')
     exit(1)
 
-DATABASES = DATABASES
-WAGTAILSEARCH_BACKENDS = WAGTAILSEARCH_BACKENDS
+DATABASES = DATABASES  # noqa: F405
+WAGTAILSEARCH_BACKENDS = WAGTAILSEARCH_BACKENDS  # noqa: F405
 
 if os.environ.get('DATABASE') is not None:
     try:
@@ -63,6 +63,6 @@ else:
 ALLOWED_HOSTS = ['*']
 
 try:
-    from .local import *
+    from .local import * # type: ignore  # noqa: F403
 except ImportError:
     pass

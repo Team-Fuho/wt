@@ -10,14 +10,11 @@ from wagtail.search import index
 
 # keep the definition of BlogIndexPage model, and add the BlogPage model:
 
-from rest_framework import serializers
-
-
 class Picture(Page, TFRenditionGroup):
     image = models.ForeignKey(
         TFImage,
-        on_delete=models.SET_NULL,
-        null=True,
+        on_delete=models.PROTECT,
+        null=False,
         blank=False,
         related_name='+',
     )

@@ -4,13 +4,14 @@ from wagtail.admin.panels import FieldPanel
 from wagtail.api import APIField
 
 from base.models import TFImage, TFRenditionGroup
+from wagtail_headless_preview.models import HeadlessMixin
 
 # add this:
 from wagtail.search import index
 
 # keep the definition of BlogIndexPage model, and add the BlogPage model:
 
-class Picture(Page, TFRenditionGroup):
+class Picture(HeadlessMixin, Page, TFRenditionGroup):
     image = models.ForeignKey(
         TFImage,
         on_delete=models.PROTECT,

@@ -9,6 +9,7 @@ from wagtail.admin.panels import (
 )
 from wagtail.api import APIField
 from wagtail.search import index
+from wagtail_headless_preview.models import HeadlessPreviewMixin
 
 from base.models import TFImage, TFRenditionGroup
 from base.blocks import TFStreamBlocks
@@ -19,6 +20,7 @@ from base.blocks import TFStreamBlocks
 
 class BlogPage(
     # WPImportedPageMixin,
+    HeadlessPreviewMixin,
     Page,
     TFRenditionGroup,
 ):

@@ -4,12 +4,14 @@ from wagtail.api.v2.views import PagesAPIViewSet
 from wagtail.api.v2.router import WagtailAPIRouter
 from wagtail.images.api.v2.views import ImagesAPIViewSet
 from wagtail.documents.api.v2.views import DocumentsAPIViewSet
+from wagtail.models import Page
 
 from wagtail_headless_preview.models import PagePreview
 from rest_framework.response import Response
 
 # Create the router. "wagtailapi" is the URL namespace
 api_router = WagtailAPIRouter('wagtailapi')
+
 
 class PagePreviewAPIViewSet(PagesAPIViewSet):
     known_query_parameters = PagesAPIViewSet.known_query_parameters.union(
@@ -28,11 +30,11 @@ class PagePreviewAPIViewSet(PagesAPIViewSet):
         return Response(serializer.data)
 
     def get_object(self):
-        app_label, model = self.request.GET["content_type"].split(".")
+        app_label, model = (self.request.GET.get("content_type") or "wagtail.Page").split(".")
         content_type = ContentType.objects.get(app_label=app_label, model=model)
 
         page_preview = PagePreview.objects.get(
-            content_type=content_type, token=self.request.GET["token"]
+            content_type=content_type, token=self.request.GET.get("token")
         )
         page = page_preview.as_page()
         if not page.pk:
@@ -42,12 +44,13 @@ class PagePreviewAPIViewSet(PagesAPIViewSet):
         return page
 
 
-api_router.register_endpoint("page_preview", PagePreviewAPIViewSet)
+
+api_router.register_endpoint('pages', PagesAPIViewSet)
+api_router.register_endpoint('page_preview', PagePreviewAPIViewSet)
 
 # Add the three endpoints using the "register_endpoint" method.
 # The first parameter is the name of the endpoint (such as pages, images). This
 # is used in the URL of the endpoint
 # The second parameter is the endpoint class that handles the requests
-api_router.register_endpoint('pages', PagesAPIViewSet)
 api_router.register_endpoint('images', ImagesAPIViewSet)
 api_router.register_endpoint('documents', DocumentsAPIViewSet)

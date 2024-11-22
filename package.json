@@ -3,10 +3,9 @@
   "version": "1.4.0",
   "description": "",
   "type": "commonjs",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "src/index.ts",
   "files": [
-    "/dist"
+    "/src"
   ],
   "scripts": {
     "fmt": "biome check --fix",

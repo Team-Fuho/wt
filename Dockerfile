@@ -10,6 +10,10 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     libpq-dev \
+    default-libmysqlclient-dev \
+    pkg-config \
+    postgresql-client \
+    mysql-client \
     && rm -rf /var/lib/apt/lists/*
 
 RUN pip install uv
@@ -19,7 +23,7 @@ RUN uv venv
 COPY pyproject.toml .
 COPY uv.lock ./
 
-RUN . .venv/bin/activate && uv sync
+RUN . .venv/bin/activate && uv sync --all-extras
 
 COPY . .
 

@@ -19,6 +19,7 @@ dependencies = [
     "uvicorn[standard]>=0.32.1",
     "whitenoise>=6.8.2",
     "django-storages[s3]>=1.14.4",
+    "dj-database-url>=2.3.0",
 ]
 
 [project.optional-dependencies]

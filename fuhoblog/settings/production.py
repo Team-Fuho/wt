@@ -24,28 +24,6 @@ if SECRET_KEY == '':  # noqa: F405
 DATABASES = DATABASES  # noqa: F405
 WAGTAILSEARCH_BACKENDS = WAGTAILSEARCH_BACKENDS  # noqa: F405
 
-if os.environ.get('DATABASE') is not None:
-    try:
-        DATABASE_ENVIRON = urlparse(os.environ['DATABASE'])
-        if DATABASE_ENVIRON.scheme == 'mysql':
-            DATABASES |= {
-                'default': {
-                    'ENGINE': 'django.db.backends.mysql',
-                    'NAME': DATABASE_ENVIRON.path.replace('/', '') or 'wagtail',
-                    'USER': DATABASE_ENVIRON.username or 'root',
-                    'PASSWORD': DATABASE_ENVIRON.password or '',
-                    'HOST': DATABASE_ENVIRON.hostname or 'localhost',
-                    'PORT': int(DATABASE_ENVIRON.port or 3306) or 3306,
-                },
-            }
-        else:
-            print('DATABASE environment unknown scheme', DATABASE_ENVIRON.scheme)
-    except ValueError:
-        print('DATABASE environment variable invalid')
-else:
-    print('Did not tried using DATABASE despite tried to load PRODUCTION config')
-
-
 if os.environ['OPENSEARCH_HOST'] is not None:
     WAGTAILSEARCH_BACKENDS = {
         'default': {

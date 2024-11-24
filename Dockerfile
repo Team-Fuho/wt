@@ -35,6 +35,5 @@ EXPOSE 8000
 CMD . .venv/bin/activate && \
     python manage.py migrate --noinput && \
     .venv/bin/gunicorn --bind 0.0.0.0:8000 \
-    --workers 4 --worker-class uvicorn.workers.UvicornWorker \
-    --max-requests 1000 --max-requests-jitter 50 --access-logfile - --error-logfile - \
+    --workers 4 --access-logfile - --error-logfile - \
     --timeout 120 fuhoblog.wsgi:application

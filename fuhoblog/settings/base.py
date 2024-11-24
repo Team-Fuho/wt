@@ -118,10 +118,8 @@ WSGI_APPLICATION = 'fuhoblog.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    "default": dj_database_url.config(
-        default="sqlite://./db.sqlite3",
-        conn_max_age=600,
-        conn_health_checks=True
+    'default': dj_database_url.config(
+        default='sqlite://./db.sqlite3', conn_max_age=600, conn_health_checks=True
     )
 }
 
@@ -250,10 +248,10 @@ GRAPPLE = {
 }
 
 WAGTAIL_HEADLESS_PREVIEW = {
-    "CLIENT_URLS": {
-        "default": os.environ.setdefault('PREVIEW_BASE', 'https://teamfuho.net')
+    'CLIENT_URLS': {
+        'default': os.environ.setdefault('PREVIEW_BASE', 'https://teamfuho.net')
     },
-    "SERVE_BASE_URL": None,
-    "REDIRECT_ON_PREVIEW": False,  # set to True to redirect to the preview instead of using the Wagtail default mechanism
-    "ENFORCE_TRAILING_SLASH": True,  # set to False in order to disable the trailing slash enforcement
+    'SERVE_BASE_URL': None,
+    'REDIRECT_ON_PREVIEW': False,  # set to True to redirect to the preview instead of using the Wagtail default mechanism
+    'ENFORCE_TRAILING_SLASH': True,  # set to False in order to disable the trailing slash enforcement
 }

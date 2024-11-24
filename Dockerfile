@@ -14,20 +14,23 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 RUN pip install uv
 
-COPY pyproject.toml uv.lock ./
+RUN uv venv
 
-RUN uv pip install --system . --lockfile uv.lock
+COPY pyproject.toml .
+COPY uv.lock ./
+
+RUN . .venv/bin/activate && uv sync
 
 COPY . .
 
-RUN python manage.py collectstatic --noinput
+RUN . .venv/bin/activate && python manage.py collectstatic --noinput
 
 RUN adduser --disabled-password --no-create-home wagtailuser
 USER wagtailuser
 
 EXPOSE 8000
 
-CMD ["gunicorn", \
+CMD [".venv/bin/gunicorn", \
      "--bind", "0.0.0.0:8000", \
      "--workers", "4", \
      "--worker-class", "uvicorn.workers.UvicornWorker", \

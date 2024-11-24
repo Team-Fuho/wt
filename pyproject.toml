@@ -17,4 +17,6 @@ dependencies = [
     "sentry-sdk[django]",
     "wagtail-grapple>=0.27.0",
     "wagtail-headless-preview>=0.8.0",
+    "uvicorn[standard]>=0.32.1",
+    "whitenoise>=6.8.2",
 ]

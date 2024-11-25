@@ -244,7 +244,7 @@ WAGTAIL_TIME_FORMAT = '%H:%M'
 
 GRAPHENE = {'SCHEMA': 'grapple.schema.schema'}
 GRAPPLE = {
-    'APPS': ['blog', 'gallery'],
+    'APPS': ['base', 'blog', 'gallery'],
 }
 
 WAGTAIL_HEADLESS_PREVIEW = {

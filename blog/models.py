@@ -1,6 +1,5 @@
 from django.db import models
 from wagtail.models import Page
-from wagtail.fields import RichTextField
 from wagtail.fields import StreamField
 from wagtail.admin.panels import (
     FieldPanel,
@@ -16,6 +15,13 @@ from base.blocks import TFStreamBlocks
 
 # from wagtail_wordpress_import.blocks import WPImportStreamBlocks
 # from wagtail_wordpress_import.models import WPImportedPageMixin
+
+from grapple.models import (
+    GraphQLRichText,
+    GraphQLString,
+    GraphQLStreamfield,
+    GraphQLImage
+)
 
 
 class BlogPage(
@@ -86,6 +92,13 @@ class BlogPage(
         # APIField(
         #     'authors'
         # ),  # This will nest the relevant BlogPageAuthor objects in the API response
+    ]
+
+    graphql_fields = [
+        GraphQLStreamfield("body"),
+        GraphQLString("intro"),
+        GraphQLString("blog_date"),
+        GraphQLImage('thumbnail_set')
     ]
 
     # def import_wordpress_data(self, data):

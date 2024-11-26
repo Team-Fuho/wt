@@ -234,7 +234,8 @@ WAGTAILADMIN_RICH_TEXT_EDITORS = {
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-WAGTAILADMIN_BASE_URL = os.environ.setdefault('API_BASE', 'http://example.com')
+WAGTAILADMIN_BASE_URL = os.environ.setdefault('API_BASE', 'http://localhost:8000')
+BASE_URL=WAGTAILADMIN_BASE_URL
 WAGTAIL_ALLOW_UNICODE_SLUGS = False
 WAGTAIL_USAGE_COUNT_ENABLED = True
 

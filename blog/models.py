@@ -20,7 +20,8 @@ from grapple.models import (
     GraphQLRichText,
     GraphQLString,
     GraphQLStreamfield,
-    GraphQLImage
+    GraphQLImage,
+    GraphQLForeignKey,
 )
 
 
@@ -35,7 +36,6 @@ class BlogPage(
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name='+',
     )
 
     intro = models.CharField(max_length=250, blank=True)
@@ -95,10 +95,10 @@ class BlogPage(
     ]
 
     graphql_fields = [
-        GraphQLStreamfield("body"),
-        GraphQLString("intro"),
-        GraphQLString("blog_date"),
-        GraphQLImage('thumbnail_set')
+        GraphQLStreamfield('body'),
+        GraphQLString('intro'),
+        GraphQLString('blog_date'),
+        GraphQLImage('thumb'),
     ]
 
     # def import_wordpress_data(self, data):

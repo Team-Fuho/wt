@@ -22,6 +22,7 @@ async function exampleUsage() {
     // Get live blog by slug
     const liveBlog = await blogQueries.getBlogBySlug(
       'tfh-album-anh-cua-team-fuho-ki-1'
+
     )
 
     return { blogList, blogPreview, liveBlog }

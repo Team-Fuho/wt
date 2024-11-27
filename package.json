@@ -1,7 +1,7 @@
 {
   "name": "@team-fuho/wt",
   "version": "2.0.0",
-  "description": "",
+  "description": "powered by `wagtail`. awesome!",
   "type": "commonjs",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -16,8 +16,8 @@
     "schema": "gql-gen --config codegen.ts"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "stdpi",
+  "license": "MIT",
   "devDependencies": {
     "@0no-co/graphqlsp": "^1.12.16",
     "@biomejs/biome": "1.8.1",
@@ -31,5 +31,13 @@
   "dependencies": {
     "@graphql-typed-document-node/core": "^3.2.0",
     "graphql": "^16.9.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Team-Fuho/wt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Team-Fuho/wt/issues"
+  },
+  "homepage": "https://github.com/Team-Fuho/wt#readme"
 }

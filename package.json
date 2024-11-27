@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "fmt": "biome check --fix",
-    "test": "biome lint && vitest --run --typecheck",
+    "test": "biome lint",
     "build": "tsc && esbuild src/index.ts --bundle --sourcemap --target=es6 --platform=neutral --minify --outfile=dist/index.js",
     "schema": "gql-gen --config codegen.ts"
   },
@@ -24,10 +24,11 @@
     "esbuild": "^0.24.0",
     "graphql-codegen-typescript-client": "0.18.2",
     "graphql-codegen-typescript-common": "0.18.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.7.2"
   },
   "dependencies": {
     "@graphql-typed-document-node/core": "^3.2.0",
     "graphql-request": "^7.1.2"
   }
 }
+

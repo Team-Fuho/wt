@@ -2,7 +2,7 @@ import {
   BlogListViewDocument,
   BlogPreviewViewDocument,
   BlogLiveViewDocument,
-  TypedDocumentString
+  type TypedDocumentString
 } from './graphql/graphql'
 
 export interface GraphQLClientConfig {
@@ -20,7 +20,7 @@ export async function execute<TResult, TVariables>(
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/graphql-response+json',
+        Accept: 'application/graphql-response+json',
         ...config.headers
       },
       body: JSON.stringify({
@@ -30,7 +30,9 @@ export async function execute<TResult, TVariables>(
     })
 
     if (!response.ok) {
-      throw new Error(`WTClientError: ${response.status} ${response.statusText}`)
+      throw new Error(
+        `WTClientError: ${response.status} ${response.statusText}`
+      )
     }
 
     return response.json() as TResult
@@ -59,7 +61,7 @@ export class BlogQueries {
         ...this.config,
         headers: {
           ...this.config.headers,
-          'Authorization': `Bearer ${token}`
+          Authorization: `Bearer ${token}`
         }
       },
       BlogPreviewViewDocument,
@@ -72,4 +74,3 @@ export class BlogQueries {
     return execute(this.config, BlogLiveViewDocument, { slug })
   }
 }
-

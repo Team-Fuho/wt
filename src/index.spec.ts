@@ -1,4 +1,4 @@
-import { BlogQueries } from "./index"
+import { BlogQueries } from './index'
 
 // Usage example
 async function exampleUsage() {
@@ -15,10 +15,14 @@ async function exampleUsage() {
     const blogList = await blogQueries.listBlogs()
 
     // Get preview with token
-    const blogPreview = await blogQueries.getBlogPreview('id=62:1tFtcq:yZgGvM8QuYZsSyiGVihtqSJy8qRaNjeRJvIOYxUwxr8your-preview-token')
+    const blogPreview = await blogQueries.getBlogPreview(
+      'id=62:1tFtcq:yZgGvM8QuYZsSyiGVihtqSJy8qRaNjeRJvIOYxUwxr8your-preview-token'
+    )
 
     // Get live blog by slug
-    const liveBlog = await blogQueries.getBlogBySlug('tfh-album-anh-cua-team-fuho-ki-1')
+    const liveBlog = await blogQueries.getBlogBySlug(
+      'tfh-album-anh-cua-team-fuho-ki-1'
+    )
 
     return { blogList, blogPreview, liveBlog }
   } catch (error) {

@@ -47,8 +47,8 @@ export type BlockQuoteBlock = StreamFieldInterface & {
 
 export type BlogPage = PageInterface & {
   __typename?: 'BlogPage';
-  aliases: Array<Page>;
   aliasOf?: Maybe<Page>;
+  aliases: Array<Page>;
   ancestors: Array<PageInterface>;
   blogDate?: Maybe<Scalars['String']['output']>;
   blogpage?: Maybe<BlogPage>;
@@ -299,8 +299,8 @@ export type FloatBlock = StreamFieldInterface & {
 
 export type HeadingBlock = StreamFieldInterface & {
   __typename?: 'HeadingBlock';
-  blocks: Array<StreamFieldInterface>;
   blockType: Scalars['String']['output'];
+  blocks: Array<StreamFieldInterface>;
   field: Scalars['String']['output'];
   id?: Maybe<Scalars['String']['output']>;
   importance?: Maybe<Scalars['String']['output']>;
@@ -311,8 +311,8 @@ export type HeadingBlock = StreamFieldInterface & {
 export type ImageBlock = StreamFieldInterface & {
   __typename?: 'ImageBlock';
   alignment?: Maybe<Scalars['String']['output']>;
-  blocks: Array<StreamFieldInterface>;
   blockType: Scalars['String']['output'];
+  blocks: Array<StreamFieldInterface>;
   caption?: Maybe<Scalars['String']['output']>;
   field: Scalars['String']['output'];
   id?: Maybe<Scalars['String']['output']>;
@@ -354,8 +354,8 @@ export type ListBlock = StreamFieldInterface & {
  */
 export type Page = PageInterface & {
   __typename?: 'Page';
-  aliases: Array<Page>;
   aliasOf?: Maybe<Page>;
+  aliases: Array<Page>;
   ancestors: Array<PageInterface>;
   blogpage?: Maybe<BlogPage>;
   children: Array<PageInterface>;
@@ -588,8 +588,8 @@ export type PageInterfaceSiblingsArgs = {
 
 export type Picture = PageInterface & {
   __typename?: 'Picture';
-  aliases: Array<Page>;
   aliasOf?: Maybe<Page>;
+  aliases: Array<Page>;
   ancestors: Array<PageInterface>;
   blogpage?: Maybe<BlogPage>;
   children: Array<PageInterface>;
@@ -699,11 +699,11 @@ export type Query = {
   __typename?: 'Query';
   collections: Array<Maybe<CollectionObjectType>>;
   document?: Maybe<DocumentObjectType>;
-  documents: Array<DocumentObjectType>;
   documentType: Scalars['String']['output'];
+  documents: Array<DocumentObjectType>;
   image?: Maybe<TfImage>;
-  images: Array<TfImage>;
   imageType: Scalars['String']['output'];
+  images: Array<TfImage>;
   page?: Maybe<PageInterface>;
   pages: Array<PageInterface>;
   redirects: Array<Redirect>;
@@ -819,8 +819,8 @@ export type QueryTagsArgs = {
 export type QuoteBlock = StreamFieldInterface & {
   __typename?: 'QuoteBlock';
   attribution?: Maybe<Scalars['String']['output']>;
-  blocks: Array<StreamFieldInterface>;
   blockType: Scalars['String']['output'];
+  blocks: Array<StreamFieldInterface>;
   field: Scalars['String']['output'];
   id?: Maybe<Scalars['String']['output']>;
   quote?: Maybe<Scalars['String']['output']>;
@@ -933,8 +933,8 @@ export type StaticBlock = StreamFieldInterface & {
 
 export type StreamBlock = StreamFieldInterface & {
   __typename?: 'StreamBlock';
-  blocks: Array<StreamFieldInterface>;
   blockType: Scalars['String']['output'];
+  blocks: Array<StreamFieldInterface>;
   field: Scalars['String']['output'];
   id?: Maybe<Scalars['String']['output']>;
   rawValue: Scalars['String']['output'];
@@ -958,32 +958,17 @@ export type StreamFieldInterface = {
 
 export type StructBlock = StreamFieldInterface & {
   __typename?: 'StructBlock';
+  blockType: Scalars['String']['output'];
   blocks: Array<StreamFieldInterface>;
-  blockType: Scalars['String']['output'];
   field: Scalars['String']['output'];
   id?: Maybe<Scalars['String']['output']>;
   rawValue: Scalars['String']['output'];
-};
-
-export type TagObjectType = {
-  __typename?: 'TagObjectType';
-  id: Scalars['ID']['output'];
-  name: Scalars['String']['output'];
-};
-
-export type TextBlock = StreamFieldInterface & {
-  __typename?: 'TextBlock';
-  blockType: Scalars['String']['output'];
-  field: Scalars['String']['output'];
-  id?: Maybe<Scalars['String']['output']>;
-  rawValue: Scalars['String']['output'];
-  value: Scalars['String']['output'];
 };
 
 export type TfFuncGroup = PageInterface & {
   __typename?: 'TFFuncGroup';
-  aliases: Array<Page>;
   aliasOf?: Maybe<Page>;
+  aliases: Array<Page>;
   ancestors: Array<PageInterface>;
   blogpage?: Maybe<BlogPage>;
   children: Array<PageInterface>;
@@ -1153,11 +1138,26 @@ export type TfRendition = {
 
 export type TfStreamBlocks = StreamFieldInterface & {
   __typename?: 'TFStreamBlocks';
+  blockType: Scalars['String']['output'];
   blocks: Array<StreamFieldInterface>;
+  field: Scalars['String']['output'];
+  id?: Maybe<Scalars['String']['output']>;
+  rawValue: Scalars['String']['output'];
+};
+
+export type TagObjectType = {
+  __typename?: 'TagObjectType';
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+};
+
+export type TextBlock = StreamFieldInterface & {
+  __typename?: 'TextBlock';
   blockType: Scalars['String']['output'];
   field: Scalars['String']['output'];
   id?: Maybe<Scalars['String']['output']>;
   rawValue: Scalars['String']['output'];
+  value: Scalars['String']['output'];
 };
 
 export type TimeBlock = StreamFieldInterface & {
@@ -1185,7 +1185,7 @@ export type UrlBlock = StreamFieldInterface & {
 
 export type BlogPageViewFragment = { __typename?: 'BlogPage', id?: string | null, slug: string, title: string, seoTitle: string, thumb?: { __typename?: 'TFImage', id?: string | null, rendition?: { __typename?: 'TFRendition', id?: string | null, url: string } | null } | null } & { ' $fragmentName'?: 'BlogPageViewFragment' };
 
-export type BlogPageViewInnerFragment = { __typename?: 'BlogPage', body?: Array<{ __typename?: 'BlockQuoteBlock', blockType: string } | { __typename?: 'BooleanBlock', blockType: string } | { __typename?: 'CharBlock', blockType: string } | { __typename?: 'ChoiceBlock', blockType: string } | { __typename?: 'DateBlock', blockType: string } | { __typename?: 'DateTimeBlock', blockType: string } | { __typename?: 'DecimalBlock', blockType: string } | { __typename?: 'DocumentChooserBlock', blockType: string } | { __typename?: 'EmailBlock', blockType: string } | { __typename?: 'EmbedBlock', blockType: string } | { __typename?: 'FloatBlock', blockType: string } | { __typename?: 'HeadingBlock', blockType: string, text?: string | null, importance?: string | null } | { __typename?: 'ImageBlock', blockType: string, caption?: string | null, link?: string | null, alignment?: string | null, image?: { __typename?: 'TFImage', url: string, width: number, height: number } | null } | { __typename?: 'ImageChooserBlock', blockType: string } | { __typename?: 'IntegerBlock', blockType: string } | { __typename?: 'ListBlock', blockType: string } | { __typename?: 'PageChooserBlock', blockType: string } | { __typename?: 'QuoteBlock', blockType: string, quote?: string | null, attribution?: string | null } | { __typename?: 'RawHTMLBlock', blockType: string } | { __typename?: 'RegexBlock', blockType: string } | { __typename?: 'RichTextBlock', blockType: string, value: string } | { __typename?: 'SnippetChooserBlock', blockType: string } | { __typename?: 'StaticBlock', blockType: string } | { __typename?: 'StreamBlock', blockType: string } | { __typename?: 'StreamFieldBlock', blockType: string } | { __typename?: 'StructBlock', blockType: string } | { __typename?: 'TextBlock', blockType: string } | { __typename?: 'TFStreamBlocks', blockType: string } | { __typename?: 'TimeBlock', blockType: string } | { __typename?: 'URLBlock', blockType: string } | null> | null } & { ' $fragmentName'?: 'BlogPageViewInnerFragment' };
+export type BlogPageViewInnerFragment = { __typename?: 'BlogPage', body?: Array<{ __typename?: 'BlockQuoteBlock', blockType: string } | { __typename?: 'BooleanBlock', blockType: string } | { __typename?: 'CharBlock', blockType: string } | { __typename?: 'ChoiceBlock', blockType: string } | { __typename?: 'DateBlock', blockType: string } | { __typename?: 'DateTimeBlock', blockType: string } | { __typename?: 'DecimalBlock', blockType: string } | { __typename?: 'DocumentChooserBlock', blockType: string } | { __typename?: 'EmailBlock', blockType: string } | { __typename?: 'EmbedBlock', blockType: string } | { __typename?: 'FloatBlock', blockType: string } | { __typename?: 'HeadingBlock', blockType: string, text?: string | null, importance?: string | null } | { __typename?: 'ImageBlock', blockType: string, caption?: string | null, link?: string | null, alignment?: string | null, image?: { __typename?: 'TFImage', url: string, width: number, height: number } | null } | { __typename?: 'ImageChooserBlock', blockType: string } | { __typename?: 'IntegerBlock', blockType: string } | { __typename?: 'ListBlock', blockType: string } | { __typename?: 'PageChooserBlock', blockType: string } | { __typename?: 'QuoteBlock', blockType: string, quote?: string | null, attribution?: string | null } | { __typename?: 'RawHTMLBlock', blockType: string } | { __typename?: 'RegexBlock', blockType: string } | { __typename?: 'RichTextBlock', blockType: string, value: string } | { __typename?: 'SnippetChooserBlock', blockType: string } | { __typename?: 'StaticBlock', blockType: string } | { __typename?: 'StreamBlock', blockType: string } | { __typename?: 'StreamFieldBlock', blockType: string } | { __typename?: 'StructBlock', blockType: string } | { __typename?: 'TFStreamBlocks', blockType: string } | { __typename?: 'TextBlock', blockType: string } | { __typename?: 'TimeBlock', blockType: string } | { __typename?: 'URLBlock', blockType: string } | null> | null } & { ' $fragmentName'?: 'BlogPageViewInnerFragment' };
 
 export type BlogListViewQueryVariables = Exact<{ [key: string]: never; }>;
 

@@ -11,12 +11,14 @@ type BlockQuoteBlock implements StreamFieldInterface {
 }
 
 type BlogPage implements PageInterface {
-  aliases: [Page!]!
   aliasOf: Page
+  aliases: [Page!]!
   ancestors(
     """Filter by ID"""
     id: ID
-    """Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor."""
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
     inMenu: Boolean
     """Limit a number of resulting objects."""
     limit: PositiveInt
@@ -24,7 +26,9 @@ type BlogPage implements PageInterface {
     offset: PositiveInt
     """Use the Django queryset order format."""
     order: String
-    """Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator"""
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
     searchOperator: SearchOperatorEnum = AND
     """Filter the results using Wagtail's search."""
     searchQuery: String
@@ -35,7 +39,9 @@ type BlogPage implements PageInterface {
   children(
     """Filter by ID"""
     id: ID
-    """Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor."""
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
     inMenu: Boolean
     """Limit a number of resulting objects."""
     limit: PositiveInt
@@ -43,7 +49,9 @@ type BlogPage implements PageInterface {
     offset: PositiveInt
     """Use the Django queryset order format."""
     order: String
-    """Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator"""
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
     searchOperator: SearchOperatorEnum = AND
     """Filter the results using Wagtail's search."""
     searchQuery: String
@@ -53,7 +61,9 @@ type BlogPage implements PageInterface {
   descendants(
     """Filter by ID"""
     id: ID
-    """Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor."""
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
     inMenu: Boolean
     """Limit a number of resulting objects."""
     limit: PositiveInt
@@ -61,7 +71,9 @@ type BlogPage implements PageInterface {
     offset: PositiveInt
     """Use the Django queryset order format."""
     order: String
-    """Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator"""
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
     searchOperator: SearchOperatorEnum = AND
     """Filter the results using Wagtail's search."""
     searchQuery: String
@@ -82,7 +94,9 @@ type BlogPage implements PageInterface {
   nextSiblings(
     """Filter by ID"""
     id: ID
-    """Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor."""
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
     inMenu: Boolean
     """Limit a number of resulting objects."""
     limit: PositiveInt
@@ -90,7 +104,9 @@ type BlogPage implements PageInterface {
     offset: PositiveInt
     """Use the Django queryset order format."""
     order: String
-    """Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator"""
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
     searchOperator: SearchOperatorEnum = AND
     """Filter the results using Wagtail's search."""
     searchQuery: String
@@ -103,7 +119,9 @@ type BlogPage implements PageInterface {
   previousSiblings(
     """Filter by ID"""
     id: ID
-    """Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor."""
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
     inMenu: Boolean
     """Limit a number of resulting objects."""
     limit: PositiveInt
@@ -111,7 +129,9 @@ type BlogPage implements PageInterface {
     offset: PositiveInt
     """Use the Django queryset order format."""
     order: String
-    """Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator"""
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
     searchOperator: SearchOperatorEnum = AND
     """Filter the results using Wagtail's search."""
     searchQuery: String
@@ -123,7 +143,9 @@ type BlogPage implements PageInterface {
   siblings(
     """Filter by ID"""
     id: ID
-    """Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor."""
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
     inMenu: Boolean
     """Limit a number of resulting objects."""
     limit: PositiveInt
@@ -131,7 +153,9 @@ type BlogPage implements PageInterface {
     offset: PositiveInt
     """Use the Django queryset order format."""
     order: String
-    """Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator"""
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
     searchOperator: SearchOperatorEnum = AND
     """Filter the results using Wagtail's search."""
     searchQuery: String
@@ -270,8 +294,8 @@ type FloatBlock implements StreamFieldInterface {
 }
 
 type HeadingBlock implements StreamFieldInterface {
-  blocks: [StreamFieldInterface!]!
   blockType: String!
+  blocks: [StreamFieldInterface!]!
   field: String!
   id: String
   importance: String
@@ -281,8 +305,8 @@ type HeadingBlock implements StreamFieldInterface {
 
 type ImageBlock implements StreamFieldInterface {
   alignment: String
-  blocks: [StreamFieldInterface!]!
   blockType: String!
+  blocks: [StreamFieldInterface!]!
   caption: String
   field: String!
   id: String
@@ -328,12 +352,14 @@ Base Page type used if one isn't generated for the current model.
 All other node types extend this.
 """
 type Page implements PageInterface {
-  aliases: [Page!]!
   aliasOf: Page
+  aliases: [Page!]!
   ancestors(
     """Filter by ID"""
     id: ID
-    """Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor."""
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
     inMenu: Boolean
     """Limit a number of resulting objects."""
     limit: PositiveInt
@@ -341,7 +367,9 @@ type Page implements PageInterface {
     offset: PositiveInt
     """Use the Django queryset order format."""
     order: String
-    """Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator"""
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
     searchOperator: SearchOperatorEnum = AND
     """Filter the results using Wagtail's search."""
     searchQuery: String
@@ -350,7 +378,9 @@ type Page implements PageInterface {
   children(
     """Filter by ID"""
     id: ID
-    """Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor."""
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
     inMenu: Boolean
     """Limit a number of resulting objects."""
     limit: PositiveInt
@@ -358,7 +388,9 @@ type Page implements PageInterface {
     offset: PositiveInt
     """Use the Django queryset order format."""
     order: String
-    """Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator"""
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
     searchOperator: SearchOperatorEnum = AND
     """Filter the results using Wagtail's search."""
     searchQuery: String
@@ -368,7 +400,9 @@ type Page implements PageInterface {
   descendants(
     """Filter by ID"""
     id: ID
-    """Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor."""
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
     inMenu: Boolean
     """Limit a number of resulting objects."""
     limit: PositiveInt
@@ -376,7 +410,9 @@ type Page implements PageInterface {
     offset: PositiveInt
     """Use the Django queryset order format."""
     order: String
-    """Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator"""
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
     searchOperator: SearchOperatorEnum = AND
     """Filter the results using Wagtail's search."""
     searchQuery: String
@@ -396,7 +432,9 @@ type Page implements PageInterface {
   nextSiblings(
     """Filter by ID"""
     id: ID
-    """Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor."""
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
     inMenu: Boolean
     """Limit a number of resulting objects."""
     limit: PositiveInt
@@ -404,7 +442,9 @@ type Page implements PageInterface {
     offset: PositiveInt
     """Use the Django queryset order format."""
     order: String
-    """Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator"""
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
     searchOperator: SearchOperatorEnum = AND
     """Filter the results using Wagtail's search."""
     searchQuery: String
@@ -417,7 +457,9 @@ type Page implements PageInterface {
   previousSiblings(
     """Filter by ID"""
     id: ID
-    """Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor."""
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
     inMenu: Boolean
     """Limit a number of resulting objects."""
     limit: PositiveInt
@@ -425,7 +467,9 @@ type Page implements PageInterface {
     offset: PositiveInt
     """Use the Django queryset order format."""
     order: String
-    """Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator"""
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
     searchOperator: SearchOperatorEnum = AND
     """Filter the results using Wagtail's search."""
     searchQuery: String
@@ -437,7 +481,9 @@ type Page implements PageInterface {
   siblings(
     """Filter by ID"""
     id: ID
-    """Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor."""
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
     inMenu: Boolean
     """Limit a number of resulting objects."""
     limit: PositiveInt
@@ -445,7 +491,9 @@ type Page implements PageInterface {
     offset: PositiveInt
     """Use the Django queryset order format."""
     order: String
-    """Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator"""
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
     searchOperator: SearchOperatorEnum = AND
     """Filter the results using Wagtail's search."""
     searchQuery: String
@@ -471,7 +519,9 @@ interface PageInterface {
   ancestors(
     """Filter by ID"""
     id: ID
-    """Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor."""
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
     inMenu: Boolean
     """Limit a number of resulting objects."""
     limit: PositiveInt
@@ -479,7 +529,9 @@ interface PageInterface {
     offset: PositiveInt
     """Use the Django queryset order format."""
     order: String
-    """Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator"""
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
     searchOperator: SearchOperatorEnum = AND
     """Filter the results using Wagtail's search."""
     searchQuery: String
@@ -487,7 +539,9 @@ interface PageInterface {
   children(
     """Filter by ID"""
     id: ID
-    """Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor."""
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
     inMenu: Boolean
     """Limit a number of resulting objects."""
     limit: PositiveInt
@@ -495,7 +549,9 @@ interface PageInterface {
     offset: PositiveInt
     """Use the Django queryset order format."""
     order: String
-    """Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator"""
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
     searchOperator: SearchOperatorEnum = AND
     """Filter the results using Wagtail's search."""
     searchQuery: String
@@ -505,7 +561,9 @@ interface PageInterface {
   descendants(
     """Filter by ID"""
     id: ID
-    """Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor."""
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
     inMenu: Boolean
     """Limit a number of resulting objects."""
     limit: PositiveInt
@@ -513,7 +571,9 @@ interface PageInterface {
     offset: PositiveInt
     """Use the Django queryset order format."""
     order: String
-    """Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator"""
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
     searchOperator: SearchOperatorEnum = AND
     """Filter the results using Wagtail's search."""
     searchQuery: String
@@ -526,7 +586,9 @@ interface PageInterface {
   nextSiblings(
     """Filter by ID"""
     id: ID
-    """Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor."""
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
     inMenu: Boolean
     """Limit a number of resulting objects."""
     limit: PositiveInt
@@ -534,7 +596,9 @@ interface PageInterface {
     offset: PositiveInt
     """Use the Django queryset order format."""
     order: String
-    """Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator"""
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
     searchOperator: SearchOperatorEnum = AND
     """Filter the results using Wagtail's search."""
     searchQuery: String
@@ -544,7 +608,9 @@ interface PageInterface {
   previousSiblings(
     """Filter by ID"""
     id: ID
-    """Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor."""
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
     inMenu: Boolean
     """Limit a number of resulting objects."""
     limit: PositiveInt
@@ -552,7 +618,9 @@ interface PageInterface {
     offset: PositiveInt
     """Use the Django queryset order format."""
     order: String
-    """Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator"""
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
     searchOperator: SearchOperatorEnum = AND
     """Filter the results using Wagtail's search."""
     searchQuery: String
@@ -564,7 +632,9 @@ interface PageInterface {
   siblings(
     """Filter by ID"""
     id: ID
-    """Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor."""
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
     inMenu: Boolean
     """Limit a number of resulting objects."""
     limit: PositiveInt
@@ -572,7 +642,9 @@ interface PageInterface {
     offset: PositiveInt
     """Use the Django queryset order format."""
     order: String
-    """Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator"""
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
     searchOperator: SearchOperatorEnum = AND
     """Filter the results using Wagtail's search."""
     searchQuery: String
@@ -584,12 +656,14 @@ interface PageInterface {
 }
 
 type Picture implements PageInterface {
-  aliases: [Page!]!
   aliasOf: Page
+  aliases: [Page!]!
   ancestors(
     """Filter by ID"""
     id: ID
-    """Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor."""
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
     inMenu: Boolean
     """Limit a number of resulting objects."""
     limit: PositiveInt
@@ -597,7 +671,9 @@ type Picture implements PageInterface {
     offset: PositiveInt
     """Use the Django queryset order format."""
     order: String
-    """Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator"""
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
     searchOperator: SearchOperatorEnum = AND
     """Filter the results using Wagtail's search."""
     searchQuery: String
@@ -606,7 +682,9 @@ type Picture implements PageInterface {
   children(
     """Filter by ID"""
     id: ID
-    """Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor."""
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
     inMenu: Boolean
     """Limit a number of resulting objects."""
     limit: PositiveInt
@@ -614,7 +692,9 @@ type Picture implements PageInterface {
     offset: PositiveInt
     """Use the Django queryset order format."""
     order: String
-    """Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator"""
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
     searchOperator: SearchOperatorEnum = AND
     """Filter the results using Wagtail's search."""
     searchQuery: String
@@ -624,7 +704,9 @@ type Picture implements PageInterface {
   descendants(
     """Filter by ID"""
     id: ID
-    """Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor."""
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
     inMenu: Boolean
     """Limit a number of resulting objects."""
     limit: PositiveInt
@@ -632,7 +714,9 @@ type Picture implements PageInterface {
     offset: PositiveInt
     """Use the Django queryset order format."""
     order: String
-    """Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator"""
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
     searchOperator: SearchOperatorEnum = AND
     """Filter the results using Wagtail's search."""
     searchQuery: String
@@ -652,7 +736,9 @@ type Picture implements PageInterface {
   nextSiblings(
     """Filter by ID"""
     id: ID
-    """Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor."""
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
     inMenu: Boolean
     """Limit a number of resulting objects."""
     limit: PositiveInt
@@ -660,7 +746,9 @@ type Picture implements PageInterface {
     offset: PositiveInt
     """Use the Django queryset order format."""
     order: String
-    """Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator"""
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
     searchOperator: SearchOperatorEnum = AND
     """Filter the results using Wagtail's search."""
     searchQuery: String
@@ -673,7 +761,9 @@ type Picture implements PageInterface {
   previousSiblings(
     """Filter by ID"""
     id: ID
-    """Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor."""
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
     inMenu: Boolean
     """Limit a number of resulting objects."""
     limit: PositiveInt
@@ -681,7 +771,9 @@ type Picture implements PageInterface {
     offset: PositiveInt
     """Use the Django queryset order format."""
     order: String
-    """Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator"""
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
     searchOperator: SearchOperatorEnum = AND
     """Filter the results using Wagtail's search."""
     searchQuery: String
@@ -693,7 +785,9 @@ type Picture implements PageInterface {
   siblings(
     """Filter by ID"""
     id: ID
-    """Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor."""
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
     inMenu: Boolean
     """Limit a number of resulting objects."""
     limit: PositiveInt
@@ -701,7 +795,9 @@ type Picture implements PageInterface {
     offset: PositiveInt
     """Use the Django queryset order format."""
     order: String
-    """Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator"""
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
     searchOperator: SearchOperatorEnum = AND
     """Filter the results using Wagtail's search."""
     searchQuery: String
@@ -730,6 +826,7 @@ type Query {
     order: String
   ): [CollectionObjectType]!
   document(id: ID): DocumentObjectType
+  documentType: String!
   documents(
     """Filter by collection id"""
     collection: ID
@@ -741,13 +838,15 @@ type Query {
     offset: PositiveInt
     """Use the Django queryset order format."""
     order: String
-    """Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator"""
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
     searchOperator: SearchOperatorEnum = AND
     """Filter the results using Wagtail's search."""
     searchQuery: String
   ): [DocumentObjectType!]!
-  documentType: String!
   image(id: ID): TFImage
+  imageType: String!
   images(
     """Filter by collection id"""
     collection: ID
@@ -759,14 +858,17 @@ type Query {
     offset: PositiveInt
     """Use the Django queryset order format."""
     order: String
-    """Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator"""
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
     searchOperator: SearchOperatorEnum = AND
     """Filter the results using Wagtail's search."""
     searchQuery: String
   ): [TFImage!]!
-  imageType: String!
   page(
-    """Filter by content type using the app.ModelName notation. e.g. `myapp.BlogPage`"""
+    """
+    Filter by content type using the app.ModelName notation. e.g. `myapp.BlogPage`
+    """
     contentType: String
     id: ID
     """Filter to pages in the current site only."""
@@ -774,19 +876,27 @@ type Query {
     """Filter to pages in the give site."""
     site: String
     slug: String
-    """Filter by preview token as passed by the `wagtail-headless-preview` package."""
+    """
+    Filter by preview token as passed by the `wagtail-headless-preview` package.
+    """
     token: String
-    """Filter by url path. Note: in a multi-site setup, returns the first available page based. Use `inSite: true` from the relevant site domain."""
+    """
+    Filter by url path. Note: in a multi-site setup, returns the first available page based. Use `inSite: true` from the relevant site domain.
+    """
     urlPath: String
   ): PageInterface
   pages(
     """Filter to pages that are descendants of the given page."""
     ancestor: ID
-    """Filter by content type. Uses the `app.Model` notation. Accepts a comma separated list of content types."""
+    """
+    Filter by content type. Uses the `app.Model` notation. Accepts a comma separated list of content types.
+    """
     contentType: String
     """Filter by ID"""
     id: ID
-    """Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor."""
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
     inMenu: Boolean
     """Filter to pages in the current site only."""
     inSite: Boolean = false
@@ -796,9 +906,13 @@ type Query {
     offset: PositiveInt
     """Use the Django queryset order format."""
     order: String
-    """Filter to pages that are children of the given page. When using both `parent` and `ancestor`, then `parent` will take precendence."""
+    """
+    Filter to pages that are children of the given page. When using both `parent` and `ancestor`, then `parent` will take precendence.
+    """
     parent: ID
-    """Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator"""
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
     searchOperator: SearchOperatorEnum = AND
     """Filter the results using Wagtail's search."""
     searchQuery: String
@@ -817,7 +931,9 @@ type Query {
     offset: PositiveInt
     """Use the Django queryset order format."""
     order: String
-    """Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator"""
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
     searchOperator: SearchOperatorEnum = AND
     """Filter the results using Wagtail's search."""
     searchQuery: String
@@ -838,8 +954,8 @@ type Query {
 
 type QuoteBlock implements StreamFieldInterface {
   attribution: String
-  blocks: [StreamFieldInterface!]!
   blockType: String!
+  blocks: [StreamFieldInterface!]!
   field: String!
   id: String
   quote: String
@@ -890,7 +1006,9 @@ enum SearchOperatorEnum {
 type SiteObjectType {
   hostname: String!
   id: ID!
-  """If true, this site will handle requests for all other hostnames that do not have a site entry of their own"""
+  """
+  If true, this site will handle requests for all other hostnames that do not have a site entry of their own
+  """
   isDefaultSite: Boolean!
   page(contentType: String, id: ID, slug: String, token: String, urlPath: String): PageInterface
   pages(
@@ -898,7 +1016,9 @@ type SiteObjectType {
     contentType: String
     """Filter by ID"""
     id: ID
-    """Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor."""
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
     inMenu: Boolean
     """Limit a number of resulting objects."""
     limit: PositiveInt
@@ -906,12 +1026,16 @@ type SiteObjectType {
     offset: PositiveInt
     """Use the Django queryset order format."""
     order: String
-    """Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator"""
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
     searchOperator: SearchOperatorEnum = AND
     """Filter the results using Wagtail's search."""
     searchQuery: String
   ): [PageInterface!]!
-  """Set this to something other than 80 if you need a specific port number to appear in URLs (e.g. development on port 8000). Does not affect request handling (so port forwarding still works)."""
+  """
+  Set this to something other than 80 if you need a specific port number to appear in URLs (e.g. development on port 8000). Does not affect request handling (so port forwarding still works).
+  """
   port: Int!
   rootPage: Page!
   """Human-readable name for the site."""
@@ -940,8 +1064,8 @@ type StaticBlock implements StreamFieldInterface {
 }
 
 type StreamBlock implements StreamFieldInterface {
-  blocks: [StreamFieldInterface!]!
   blockType: String!
+  blocks: [StreamFieldInterface!]!
   field: String!
   id: String
   rawValue: String!
@@ -963,33 +1087,22 @@ interface StreamFieldInterface {
 }
 
 type StructBlock implements StreamFieldInterface {
+  blockType: String!
   blocks: [StreamFieldInterface!]!
-  blockType: String!
   field: String!
   id: String
   rawValue: String!
-}
-
-type TagObjectType {
-  id: ID!
-  name: String!
-}
-
-type TextBlock implements StreamFieldInterface {
-  blockType: String!
-  field: String!
-  id: String
-  rawValue: String!
-  value: String!
 }
 
 type TFFuncGroup implements PageInterface {
-  aliases: [Page!]!
   aliasOf: Page
+  aliases: [Page!]!
   ancestors(
     """Filter by ID"""
     id: ID
-    """Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor."""
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
     inMenu: Boolean
     """Limit a number of resulting objects."""
     limit: PositiveInt
@@ -997,7 +1110,9 @@ type TFFuncGroup implements PageInterface {
     offset: PositiveInt
     """Use the Django queryset order format."""
     order: String
-    """Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator"""
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
     searchOperator: SearchOperatorEnum = AND
     """Filter the results using Wagtail's search."""
     searchQuery: String
@@ -1006,7 +1121,9 @@ type TFFuncGroup implements PageInterface {
   children(
     """Filter by ID"""
     id: ID
-    """Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor."""
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
     inMenu: Boolean
     """Limit a number of resulting objects."""
     limit: PositiveInt
@@ -1014,7 +1131,9 @@ type TFFuncGroup implements PageInterface {
     offset: PositiveInt
     """Use the Django queryset order format."""
     order: String
-    """Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator"""
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
     searchOperator: SearchOperatorEnum = AND
     """Filter the results using Wagtail's search."""
     searchQuery: String
@@ -1024,7 +1143,9 @@ type TFFuncGroup implements PageInterface {
   descendants(
     """Filter by ID"""
     id: ID
-    """Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor."""
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
     inMenu: Boolean
     """Limit a number of resulting objects."""
     limit: PositiveInt
@@ -1032,7 +1153,9 @@ type TFFuncGroup implements PageInterface {
     offset: PositiveInt
     """Use the Django queryset order format."""
     order: String
-    """Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator"""
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
     searchOperator: SearchOperatorEnum = AND
     """Filter the results using Wagtail's search."""
     searchQuery: String
@@ -1052,7 +1175,9 @@ type TFFuncGroup implements PageInterface {
   nextSiblings(
     """Filter by ID"""
     id: ID
-    """Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor."""
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
     inMenu: Boolean
     """Limit a number of resulting objects."""
     limit: PositiveInt
@@ -1060,7 +1185,9 @@ type TFFuncGroup implements PageInterface {
     offset: PositiveInt
     """Use the Django queryset order format."""
     order: String
-    """Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator"""
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
     searchOperator: SearchOperatorEnum = AND
     """Filter the results using Wagtail's search."""
     searchQuery: String
@@ -1073,7 +1200,9 @@ type TFFuncGroup implements PageInterface {
   previousSiblings(
     """Filter by ID"""
     id: ID
-    """Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor."""
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
     inMenu: Boolean
     """Limit a number of resulting objects."""
     limit: PositiveInt
@@ -1081,7 +1210,9 @@ type TFFuncGroup implements PageInterface {
     offset: PositiveInt
     """Use the Django queryset order format."""
     order: String
-    """Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator"""
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
     searchOperator: SearchOperatorEnum = AND
     """Filter the results using Wagtail's search."""
     searchQuery: String
@@ -1093,7 +1224,9 @@ type TFFuncGroup implements PageInterface {
   siblings(
     """Filter by ID"""
     id: ID
-    """Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor."""
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
     inMenu: Boolean
     """Limit a number of resulting objects."""
     limit: PositiveInt
@@ -1101,7 +1234,9 @@ type TFFuncGroup implements PageInterface {
     offset: PositiveInt
     """Use the Django queryset order format."""
     order: String
-    """Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator"""
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
     searchOperator: SearchOperatorEnum = AND
     """Filter the results using Wagtail's search."""
     searchQuery: String
@@ -1137,7 +1272,9 @@ type TFImage {
     jpegquality: Int
     max: String
     min: String
-    """Prevents raster image operations (e.g. `format-webp`, `bgcolor`, etc.) being applied to SVGs. More info: https://docs.wagtail.org/en/stable/topics/images.html#svg-images"""
+    """
+    Prevents raster image operations (e.g. `format-webp`, `bgcolor`, etc.) being applied to SVGs. More info: https://docs.wagtail.org/en/stable/topics/images.html#svg-images
+    """
     preserveSvg: Boolean
     webpquality: Int
     width: Int
@@ -1146,7 +1283,9 @@ type TFImage {
   src: String! @deprecated(reason: "Use the `url` attribute")
   srcSet(
     format: String
-    """Prevents raster image operations (e.g. `format-webp`, `bgcolor`, etc.) being applied to SVGs. More info: https://docs.wagtail.org/en/stable/topics/images.html#svg-images"""
+    """
+    Prevents raster image operations (e.g. `format-webp`, `bgcolor`, etc.) being applied to SVGs. More info: https://docs.wagtail.org/en/stable/topics/images.html#svg-images
+    """
     preserveSvg: Boolean
     sizes: [Int]
   ): String
@@ -1171,11 +1310,24 @@ type TFRendition {
 }
 
 type TFStreamBlocks implements StreamFieldInterface {
+  blockType: String!
   blocks: [StreamFieldInterface!]!
+  field: String!
+  id: String
+  rawValue: String!
+}
+
+type TagObjectType {
+  id: ID!
+  name: String!
+}
+
+type TextBlock implements StreamFieldInterface {
   blockType: String!
   field: String!
   id: String
   rawValue: String!
+  value: String!
 }
 
 type TimeBlock implements StreamFieldInterface {

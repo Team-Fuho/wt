@@ -3,9 +3,11 @@
   "version": "2.0.0",
   "description": "",
   "type": "commonjs",
-  "main": "src/index.ts",
+  "main": "src/index.js",
+  "types": "src/index.d.ts",
   "files": [
-    "/src"
+    "/src",
+    "/dist"
   ],
   "scripts": {
     "fmt": "biome check --fix",
@@ -28,7 +30,6 @@
   },
   "dependencies": {
     "@graphql-typed-document-node/core": "^3.2.0",
-    "graphql-request": "^7.1.2"
+    "graphql": "^16.9.0"
   }
 }
-

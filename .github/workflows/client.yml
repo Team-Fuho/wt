@@ -1,4 +1,4 @@
-name: Publish to GitHub Packages
+name: build & npm
 
 on:
   push:
@@ -9,6 +9,7 @@ on:
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -31,14 +32,31 @@ jobs:
       - name: Build project
         run: pnpm build
 
-      - name: Configure npm registry
+      - name: Check commit message
+        id: check-commit
+        run: echo "::set-output name=publish::$(echo '${{ github.event.head_commit.message }}' | grep -i '[publish]' || echo '')"
+
+      - name: Configure npmjs registry
+        if: startsWith(github.ref, 'refs/heads/boilerplate') || steps.check-commit.outputs.publish
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+          echo "node-bin-path=$(which node)" >> .npmrc
+
+      - name: Publish to npmjs
+        if: startsWith(github.ref, 'refs/heads/boilerplate') || steps.check-commit.outputs.publish
+        run: pnpm publish --access public --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Configure GitHub Packages registry
+        if: startsWith(github.ref, 'refs/heads/boilerplate') || steps.check-commit.outputs.publish
         run: |
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > .npmrc
-          echo "node-bin-path=$(which node)" >> .npmrc 
+          echo "node-bin-path=$(which node)" >> .npmrc
           echo "registry=https://npm.pkg.github.com/" >> .npmrc
 
       - name: Publish to GitHub Packages
-        if: github.ref == 'refs/heads/boilerplate'
+        if: startsWith(github.ref, 'refs/heads/boilerplate') || steps.check-commit.outputs.publish
         run: pnpm publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

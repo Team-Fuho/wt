@@ -1,0 +1,62 @@
+fragment BlogPageView on BlogPage {
+    id
+    slug
+    title
+    seoTitle
+    thumb {
+        id
+        rendition(width: 1920, height: 1080, format: "webp") {
+            id
+            url
+        }
+    }
+}
+
+fragment BlogPageViewInner on BlogPage {
+    body {
+        ... on StreamFieldInterface {
+            blockType
+        }
+        ... on RichTextBlock {
+            value
+        }
+        ... on ImageBlock {
+            caption
+            link
+            alignment
+            image {
+                url
+                width
+                height
+            }
+        }
+        ... on QuoteBlock {
+            quote
+            attribution
+        }
+        ... on HeadingBlock {
+            text
+            importance
+        }
+    }
+}
+
+query BlogListView {
+    pages(contentType: "blog.BlogPage") {
+        ...BlogPageView
+    }
+}
+
+query BlogPreviewView($token: String) {
+    page(id: 0, token: $token) {
+        ...BlogPageView
+        ...BlogPageViewInner
+    }
+}
+
+query BlogLiveView($slug: String) {
+    page(slug: $slug) {
+        ...BlogPageView
+        ...BlogPageViewInner
+    }
+}

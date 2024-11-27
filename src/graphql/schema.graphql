@@ -1,0 +1,1353 @@
+schema {
+  query: Query
+}
+
+type BlockQuoteBlock implements StreamFieldInterface {
+  blockType: String!
+  field: String!
+  id: String
+  rawValue: String!
+  value: String!
+}
+
+type BlogPage implements PageInterface {
+  aliasOf: Page
+  aliases: [Page!]!
+  ancestors(
+    """Filter by ID"""
+    id: ID
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
+    inMenu: Boolean
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+  ): [PageInterface!]!
+  blogDate: String
+  blogpage: BlogPage
+  body: [StreamFieldInterface]
+  children(
+    """Filter by ID"""
+    id: ID
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
+    inMenu: Boolean
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+  ): [PageInterface!]!
+  contentType: String!
+  depth: Int
+  descendants(
+    """Filter by ID"""
+    id: ID
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
+    inMenu: Boolean
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+  ): [PageInterface!]!
+  draftTitle: String!
+  expireAt: DateTime
+  expired: Boolean!
+  firstPublishedAt: DateTime
+  goLiveAt: DateTime
+  hasUnpublishedChanges: Boolean!
+  id: ID
+  intro: String
+  lastPublishedAt: DateTime
+  latestRevisionCreatedAt: DateTime
+  live: Boolean!
+  locked: Boolean
+  lockedAt: DateTime
+  nextSiblings(
+    """Filter by ID"""
+    id: ID
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
+    inMenu: Boolean
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+  ): [PageInterface!]!
+  numchild: Int!
+  pageType: String
+  parent: PageInterface
+  path: String!
+  picture: Picture
+  previousSiblings(
+    """Filter by ID"""
+    id: ID
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
+    inMenu: Boolean
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+  ): [PageInterface!]!
+  searchDescription: String
+  searchScore: Float
+  seoTitle: String!
+  showInMenus: Boolean!
+  siblings(
+    """Filter by ID"""
+    id: ID
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
+    inMenu: Boolean
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+  ): [PageInterface!]!
+  sitesRootedHere: [SiteObjectType!]!
+  slug: String!
+  tffuncgroup: TFFuncGroup
+  thumb: TFImage
+  title: String!
+  translationKey: UUID!
+  url: String
+  urlPath: String!
+}
+
+type BooleanBlock implements StreamFieldInterface {
+  blockType: String!
+  field: String!
+  id: String
+  rawValue: String!
+  value: Boolean!
+}
+
+type CharBlock implements StreamFieldInterface {
+  blockType: String!
+  field: String!
+  id: String
+  rawValue: String!
+  value: String!
+}
+
+type ChoiceBlock implements StreamFieldInterface {
+  blockType: String!
+  choices: [ChoiceOption!]!
+  field: String!
+  id: String
+  rawValue: String!
+  value: String!
+}
+
+type ChoiceOption {
+  key: String!
+  value: String!
+}
+
+"""Collection type"""
+type CollectionObjectType {
+  ancestors: [CollectionObjectType]!
+  depth: Int!
+  descendants: [CollectionObjectType]!
+  id: ID!
+  name: String!
+  numchild: Int!
+  path: String!
+}
+
+type DateBlock implements StreamFieldInterface {
+  blockType: String!
+  field: String!
+  id: String
+  rawValue: String!
+  value(format: String): String!
+}
+
+"""
+The `DateTime` scalar type represents a DateTime
+value as specified by
+[iso8601](https://en.wikipedia.org/wiki/ISO_8601).
+"""
+scalar DateTime
+
+type DateTimeBlock implements StreamFieldInterface {
+  blockType: String!
+  field: String!
+  id: String
+  rawValue: String!
+  value(format: String): String!
+}
+
+type DecimalBlock implements StreamFieldInterface {
+  blockType: String!
+  field: String!
+  id: String
+  rawValue: String!
+  value: Float!
+}
+
+type DocumentChooserBlock implements StreamFieldInterface {
+  blockType: String!
+  document: DocumentObjectType
+  field: String!
+  id: String
+  rawValue: String!
+}
+
+"""
+Base document type used if one isn't generated for the current model.
+All other node types extend this.
+"""
+type DocumentObjectType {
+  collection: CollectionObjectType!
+  createdAt: DateTime!
+  file: String!
+  fileHash: String!
+  fileSize: Int
+  id: ID!
+  tags: [TagObjectType!]!
+  title: String!
+  url: String!
+}
+
+type EmailBlock implements StreamFieldInterface {
+  blockType: String!
+  field: String!
+  id: String
+  rawValue: String!
+  value: String!
+}
+
+type EmbedBlock implements StreamFieldInterface {
+  blockType: String!
+  embed: String
+  field: String!
+  id: String
+  rawEmbed: JSONString
+  rawValue: String!
+  url: String!
+  value: String!
+}
+
+type FloatBlock implements StreamFieldInterface {
+  blockType: String!
+  field: String!
+  id: String
+  rawValue: String!
+  value: Float!
+}
+
+type HeadingBlock implements StreamFieldInterface {
+  blockType: String!
+  blocks: [StreamFieldInterface!]!
+  field: String!
+  id: String
+  importance: String
+  rawValue: String!
+  text: String
+}
+
+type ImageBlock implements StreamFieldInterface {
+  alignment: String
+  blockType: String!
+  blocks: [StreamFieldInterface!]!
+  caption: String
+  field: String!
+  id: String
+  image: TFImage
+  link: String
+  rawValue: String!
+}
+
+type ImageChooserBlock implements StreamFieldInterface {
+  blockType: String!
+  field: String!
+  id: String
+  image: TFImage
+  rawValue: String!
+}
+
+type IntegerBlock implements StreamFieldInterface {
+  blockType: String!
+  field: String!
+  id: String
+  rawValue: String!
+  value: Int!
+}
+
+"""
+Allows use of a JSON String for input / output from the GraphQL schema.
+
+Use of this type is *not recommended* as you lose the benefits of having a defined, static
+schema (one of the key benefits of GraphQL).
+"""
+scalar JSONString
+
+type ListBlock implements StreamFieldInterface {
+  blockType: String!
+  field: String!
+  id: String
+  items: [StreamFieldInterface!]!
+  rawValue: String!
+}
+
+"""
+Base Page type used if one isn't generated for the current model.
+All other node types extend this.
+"""
+type Page implements PageInterface {
+  aliasOf: Page
+  aliases: [Page!]!
+  ancestors(
+    """Filter by ID"""
+    id: ID
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
+    inMenu: Boolean
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+  ): [PageInterface!]!
+  blogpage: BlogPage
+  children(
+    """Filter by ID"""
+    id: ID
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
+    inMenu: Boolean
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+  ): [PageInterface!]!
+  contentType: String!
+  depth: Int
+  descendants(
+    """Filter by ID"""
+    id: ID
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
+    inMenu: Boolean
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+  ): [PageInterface!]!
+  draftTitle: String!
+  expireAt: DateTime
+  expired: Boolean!
+  firstPublishedAt: DateTime
+  goLiveAt: DateTime
+  hasUnpublishedChanges: Boolean!
+  id: ID
+  lastPublishedAt: DateTime
+  latestRevisionCreatedAt: DateTime
+  live: Boolean!
+  locked: Boolean
+  lockedAt: DateTime
+  nextSiblings(
+    """Filter by ID"""
+    id: ID
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
+    inMenu: Boolean
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+  ): [PageInterface!]!
+  numchild: Int!
+  pageType: String
+  parent: PageInterface
+  path: String!
+  picture: Picture
+  previousSiblings(
+    """Filter by ID"""
+    id: ID
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
+    inMenu: Boolean
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+  ): [PageInterface!]!
+  searchDescription: String
+  searchScore: Float
+  seoTitle: String!
+  showInMenus: Boolean!
+  siblings(
+    """Filter by ID"""
+    id: ID
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
+    inMenu: Boolean
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+  ): [PageInterface!]!
+  sitesRootedHere: [SiteObjectType!]!
+  slug: String!
+  tffuncgroup: TFFuncGroup
+  title: String!
+  translationKey: UUID!
+  url: String
+  urlPath: String!
+}
+
+type PageChooserBlock implements StreamFieldInterface {
+  blockType: String!
+  field: String!
+  id: String
+  page: PageInterface
+  rawValue: String!
+}
+
+interface PageInterface {
+  ancestors(
+    """Filter by ID"""
+    id: ID
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
+    inMenu: Boolean
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+  ): [PageInterface!]!
+  children(
+    """Filter by ID"""
+    id: ID
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
+    inMenu: Boolean
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+  ): [PageInterface!]!
+  contentType: String!
+  depth: Int
+  descendants(
+    """Filter by ID"""
+    id: ID
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
+    inMenu: Boolean
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+  ): [PageInterface!]!
+  firstPublishedAt: DateTime
+  id: ID
+  lastPublishedAt: DateTime
+  live: Boolean!
+  locked: Boolean
+  nextSiblings(
+    """Filter by ID"""
+    id: ID
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
+    inMenu: Boolean
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+  ): [PageInterface!]!
+  pageType: String
+  parent: PageInterface
+  previousSiblings(
+    """Filter by ID"""
+    id: ID
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
+    inMenu: Boolean
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+  ): [PageInterface!]!
+  searchDescription: String
+  searchScore: Float
+  seoTitle: String!
+  showInMenus: Boolean!
+  siblings(
+    """Filter by ID"""
+    id: ID
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
+    inMenu: Boolean
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+  ): [PageInterface!]!
+  slug: String!
+  title: String!
+  url: String
+  urlPath: String!
+}
+
+type Picture implements PageInterface {
+  aliasOf: Page
+  aliases: [Page!]!
+  ancestors(
+    """Filter by ID"""
+    id: ID
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
+    inMenu: Boolean
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+  ): [PageInterface!]!
+  blogpage: BlogPage
+  children(
+    """Filter by ID"""
+    id: ID
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
+    inMenu: Boolean
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+  ): [PageInterface!]!
+  contentType: String!
+  depth: Int
+  descendants(
+    """Filter by ID"""
+    id: ID
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
+    inMenu: Boolean
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+  ): [PageInterface!]!
+  draftTitle: String!
+  expireAt: DateTime
+  expired: Boolean!
+  firstPublishedAt: DateTime
+  goLiveAt: DateTime
+  hasUnpublishedChanges: Boolean!
+  id: ID
+  lastPublishedAt: DateTime
+  latestRevisionCreatedAt: DateTime
+  live: Boolean!
+  locked: Boolean
+  lockedAt: DateTime
+  nextSiblings(
+    """Filter by ID"""
+    id: ID
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
+    inMenu: Boolean
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+  ): [PageInterface!]!
+  numchild: Int!
+  pageType: String
+  parent: PageInterface
+  path: String!
+  picture: Picture
+  previousSiblings(
+    """Filter by ID"""
+    id: ID
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
+    inMenu: Boolean
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+  ): [PageInterface!]!
+  searchDescription: String
+  searchScore: Float
+  seoTitle: String!
+  showInMenus: Boolean!
+  siblings(
+    """Filter by ID"""
+    id: ID
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
+    inMenu: Boolean
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+  ): [PageInterface!]!
+  sitesRootedHere: [SiteObjectType!]!
+  slug: String!
+  tffuncgroup: TFFuncGroup
+  title: String!
+  translationKey: UUID!
+  url: String
+  urlPath: String!
+}
+
+"""GraphQL type for an integer that must be equal or greater than zero."""
+scalar PositiveInt
+
+type Query {
+  collections(
+    """Filter by ID"""
+    id: ID
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+  ): [CollectionObjectType]!
+  document(id: ID): DocumentObjectType
+  documentType: String!
+  documents(
+    """Filter by collection id"""
+    collection: ID
+    """Filter by ID"""
+    id: ID
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+  ): [DocumentObjectType!]!
+  image(id: ID): TFImage
+  imageType: String!
+  images(
+    """Filter by collection id"""
+    collection: ID
+    """Filter by ID"""
+    id: ID
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+  ): [TFImage!]!
+  page(
+    """
+    Filter by content type using the app.ModelName notation. e.g. `myapp.BlogPage`
+    """
+    contentType: String
+    id: ID
+    """Filter to pages in the current site only."""
+    inSite: Boolean = false
+    """Filter to pages in the give site."""
+    site: String
+    slug: String
+    """
+    Filter by preview token as passed by the `wagtail-headless-preview` package.
+    """
+    token: String
+    """
+    Filter by url path. Note: in a multi-site setup, returns the first available page based. Use `inSite: true` from the relevant site domain.
+    """
+    urlPath: String
+  ): PageInterface
+  pages(
+    """Filter to pages that are descendants of the given page."""
+    ancestor: ID
+    """
+    Filter by content type. Uses the `app.Model` notation. Accepts a comma separated list of content types.
+    """
+    contentType: String
+    """Filter by ID"""
+    id: ID
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
+    inMenu: Boolean
+    """Filter to pages in the current site only."""
+    inSite: Boolean = false
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+    """
+    Filter to pages that are children of the given page. When using both `parent` and `ancestor`, then `parent` will take precendence.
+    """
+    parent: ID
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+    """Filter to pages in the give site."""
+    site: String
+  ): [PageInterface!]!
+  redirects: [Redirect!]!
+  search(query: String): [Search!]!
+  site(hostname: String, id: ID): SiteObjectType
+  sites(
+    """Filter by ID"""
+    id: ID
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+  ): [SiteObjectType!]!
+  snippets: [SnippetInterface!]!
+  tag(id: ID): TagObjectType
+  tags(
+    """Filter by ID"""
+    id: ID
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+  ): [TagObjectType!]!
+}
+
+type QuoteBlock implements StreamFieldInterface {
+  attribution: String
+  blockType: String!
+  blocks: [StreamFieldInterface!]!
+  field: String!
+  id: String
+  quote: String
+  rawValue: String!
+}
+
+type RawHTMLBlock implements StreamFieldInterface {
+  blockType: String!
+  field: String!
+  id: String
+  rawValue: String!
+  value: String!
+}
+
+type Redirect {
+  isPermanent: Boolean!
+  newUrl: String
+  oldPath: String!
+  oldUrl: String!
+  page: PageInterface
+  site: SiteObjectType!
+}
+
+type RegexBlock implements StreamFieldInterface {
+  blockType: String!
+  field: String!
+  id: String
+  rawValue: String!
+  value: String!
+}
+
+type RichTextBlock implements StreamFieldInterface {
+  blockType: String!
+  field: String!
+  id: String
+  rawValue: String!
+  value: String!
+}
+
+union Search = BlogPage | Page | Picture | TFFuncGroup | TFImage | TFRendition
+
+"""Enum for search operator."""
+enum SearchOperatorEnum {
+  AND
+  OR
+}
+
+type SiteObjectType {
+  hostname: String!
+  id: ID!
+  """
+  If true, this site will handle requests for all other hostnames that do not have a site entry of their own
+  """
+  isDefaultSite: Boolean!
+  page(contentType: String, id: ID, slug: String, token: String, urlPath: String): PageInterface
+  pages(
+    """Filter by content type. Uses the `app.Model` notation."""
+    contentType: String
+    """Filter by ID"""
+    id: ID
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
+    inMenu: Boolean
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+  ): [PageInterface!]!
+  """
+  Set this to something other than 80 if you need a specific port number to appear in URLs (e.g. development on port 8000). Does not affect request handling (so port forwarding still works).
+  """
+  port: Int!
+  rootPage: Page!
+  """Human-readable name for the site."""
+  siteName: String!
+}
+
+type SnippetChooserBlock implements StreamFieldInterface {
+  blockType: String!
+  field: String!
+  id: String
+  rawValue: String!
+  snippet: SnippetInterface
+}
+
+interface SnippetInterface {
+  contentType: String!
+  snippetType: String!
+}
+
+type StaticBlock implements StreamFieldInterface {
+  blockType: String!
+  field: String!
+  id: String
+  rawValue: String!
+  value: String!
+}
+
+type StreamBlock implements StreamFieldInterface {
+  blockType: String!
+  blocks: [StreamFieldInterface!]!
+  field: String!
+  id: String
+  rawValue: String!
+}
+
+type StreamFieldBlock implements StreamFieldInterface {
+  blockType: String!
+  field: String!
+  id: String
+  rawValue: String!
+  value: String!
+}
+
+interface StreamFieldInterface {
+  blockType: String!
+  field: String!
+  id: String
+  rawValue: String!
+}
+
+type StructBlock implements StreamFieldInterface {
+  blockType: String!
+  blocks: [StreamFieldInterface!]!
+  field: String!
+  id: String
+  rawValue: String!
+}
+
+type TFFuncGroup implements PageInterface {
+  aliasOf: Page
+  aliases: [Page!]!
+  ancestors(
+    """Filter by ID"""
+    id: ID
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
+    inMenu: Boolean
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+  ): [PageInterface!]!
+  blogpage: BlogPage
+  children(
+    """Filter by ID"""
+    id: ID
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
+    inMenu: Boolean
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+  ): [PageInterface!]!
+  contentType: String!
+  depth: Int
+  descendants(
+    """Filter by ID"""
+    id: ID
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
+    inMenu: Boolean
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+  ): [PageInterface!]!
+  draftTitle: String!
+  expireAt: DateTime
+  expired: Boolean!
+  firstPublishedAt: DateTime
+  goLiveAt: DateTime
+  hasUnpublishedChanges: Boolean!
+  id: ID
+  lastPublishedAt: DateTime
+  latestRevisionCreatedAt: DateTime
+  live: Boolean!
+  locked: Boolean
+  lockedAt: DateTime
+  nextSiblings(
+    """Filter by ID"""
+    id: ID
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
+    inMenu: Boolean
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+  ): [PageInterface!]!
+  numchild: Int!
+  pageType: String
+  parent: PageInterface
+  path: String!
+  picture: Picture
+  previousSiblings(
+    """Filter by ID"""
+    id: ID
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
+    inMenu: Boolean
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+  ): [PageInterface!]!
+  searchDescription: String
+  searchScore: Float
+  seoTitle: String!
+  showInMenus: Boolean!
+  siblings(
+    """Filter by ID"""
+    id: ID
+    """
+    Filter pages by Page.show_in_menus property. That is, the 'show in menus' checkbox is checked in the page editor.
+    """
+    inMenu: Boolean
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+  ): [PageInterface!]!
+  sitesRootedHere: [SiteObjectType!]!
+  slug: String!
+  tffuncgroup: TFFuncGroup
+  title: String!
+  translationKey: UUID!
+  url: String
+  urlPath: String!
+}
+
+type TFImage {
+  aspectRatio: Float!
+  collection: CollectionObjectType!
+  createdAt: DateTime!
+  file: String!
+  fileHash: String!
+  fileSize: Int
+  focalPointHeight: Int
+  focalPointWidth: Int
+  focalPointX: Int
+  focalPointY: Int
+  height: Int!
+  id: ID
+  isSvg: Boolean!
+  rendition(
+    bgcolor: String
+    fill: String
+    format: String
+    height: Int
+    jpegquality: Int
+    max: String
+    min: String
+    """
+    Prevents raster image operations (e.g. `format-webp`, `bgcolor`, etc.) being applied to SVGs. More info: https://docs.wagtail.org/en/stable/topics/images.html#svg-images
+    """
+    preserveSvg: Boolean
+    webpquality: Int
+    width: Int
+  ): TFRendition
+  sizes: String!
+  src: String! @deprecated(reason: "Use the `url` attribute")
+  srcSet(
+    format: String
+    """
+    Prevents raster image operations (e.g. `format-webp`, `bgcolor`, etc.) being applied to SVGs. More info: https://docs.wagtail.org/en/stable/topics/images.html#svg-images
+    """
+    preserveSvg: Boolean
+    sizes: [Int]
+  ): String
+  tags: [TagObjectType!]!
+  title: String!
+  url: String!
+  width: Int!
+}
+
+type TFRendition {
+  alt: String!
+  backgroundPositionStyle: String!
+  file: String!
+  filterSpec: String!
+  focalPoint: String
+  focalPointKey: String!
+  height: Int!
+  id: ID
+  image: TFImage!
+  url: String!
+  width: Int!
+}
+
+type TFStreamBlocks implements StreamFieldInterface {
+  blockType: String!
+  blocks: [StreamFieldInterface!]!
+  field: String!
+  id: String
+  rawValue: String!
+}
+
+type TagObjectType {
+  id: ID!
+  name: String!
+}
+
+type TextBlock implements StreamFieldInterface {
+  blockType: String!
+  field: String!
+  id: String
+  rawValue: String!
+  value: String!
+}
+
+type TimeBlock implements StreamFieldInterface {
+  blockType: String!
+  field: String!
+  id: String
+  rawValue: String!
+  value(format: String): String!
+}
+
+type URLBlock implements StreamFieldInterface {
+  blockType: String!
+  field: String!
+  id: String
+  rawValue: String!
+  value: String!
+}
+
+"""
+Leverages the internal Python implementation of UUID (uuid.UUID) to provide native UUID objects
+in fields, resolvers and input.
+"""
+scalar UUID

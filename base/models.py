@@ -82,16 +82,6 @@ def urlpthn(weirdPath: str) -> str:
 
 RES_FROM_REND = re.compile(r'^\D{4,5}-(\d{1,8})\D(\d{1,8})')
 
-
-def rfr(rnd: str) -> tuple[int, int]:
-    """
-    get resolution from rendition (i believe i could, so)
-    """
-    global RES_FROM_REND
-    m = re.match(RES_FROM_REND, rnd)
-    return m
-
-
 def img_obj(r: AbstractRendition):
     return {'url': r.full_url, 'res': [r.width, r.height]}
 
@@ -104,7 +94,7 @@ class TFRenditionGroup:
 
     def rendition_set(
         self, image: TFImage, rset: dict[str, str] = {}
-    ) -> dict[str, str]:
+    ) -> dict[str, dict[str, str]]:
         return dict((k, img_obj(image.get_rendition(v))) for k, v in (rset).items()) | {
             'default/full': {
                 'url': urlpthn('/media/' + image.get_upload_to(image.filename)),

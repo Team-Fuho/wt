@@ -1,4 +1,4 @@
-from .base import *
+from .base import *  # noqa: F403
 
 import os
 from urllib.parse import urlparse
@@ -17,34 +17,12 @@ os.environ.setdefault('DJANGO_DEBUG', 'False')
 
 DEBUG = False or (os.environ['DJANGO_DEBUG'] == 'True')
 
-if SECRET_KEY == '':
+if SECRET_KEY == '':  # noqa: F405
     print('no SECRET_KEY env')
     exit(1)
 
-DATABASES = DATABASES
-WAGTAILSEARCH_BACKENDS = WAGTAILSEARCH_BACKENDS
-
-if os.environ.get('DATABASE') is not None:
-    try:
-        DATABASE_ENVIRON = urlparse(os.environ['DATABASE'])
-        if DATABASE_ENVIRON.scheme == 'mysql':
-            DATABASES |= {
-                'default': {
-                    'ENGINE': 'django.db.backends.mysql',
-                    'NAME': DATABASE_ENVIRON.path.replace('/', '') or 'wagtail',
-                    'USER': DATABASE_ENVIRON.username or 'root',
-                    'PASSWORD': DATABASE_ENVIRON.password or '',
-                    'HOST': DATABASE_ENVIRON.hostname or 'localhost',
-                    'PORT': int(DATABASE_ENVIRON.port or 3306) or 3306,
-                },
-            }
-        else:
-            print('DATABASE environment unknown scheme', DATABASE_ENVIRON.scheme)
-    except ValueError:
-        print('DATABASE environment variable invalid')
-else:
-    print('Did not tried using DATABASE despite tried to load PRODUCTION config')
-
+DATABASES = DATABASES  # noqa: F405
+WAGTAILSEARCH_BACKENDS = WAGTAILSEARCH_BACKENDS  # noqa: F405
 
 if os.environ['OPENSEARCH_HOST'] is not None:
     WAGTAILSEARCH_BACKENDS = {
@@ -63,6 +41,6 @@ else:
 ALLOWED_HOSTS = ['*']
 
 try:
-    from .local import *
+    from .local import * # type: ignore  # noqa: F403
 except ImportError:
     pass

@@ -1,7 +1,15 @@
 from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
+from grapple.helpers import register_streamfield_block
+
+from grapple.models import (
+    GraphQLImage,
+    GraphQLString,
+    GraphQLForeignKey,
+)
 
 
+@register_streamfield_block
 class HeadingBlock(blocks.StructBlock):
     text = blocks.CharBlock(classname='title')
     importance = blocks.ChoiceBlock(
@@ -16,11 +24,14 @@ class HeadingBlock(blocks.StructBlock):
         default='h1',
     )
 
+    graphql_fields = [GraphQLString('text'), GraphQLString('importance')]
+
     class Meta:
         icon = 'title'
         template = 'base/heading_block.html'
 
 
+@register_streamfield_block
 class ImageBlock(blocks.StructBlock):
     image = ImageChooserBlock()
     caption = blocks.CharBlock(required=False)
@@ -34,20 +45,31 @@ class ImageBlock(blocks.StructBlock):
         default='left',
     )
 
+    graphql_fields = [
+        GraphQLImage('image'),
+        GraphQLString('caption'),
+        GraphQLString('link'),
+        GraphQLString('alignment'),
+    ]
+
     class Meta:
         icon = 'image'
         template = 'base/image_block.html'
 
 
+@register_streamfield_block
 class QuoteBlock(blocks.StructBlock):
     quote = blocks.CharBlock(form_classname='title')
     attribution = blocks.CharBlock(required=False)
+
+    graphql_fields = [GraphQLString('quote'), GraphQLString('attribution')]
 
     class Meta:
         icon = 'openquote'
         template = 'base/quote_block.html'
 
 
+@register_streamfield_block
 class TFStreamBlocks(blocks.StreamBlock):
     rich_text = blocks.RichTextBlock()
     heading = HeadingBlock()

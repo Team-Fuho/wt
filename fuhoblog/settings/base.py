@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import dj_database_url
 import dotenv
 
 dotenv.load_dotenv()
@@ -36,7 +37,7 @@ SECRET_KEY = os.environ.setdefault('SECRET_KEY', '')
 
 INSTALLED_APPS = [
     # "wagtail_wordpress_import",
-    "base",
+    'base',
     # MVC stuff
     'blog',
     'gallery',
@@ -51,7 +52,10 @@ INSTALLED_APPS = [
     # API engine
     'rest_framework',
     'wagtail.api.v2',
+    'grapple',
+    'graphene_django',
     # Whatever
+    'wagtail_headless_preview',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.embeds',
@@ -114,10 +118,9 @@ WSGI_APPLICATION = 'fuhoblog.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    'default': dj_database_url.config(
+        default='sqlite://./db.sqlite3', conn_max_age=600, conn_health_checks=True
+    )
 }
 
 
@@ -231,10 +234,25 @@ WAGTAILADMIN_RICH_TEXT_EDITORS = {
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-WAGTAILADMIN_BASE_URL = os.environ.setdefault("API_BASE", "http://example.com")
+WAGTAILADMIN_BASE_URL = os.environ.setdefault('API_BASE', 'http://localhost:8000')
+BASE_URL=WAGTAILADMIN_BASE_URL
 WAGTAIL_ALLOW_UNICODE_SLUGS = False
 WAGTAIL_USAGE_COUNT_ENABLED = True
 
 WAGTAIL_DATE_FORMAT = '%d.%m.%Y.'
 WAGTAIL_DATETIME_FORMAT = '%d.%m.%Y. %H:%M'
 WAGTAIL_TIME_FORMAT = '%H:%M'
+
+GRAPHENE = {'SCHEMA': 'grapple.schema.schema'}
+GRAPPLE = {
+    'APPS': ['base', 'blog', 'gallery'],
+}
+
+WAGTAIL_HEADLESS_PREVIEW = {
+    'CLIENT_URLS': {
+        'default': os.environ.setdefault('PREVIEW_BASE', 'https://teamfuho.net')
+    },
+    'SERVE_BASE_URL': None,
+    'REDIRECT_ON_PREVIEW': False,  # set to True to redirect to the preview instead of using the Wagtail default mechanism
+    'ENFORCE_TRAILING_SLASH': True,  # set to False in order to disable the trailing slash enforcement
+}

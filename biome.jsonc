@@ -1,26 +1,29 @@
 {
-    "$schema": "https://biomejs.dev/schemas/1.8.1/schema.json",
-    "files": {
-        "include": ["src/**/*"]
-    },
-    "organizeImports": {
-        "enabled": false
-    },
-    "linter": {
-        "enabled": true,
-        "ignore": ["src/archive/**/*"],
-        "rules": {
-            "recommended": true
-        }
-    },
-    "formatter": {
-        "indentWidth": 4,
-        "indentStyle": "space",
-        "lineEnding": "crlf"
-    },
-    "javascript": {
-        "formatter": {
-            "semicolons": "asNeeded"
-        }
+  "$schema": "https://biomejs.dev/schemas/1.8.1/schema.json",
+  "files": {
+    "include": ["src/**/*"]
+  },
+  "organizeImports": {
+    "enabled": false
+  },
+  "linter": {
+    "enabled": true,
+    "ignore": ["src/graphql/**/*"],
+    "rules": {
+      "recommended": true
     }
+  },
+  "formatter": {
+    "indentWidth": 2,
+    "indentStyle": "space",
+    "lineEnding": "crlf",
+    "ignore": ["src/graphql/**/*"]
+  },
+  "javascript": {
+    "formatter": {
+      "semicolons": "asNeeded",
+      "trailingCommas": "none",
+      "quoteStyle": "single"
+    }
+  }
 }

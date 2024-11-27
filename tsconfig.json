@@ -1,17 +1,18 @@
 {
-	"compilerOptions": {
-		"module": "CommonJS",
-		"target": "ESNext",
-		"declaration": true,
-		"outDir": "./dist",
-		"sourceMap": true
-	},
-	"include": [
-		"**/*"
-	],
-	"exclude": [
-		"**/*.spec.ts",
-		"dist/**/*",
-		"**/*.legacy.*"
-	]
+  "compilerOptions": {
+    "module": "CommonJS",
+    "target": "ESNext",
+    "declaration": true,
+    "outDir": "./dist",
+    "inlineSourceMap": true,
+    "emitDeclarationOnly": true,
+    "plugins": [
+      {
+        "name": "@0no-co/graphqlsp",
+        "schema": "./src/graphql/schema.graphql"
+      }
+    ]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["**/*.spec.ts", "dist/**/*", "**/*.legacy.*"]
 }

@@ -1,6 +1,5 @@
 from django.db import models
 from wagtail.models import Page
-from wagtail.fields import RichTextField
 from wagtail.fields import StreamField
 from wagtail.admin.panels import (
     FieldPanel,
@@ -9,6 +8,7 @@ from wagtail.admin.panels import (
 )
 from wagtail.api import APIField
 from wagtail.search import index
+from wagtail_headless_preview.models import HeadlessPreviewMixin
 
 from base.models import TFImage, TFRenditionGroup
 from base.blocks import TFStreamBlocks
@@ -16,9 +16,18 @@ from base.blocks import TFStreamBlocks
 # from wagtail_wordpress_import.blocks import WPImportStreamBlocks
 # from wagtail_wordpress_import.models import WPImportedPageMixin
 
+from grapple.models import (
+    GraphQLRichText,
+    GraphQLString,
+    GraphQLStreamfield,
+    GraphQLImage,
+    GraphQLForeignKey,
+)
+
 
 class BlogPage(
     # WPImportedPageMixin,
+    HeadlessPreviewMixin,
     Page,
     TFRenditionGroup,
 ):
@@ -27,7 +36,6 @@ class BlogPage(
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name='+',
     )
 
     intro = models.CharField(max_length=250, blank=True)
@@ -63,13 +71,17 @@ class BlogPage(
 
     @property
     def thumbnail_set(self):
-        return self.rendition_set(
-            self.thumb,
-            TFRenditionGroup.base
-            | {
-                'featured/large': 'fill-740x324',
-                'featured/medium': 'fill-316x178|jpegquality-75',
-            },
+        return (
+            self.rendition_set(
+                self.thumb,
+                TFRenditionGroup.base
+                | {
+                    'featured/large': 'fill-740x324',
+                    'featured/medium': 'fill-316x178|jpegquality-75',
+                },
+            )
+            if self.thumb is not None
+            else []
         )
 
     api_fields = [
@@ -80,6 +92,13 @@ class BlogPage(
         # APIField(
         #     'authors'
         # ),  # This will nest the relevant BlogPageAuthor objects in the API response
+    ]
+
+    graphql_fields = [
+        GraphQLStreamfield('body'),
+        GraphQLString('intro'),
+        GraphQLString('blog_date'),
+        GraphQLImage('thumb'),
     ]
 
     # def import_wordpress_data(self, data):

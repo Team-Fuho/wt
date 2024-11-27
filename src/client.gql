@@ -3,6 +3,13 @@ fragment BlogPageView on BlogPage {
     slug
     title
     seoTitle
+    thumb {
+        id
+        rendition(width: 1920, height: 1080, format: "webp") {
+            id
+            url
+        }
+    }
 }
 
 fragment BlogPageViewInner on BlogPage {
@@ -40,7 +47,6 @@ query BlogListView {
     }
 }
 
-# To preview with a token using torchbox/wagtail-headless preivew
 query BlogPreviewView($token: String) {
     page(id: 0, token: $token) {
         ...BlogPageView
@@ -48,7 +54,6 @@ query BlogPreviewView($token: String) {
     }
 }
 
-# To serve article through slug
 query BlogLiveView($slug: String) {
     page(slug: $slug) {
         ...BlogPageView

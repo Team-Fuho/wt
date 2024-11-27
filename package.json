@@ -1,6 +1,6 @@
 {
   "name": "@team-fuho/wt",
-  "version": "1.4.0",
+  "version": "2.0.0",
   "description": "",
   "type": "commonjs",
   "main": "src/index.ts",
@@ -10,14 +10,24 @@
   "scripts": {
     "fmt": "biome check --fix",
     "test": "biome lint && vitest --run --typecheck",
-    "build": "tsc"
+    "build": "tsc && esbuild src/index.ts --bundle --sourcemap --target=es6 --platform=neutral --minify --outfile=dist/index.js",
+    "schema": "gql-gen --config codegen.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@0no-co/graphqlsp": "^1.12.16",
     "@biomejs/biome": "1.8.1",
-    "typescript": "^5.4.5",
-    "vitest": "^1.6.0"
+    "@graphql-codegen/cli": "^5.0.3",
+    "@graphql-codegen/schema-ast": "^4.1.0",
+    "esbuild": "^0.24.0",
+    "graphql-codegen-typescript-client": "0.18.2",
+    "graphql-codegen-typescript-common": "0.18.2",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "@graphql-typed-document-node/core": "^3.2.0",
+    "graphql-request": "^7.1.2"
   }
 }

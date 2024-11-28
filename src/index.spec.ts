@@ -1,9 +1,9 @@
-import { BlogQueries } from './index'
+import WTClient from './index'
 
 // Usage example
 async function exampleUsage() {
   // Configuration with multiple options
-  const blogQueries = new BlogQueries({
+  const blogQueries = new WTClient({
     endpoint: 'http://localhost:8000/api/graphql/',
     headers: {
       'Custom-Header': 'CustomValue'
@@ -16,13 +16,12 @@ async function exampleUsage() {
 
     // Get preview with token
     const blogPreview = await blogQueries.getBlogPreview(
-      'id=62:1tFtcq:yZgGvM8QuYZsSyiGVihtqSJy8qRaNjeRJvIOYxUwxr8your-preview-token'
+      'id=62:1tFtcq:ExamplenExamplesSyiGVihtqSJy8qRaNjeRJvIOYxUwxr8your-preview-token'
     )
 
     // Get live blog by slug
     const liveBlog = await blogQueries.getBlogBySlug(
       'tfh-album-anh-cua-team-fuho-ki-1'
-
     )
 
     return { blogList, blogPreview, liveBlog }

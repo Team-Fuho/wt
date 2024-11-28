@@ -11,6 +11,16 @@ from wagtail.search import index
 
 # keep the definition of BlogIndexPage model, and add the BlogPage model:
 
+from grapple.models import (
+    GraphQLRichText,
+    GraphQLString,
+    GraphQLStreamfield,
+    GraphQLImage,
+    GraphQLForeignKey,
+    GraphQLInt,
+)
+
+
 class Picture(HeadlessMixin, Page, TFRenditionGroup):
     image = models.ForeignKey(
         TFImage,
@@ -56,4 +66,10 @@ class Picture(HeadlessMixin, Page, TFRenditionGroup):
         # APIField(
         #     'authors'
         # ),  # This will nest the relevant BlogPageAuthor objects in the API response
+    ]
+
+    graphql_fields = [
+        GraphQLString('cap'),
+        GraphQLImage('image'),
+        GraphQLString('image_date'),
     ]

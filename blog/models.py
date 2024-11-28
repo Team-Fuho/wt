@@ -17,11 +17,9 @@ from base.blocks import TFStreamBlocks
 # from wagtail_wordpress_import.models import WPImportedPageMixin
 
 from grapple.models import (
-    GraphQLRichText,
     GraphQLString,
     GraphQLStreamfield,
     GraphQLImage,
-    GraphQLForeignKey,
 )
 
 

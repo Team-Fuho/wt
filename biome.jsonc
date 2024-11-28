@@ -1,7 +1,7 @@
 {
   "$schema": "https://biomejs.dev/schemas/1.8.1/schema.json",
   "files": {
-    "include": ["src/**/*"]
+    "include": ["src/**/*", "!src/graphql/**/*"]
   },
   "organizeImports": {
     "enabled": false

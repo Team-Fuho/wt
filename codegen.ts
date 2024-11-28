@@ -7,8 +7,14 @@ const config: CodegenConfig = {
   generates: {
     './src/graphql/': {
       preset: 'client',
+      presetConfig: {
+        persistedDocuments: true,
+        fragmentMasking: false,
+      },
       config: {
-        documentMode: 'string'
+        documentMode: 'string',
+        dedupeFragments: true,
+        constEnums: true
       }
     },
     './src/graphql/schema.graphql': {

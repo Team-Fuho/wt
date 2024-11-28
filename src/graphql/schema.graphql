@@ -679,6 +679,7 @@ type Picture implements PageInterface {
     searchQuery: String
   ): [PageInterface!]!
   blogpage: BlogPage
+  cap: String
   children(
     """Filter by ID"""
     id: ID
@@ -728,6 +729,8 @@ type Picture implements PageInterface {
   goLiveAt: DateTime
   hasUnpublishedChanges: Boolean!
   id: ID
+  image: TFImage
+  imageDate: String
   lastPublishedAt: DateTime
   latestRevisionCreatedAt: DateTime
   live: Boolean!

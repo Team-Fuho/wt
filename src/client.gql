@@ -1,62 +1,90 @@
-fragment BlogPageView on BlogPage {
+fragment BlogPageOuterView on BlogPage {
+  id
+  slug
+  title
+  seoTitle
+  thumb {
     id
-    slug
-    title
-    seoTitle
-    thumb {
-        id
-        rendition(width: 1920, height: 1080, format: "webp") {
-            id
-            url
-        }
+    rendition(width: 1920, height: 1080, format: "webp") {
+      id
+      url
     }
+  }
 }
 
-fragment BlogPageViewInner on BlogPage {
-    body {
-        ... on StreamFieldInterface {
-            blockType
-        }
-        ... on RichTextBlock {
-            value
-        }
-        ... on ImageBlock {
-            caption
-            link
-            alignment
-            image {
-                url
-                width
-                height
-            }
-        }
-        ... on QuoteBlock {
-            quote
-            attribution
-        }
-        ... on HeadingBlock {
-            text
-            importance
-        }
+fragment BlogPageInnerView on BlogPage {
+  body {
+    ... on StreamFieldInterface {
+      blockType
     }
+    ... on RichTextBlock {
+      value
+    }
+    ... on ImageBlock {
+      caption
+      link
+      alignment
+      image {
+        url
+        width
+        height
+      }
+    }
+    ... on QuoteBlock {
+      quote
+      attribution
+    }
+    ... on HeadingBlock {
+      text
+      importance
+    }
+  }
+}
+
+fragment GalleryOuterView on Picture {
+  id
+  cap
+  image {
+    id
+    url
+  }
+  imageDate
+}
+
+query GalleryListView {
+  pages(contentType: "gallery.Picture") {
+    ...GalleryOuterView
+  }
+}
+
+query GalleryPaginatedListView($offset: PositiveInt, $limit: PositiveInt) {
+  pages(contentType: "gallery.Picture", offset: $offset, limit: $limit) {
+    ...GalleryOuterView
+  }
 }
 
 query BlogListView {
-    pages(contentType: "blog.BlogPage") {
-        ...BlogPageView
-    }
+  pages(contentType: "blog.BlogPage") {
+    ...BlogPageOuterView
+  }
+}
+
+query BlogPaginatedListView($offset: PositiveInt, $limit: PositiveInt) {
+  pages(contentType: "blog.BlogPage", offset: $offset, limit: $limit) {
+    ...BlogPageOuterView
+  }
 }
 
 query BlogPreviewView($token: String) {
-    page(id: 0, token: $token) {
-        ...BlogPageView
-        ...BlogPageViewInner
-    }
+  page(id: 0, token: $token) {
+    ...BlogPageOuterView
+    ...BlogPageInnerView
+  }
 }
 
 query BlogLiveView($slug: String) {
-    page(slug: $slug) {
-        ...BlogPageView
-        ...BlogPageViewInner
-    }
+  page(slug: $slug) {
+    ...BlogPageOuterView
+    ...BlogPageInnerView
+  }
 }

@@ -1,7 +1,10 @@
 import {
+  GalleryListViewDocument,
+  GalleryPaginatedListViewDocument,
   BlogListViewDocument,
-  BlogPreviewViewDocument,
+  BlogPaginatedListViewDocument,
   BlogLiveViewDocument,
+  BlogPreviewViewDocument,
   type TypedDocumentString
 } from './graphql/graphql'
 
@@ -10,51 +13,69 @@ export interface GraphQLClientConfig {
   headers?: Record<string, string>
 }
 
-export async function execute<TResult, TVariables>(
+async function execute<TResult, TVariables>(
   config: GraphQLClientConfig,
   query: TypedDocumentString<TResult, TVariables>,
   ...[variables]: TVariables extends Record<string, never> ? [] : [TVariables]
 ): Promise<TResult> {
-  try {
-    const response = await fetch(config.endpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/graphql-response+json',
-        ...config.headers
-      },
-      body: JSON.stringify({
-        query: query.toString(),
-        variables: variables || {}
-      })
+  const response = await fetch(config.endpoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/graphql-response+json',
+      ...config.headers
+    },
+    body: JSON.stringify({
+      query: query.trim(),
+      variables: variables || {},
+      hash: query.__meta__?.hash
     })
+  })
 
-    if (!response.ok) {
-      throw new Error(
-        `WTClientError: ${response.status} ${response.statusText}`
-      )
-    }
-
-    return response.json() as TResult
-  } catch (error) {
-    console.error('WTClientError:', error)
-    throw error
+  if (!response.ok) {
+    throw new Error(
+      `WTClientRequestError: ${response.status} ${response.statusText}`
+    )
   }
+
+  return response.json() as TResult
 }
 
-export class BlogQueries {
+export default class WTClient {
   private config: GraphQLClientConfig
 
   constructor(config: GraphQLClientConfig) {
     this.config = config
   }
 
-  // List all blog pages
-  async listBlogs() {
-    return execute(this.config, BlogListViewDocument)
+  /**
+   * List all gallery image
+   */
+  async listPictures(offset?: number, limit?: number) {
+    return offset && limit
+      ? execute(this.config, GalleryPaginatedListViewDocument, {
+        offset,
+        limit
+      })
+      : execute(this.config, GalleryListViewDocument)
   }
 
-  // Get blog preview with token
+  /**
+   * List all blog page
+   */
+  async listBlogs(offset?: number, limit?: number) {
+    return offset && limit
+      ? execute(this.config, BlogPaginatedListViewDocument, {
+        offset,
+        limit
+      })
+      : execute(this.config, BlogListViewDocument)
+  }
+
+  /**
+   * Get blog view from preview token
+   * @param token urlparsed token query (added by wagtail addon)
+   */
   async getBlogPreview(token: string) {
     return execute(
       {
@@ -69,7 +90,10 @@ export class BlogQueries {
     )
   }
 
-  // Get live blog by slug
+  /**
+   * Get blog view from slug
+   * @param slug
+   */
   async getBlogBySlug(slug: string) {
     return execute(this.config, BlogLiveViewDocument, { slug })
   }

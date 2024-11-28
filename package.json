@@ -1,6 +1,6 @@
 {
   "name": "@team-fuho/wt",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "description": "powered by `wagtail`. awesome!",
   "type": "module",
   "main": "dist/index.js",

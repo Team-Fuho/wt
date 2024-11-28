@@ -55,7 +55,8 @@ export default class WTClient {
     return offset && limit
       ? execute(this.config, GalleryPaginatedListViewDocument, {
         offset,
-        limit
+        limit,
+        order: order || "id"
       })
       : execute(this.config, GalleryListViewDocument)
   }
@@ -67,7 +68,8 @@ export default class WTClient {
     return offset && limit
       ? execute(this.config, BlogPaginatedListViewDocument, {
         offset,
-        limit
+        limit,
+        order: order || "id"
       })
       : execute(this.config, BlogListViewDocument)
   }

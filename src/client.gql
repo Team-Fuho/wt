@@ -64,8 +64,17 @@ query GalleryListView {
   }
 }
 
-query GalleryPaginatedListView($offset: PositiveInt, $limit: PositiveInt) {
-  pages(contentType: "gallery.Picture", offset: $offset, limit: $limit) {
+query GalleryPaginatedListView(
+  $offset: PositiveInt
+  $limit: PositiveInt
+  $order: String
+) {
+  pages(
+    contentType: "gallery.Picture"
+    offset: $offset
+    limit: $limit
+    order: $order
+  ) {
     ...GalleryOuterView
   }
 }
@@ -76,8 +85,13 @@ query BlogListView {
   }
 }
 
-query BlogPaginatedListView($offset: PositiveInt, $limit: PositiveInt) {
-  pages(contentType: "blog.BlogPage", offset: $offset, limit: $limit) {
+query BlogPaginatedListView($offset: PositiveInt, $limit: PositiveInt, $order: String) {
+  pages(
+    contentType: "blog.BlogPage"
+    offset: $offset
+    limit: $limit
+    order: $order
+  ) {
     ...BlogPageOuterView
   }
 }

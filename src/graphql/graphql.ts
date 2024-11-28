@@ -1202,6 +1202,7 @@ export type GalleryListViewQuery = { __typename?: 'Query', pages: Array<{ __type
 export type GalleryPaginatedListViewQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['PositiveInt']['input']>;
   limit?: InputMaybe<Scalars['PositiveInt']['input']>;
+  order?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
@@ -1215,6 +1216,7 @@ export type BlogListViewQuery = { __typename?: 'Query', pages: Array<{ __typenam
 export type BlogPaginatedListViewQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['PositiveInt']['input']>;
   limit?: InputMaybe<Scalars['PositiveInt']['input']>;
+  order?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
@@ -1376,8 +1378,13 @@ fragment GalleryOuterView on Picture {
   imageDate
 }`, {"hash":"bc73a1301295701b7bb12544d5a516c075d827bc"}) as unknown as TypedDocumentString<GalleryListViewQuery, GalleryListViewQueryVariables>;
 export const GalleryPaginatedListViewDocument = new TypedDocumentString(`
-    query GalleryPaginatedListView($offset: PositiveInt, $limit: PositiveInt) {
-  pages(contentType: "gallery.Picture", offset: $offset, limit: $limit) {
+    query GalleryPaginatedListView($offset: PositiveInt, $limit: PositiveInt, $order: String) {
+  pages(
+    contentType: "gallery.Picture"
+    offset: $offset
+    limit: $limit
+    order: $order
+  ) {
     ...GalleryOuterView
   }
 }
@@ -1401,7 +1408,7 @@ fragment GalleryOuterView on Picture {
     ...DefaultImageView
   }
   imageDate
-}`, {"hash":"e2352450c578778cd6463ff762ae20b7665a654a"}) as unknown as TypedDocumentString<GalleryPaginatedListViewQuery, GalleryPaginatedListViewQueryVariables>;
+}`, {"hash":"263a1a0d428bf9f7b4341fcb405542b77c7f7765"}) as unknown as TypedDocumentString<GalleryPaginatedListViewQuery, GalleryPaginatedListViewQueryVariables>;
 export const BlogListViewDocument = new TypedDocumentString(`
     query BlogListView {
   pages(contentType: "blog.BlogPage") {
@@ -1431,8 +1438,13 @@ fragment BlogPageOuterView on BlogPage {
   }
 }`, {"hash":"e1c027ed6403289772d00fc4ab20cbb715d56dd8"}) as unknown as TypedDocumentString<BlogListViewQuery, BlogListViewQueryVariables>;
 export const BlogPaginatedListViewDocument = new TypedDocumentString(`
-    query BlogPaginatedListView($offset: PositiveInt, $limit: PositiveInt) {
-  pages(contentType: "blog.BlogPage", offset: $offset, limit: $limit) {
+    query BlogPaginatedListView($offset: PositiveInt, $limit: PositiveInt, $order: String) {
+  pages(
+    contentType: "blog.BlogPage"
+    offset: $offset
+    limit: $limit
+    order: $order
+  ) {
     ...BlogPageOuterView
   }
 }
@@ -1457,7 +1469,7 @@ fragment BlogPageOuterView on BlogPage {
   thumb {
     ...DefaultImageView
   }
-}`, {"hash":"c6a0990827dbca5252022baf9f074ed2d40c8167"}) as unknown as TypedDocumentString<BlogPaginatedListViewQuery, BlogPaginatedListViewQueryVariables>;
+}`, {"hash":"3335902d4991e2a90f463cad36363e644ad5c2d6"}) as unknown as TypedDocumentString<BlogPaginatedListViewQuery, BlogPaginatedListViewQueryVariables>;
 export const BlogPreviewViewDocument = new TypedDocumentString(`
     query BlogPreviewView($token: String) {
   page(id: 0, token: $token) {

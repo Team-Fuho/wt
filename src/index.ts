@@ -51,7 +51,7 @@ export default class WTClient {
   /**
    * List all gallery image
    */
-  async listPictures(offset?: number, limit?: number) {
+  async listPictures(offset?: number, limit?: number, order?: string) {
     return offset && limit
       ? execute(this.config, GalleryPaginatedListViewDocument, {
         offset,
@@ -63,7 +63,7 @@ export default class WTClient {
   /**
    * List all blog page
    */
-  async listBlogs(offset?: number, limit?: number) {
+  async listBlogs(offset?: number, limit?: number, order?: string) {
     return offset && limit
       ? execute(this.config, BlogPaginatedListViewDocument, {
         offset,

@@ -38,7 +38,16 @@ async function execute<TResult, TVariables>(
     )
   }
 
-  return response.json() as TResult
+  const responseObject = await response.json()
+
+  if (!response || !responseObject.data) {
+    console.log(responseObject)
+    throw new Error(
+      'WTClientRequestError: Malformed JSON data'
+    )
+  }
+
+  return responseObject.data as TResult
 }
 
 export default class WTClient {

@@ -1,14 +1,24 @@
+fragment DefaultImageView on TFImage {
+  id
+  url
+  rendition(width: 1200, height: 630, format: "jpeg", jpegquality: 85) {
+    id
+    url
+    width
+    height
+  }
+  srcSet(sizes: [768, 1080], format: "webp")
+  width
+  height
+}
+
 fragment BlogPageOuterView on BlogPage {
   id
   slug
   title
   seoTitle
   thumb {
-    id
-    rendition(width: 1920, height: 1080, format: "webp") {
-      id
-      url
-    }
+    ...DefaultImageView
   }
 }
 
@@ -25,9 +35,7 @@ fragment BlogPageInnerView on BlogPage {
       link
       alignment
       image {
-        url
-        width
-        height
+        ...DefaultImageView
       }
     }
     ... on QuoteBlock {
@@ -45,8 +53,7 @@ fragment GalleryOuterView on Picture {
   id
   cap
   image {
-    id
-    url
+    ...DefaultImageView
   }
   imageDate
 }

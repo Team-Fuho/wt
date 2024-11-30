@@ -10,6 +10,11 @@ type BlockQuoteBlock implements StreamFieldInterface {
   value: String!
 }
 
+type BlogInvolvementInfo {
+  author: TFAuthor
+  id: ID
+}
+
 type BlogPage implements PageInterface {
   aliasOf: Page
   aliases: [Page!]!
@@ -86,6 +91,7 @@ type BlogPage implements PageInterface {
   hasUnpublishedChanges: Boolean!
   id: ID
   intro: String
+  involved: BlogInvolvementInfo
   lastPublishedAt: DateTime
   latestRevisionCreatedAt: DateTime
   live: Boolean!
@@ -168,6 +174,11 @@ type BlogPage implements PageInterface {
   translationKey: UUID!
   url: String
   urlPath: String!
+}
+
+type BlogPagePaginatedType {
+  items: [BlogPage]
+  pagination: PaginationType
 }
 
 type BooleanBlock implements StreamFieldInterface {
@@ -655,6 +666,17 @@ interface PageInterface {
   urlPath: String!
 }
 
+"""GraphQL type for Paginated QuerySet pagination field."""
+type PaginationType {
+  count: PositiveInt!
+  currentPage: PositiveInt!
+  nextPage: PositiveInt
+  perPage: PositiveInt!
+  prevPage: PositiveInt
+  total: PositiveInt!
+  totalPages: PositiveInt!
+}
+
 type Picture implements PageInterface {
   aliasOf: Page
   aliases: [Page!]!
@@ -814,10 +836,40 @@ type Picture implements PageInterface {
   urlPath: String!
 }
 
+type PicturePaginatedType {
+  items: [Picture]
+  pagination: PaginationType
+}
+
 """GraphQL type for an integer that must be equal or greater than zero."""
 scalar PositiveInt
 
 type Query {
+  blog(
+    id: ID
+    """The page slug."""
+    slug: String
+    """The preview token."""
+    token: String
+    """The page url path."""
+    urlPath: String
+  ): BlogPage
+  blogs(
+    """Filter by ID"""
+    id: ID
+    """Use the Django QuerySet order_by format."""
+    order: String
+    """Page of resulting objects to return."""
+    page: PositiveInt
+    """The maximum number of items to include on a page."""
+    perPage: PositiveInt
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+  ): BlogPagePaginatedType
   collections(
     """Filter by ID"""
     id: ID
@@ -922,6 +974,31 @@ type Query {
     """Filter to pages in the give site."""
     site: String
   ): [PageInterface!]!
+  picture(
+    id: ID
+    """The page slug."""
+    slug: String
+    """The preview token."""
+    token: String
+    """The page url path."""
+    urlPath: String
+  ): Picture
+  pictures(
+    """Filter by ID"""
+    id: ID
+    """Use the Django QuerySet order_by format."""
+    order: String
+    """Page of resulting objects to return."""
+    page: PositiveInt
+    """The maximum number of items to include on a page."""
+    perPage: PositiveInt
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+  ): PicturePaginatedType
   redirects: [Redirect!]!
   search(query: String): [Search!]!
   site(hostname: String, id: ID): SiteObjectType
@@ -998,7 +1075,7 @@ type RichTextBlock implements StreamFieldInterface {
   value: String!
 }
 
-union Search = BlogPage | Page | Picture | TFFuncGroup | TFImage | TFRendition
+union Search = BlogInvolvementInfo | BlogPage | Page | Picture | TFAuthor | TFFuncGroup | TFImage | TFRendition
 
 """Enum for search operator."""
 enum SearchOperatorEnum {
@@ -1095,6 +1172,10 @@ type StructBlock implements StreamFieldInterface {
   field: String!
   id: String
   rawValue: String!
+}
+
+type TFAuthor {
+  id: ID
 }
 
 type TFFuncGroup implements PageInterface {

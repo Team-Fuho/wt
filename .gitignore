@@ -323,7 +323,8 @@ pyvenv.cfg
 pip-selfcheck.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python,virtualenv,node
-/media/
+/media/**/*
 /static/
 .coverage
+!/media/placeholder.png
 !scripts

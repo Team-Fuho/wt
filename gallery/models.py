@@ -10,17 +10,14 @@ from wagtail_headless_preview.models import HeadlessMixin
 from wagtail.search import index
 
 # keep the definition of BlogIndexPage model, and add the BlogPage model:
+from grapple.helpers import register_paginated_query_field
 
 from grapple.models import (
-    GraphQLRichText,
     GraphQLString,
-    GraphQLStreamfield,
     GraphQLImage,
-    GraphQLForeignKey,
-    GraphQLInt,
 )
 
-
+@register_paginated_query_field("picture")
 class Picture(HeadlessMixin, Page, TFRenditionGroup):
     image = models.ForeignKey(
         TFImage,

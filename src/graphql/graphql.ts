@@ -45,6 +45,12 @@ export type BlockQuoteBlock = StreamFieldInterface & {
   value: Scalars['String']['output'];
 };
 
+export type BlogInvolvementInfo = {
+  __typename?: 'BlogInvolvementInfo';
+  author?: Maybe<TfAuthor>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
 export type BlogPage = PageInterface & {
   __typename?: 'BlogPage';
   aliasOf?: Maybe<Page>;
@@ -65,6 +71,7 @@ export type BlogPage = PageInterface & {
   hasUnpublishedChanges: Scalars['Boolean']['output'];
   id?: Maybe<Scalars['ID']['output']>;
   intro?: Maybe<Scalars['String']['output']>;
+  involved?: Maybe<BlogInvolvementInfo>;
   lastPublishedAt?: Maybe<Scalars['DateTime']['output']>;
   latestRevisionCreatedAt?: Maybe<Scalars['DateTime']['output']>;
   live: Scalars['Boolean']['output'];
@@ -156,6 +163,12 @@ export type BlogPageSiblingsArgs = {
   order?: InputMaybe<Scalars['String']['input']>;
   searchOperator?: InputMaybe<SearchOperatorEnum>;
   searchQuery?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type BlogPagePaginatedType = {
+  __typename?: 'BlogPagePaginatedType';
+  items?: Maybe<Array<Maybe<BlogPage>>>;
+  pagination?: Maybe<PaginationType>;
 };
 
 export type BooleanBlock = StreamFieldInterface & {
@@ -586,6 +599,18 @@ export type PageInterfaceSiblingsArgs = {
   searchQuery?: InputMaybe<Scalars['String']['input']>;
 };
 
+/** GraphQL type for Paginated QuerySet pagination field. */
+export type PaginationType = {
+  __typename?: 'PaginationType';
+  count: Scalars['PositiveInt']['output'];
+  currentPage: Scalars['PositiveInt']['output'];
+  nextPage?: Maybe<Scalars['PositiveInt']['output']>;
+  perPage: Scalars['PositiveInt']['output'];
+  prevPage?: Maybe<Scalars['PositiveInt']['output']>;
+  total: Scalars['PositiveInt']['output'];
+  totalPages: Scalars['PositiveInt']['output'];
+};
+
 export type Picture = PageInterface & {
   __typename?: 'Picture';
   aliasOf?: Maybe<Page>;
@@ -698,8 +723,16 @@ export type PictureSiblingsArgs = {
   searchQuery?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type PicturePaginatedType = {
+  __typename?: 'PicturePaginatedType';
+  items?: Maybe<Array<Maybe<Picture>>>;
+  pagination?: Maybe<PaginationType>;
+};
+
 export type Query = {
   __typename?: 'Query';
+  blog?: Maybe<BlogPage>;
+  blogs?: Maybe<BlogPagePaginatedType>;
   collections: Array<Maybe<CollectionObjectType>>;
   document?: Maybe<DocumentObjectType>;
   documentType: Scalars['String']['output'];
@@ -709,6 +742,8 @@ export type Query = {
   images: Array<TfImage>;
   page?: Maybe<PageInterface>;
   pages: Array<PageInterface>;
+  picture?: Maybe<Picture>;
+  pictures?: Maybe<PicturePaginatedType>;
   redirects: Array<Redirect>;
   search: Array<Search>;
   site?: Maybe<SiteObjectType>;
@@ -716,6 +751,24 @@ export type Query = {
   snippets: Array<SnippetInterface>;
   tag?: Maybe<TagObjectType>;
   tags: Array<TagObjectType>;
+};
+
+
+export type QueryBlogArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  token?: InputMaybe<Scalars['String']['input']>;
+  urlPath?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryBlogsArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  order?: InputMaybe<Scalars['String']['input']>;
+  page?: InputMaybe<Scalars['PositiveInt']['input']>;
+  perPage?: InputMaybe<Scalars['PositiveInt']['input']>;
+  searchOperator?: InputMaybe<SearchOperatorEnum>;
+  searchQuery?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -783,6 +836,24 @@ export type QueryPagesArgs = {
   searchOperator?: InputMaybe<SearchOperatorEnum>;
   searchQuery?: InputMaybe<Scalars['String']['input']>;
   site?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryPictureArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  token?: InputMaybe<Scalars['String']['input']>;
+  urlPath?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryPicturesArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  order?: InputMaybe<Scalars['String']['input']>;
+  page?: InputMaybe<Scalars['PositiveInt']['input']>;
+  perPage?: InputMaybe<Scalars['PositiveInt']['input']>;
+  searchOperator?: InputMaybe<SearchOperatorEnum>;
+  searchQuery?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -867,7 +938,7 @@ export type RichTextBlock = StreamFieldInterface & {
   value: Scalars['String']['output'];
 };
 
-export type Search = BlogPage | Page | Picture | TfFuncGroup | TfImage | TfRendition;
+export type Search = BlogInvolvementInfo | BlogPage | Page | Picture | TfAuthor | TfFuncGroup | TfImage | TfRendition;
 
 /** Enum for search operator. */
 export enum SearchOperatorEnum {
@@ -966,6 +1037,11 @@ export type StructBlock = StreamFieldInterface & {
   field: Scalars['String']['output'];
   id?: Maybe<Scalars['String']['output']>;
   rawValue: Scalars['String']['output'];
+};
+
+export type TfAuthor = {
+  __typename?: 'TFAuthor';
+  id?: Maybe<Scalars['ID']['output']>;
 };
 
 export type TfFuncGroup = PageInterface & {

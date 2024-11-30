@@ -1,17 +1,25 @@
 from django.db import models
+from django import forms
+from django.utils import timezone
+
 from wagtail.models import Page
 from wagtail.fields import StreamField
 from wagtail.admin.panels import (
     FieldPanel,
     ObjectList,
+    MultiFieldPanel,
+    MultipleChooserPanel,
+    InlinePanel,
     TabbedInterface,
 )
 from wagtail.api import APIField
 from wagtail.search import index
 from wagtail_headless_preview.models import HeadlessPreviewMixin
 
-from base.models import TFImage, TFRenditionGroup
+from base.models import TFImage, TFRenditionGroup, TFAuthor
 from base.blocks import TFStreamBlocks
+
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
 
 # from wagtail_wordpress_import.blocks import WPImportStreamBlocks
 # from wagtail_wordpress_import.models import WPImportedPageMixin
@@ -20,9 +28,11 @@ from grapple.models import (
     GraphQLString,
     GraphQLStreamfield,
     GraphQLImage,
+    GraphQLForeignKey,
 )
+from grapple.helpers import register_paginated_query_field
 
-
+@register_paginated_query_field("blog")
 class BlogPage(
     # WPImportedPageMixin,
     HeadlessPreviewMixin,
@@ -35,6 +45,9 @@ class BlogPage(
         null=True,
         blank=True,
     )
+
+    # date = models.DateField('date', default=timezone.now)
+    # authors = ParentalManyToManyField(TFAuthor, blank=True)
 
     intro = models.CharField(max_length=250, blank=True)
     # body = RichTextField(blank=True)
@@ -49,16 +62,33 @@ class BlogPage(
     ]
 
     content_panels = Page.content_panels + [
-        FieldPanel('thumb'),
+        MultiFieldPanel(
+            [
+                MultipleChooserPanel(
+                    'authors', label='Author', chooser_field_name='author'
+                ),
+            ]
+        ),
         FieldPanel('intro'),
         FieldPanel('body'),
     ]
 
+    promote_panels = (
+        [
+            # FieldPanel('date', read_only=True),
+            FieldPanel('thumb'),
+        ]
+        + Page.promote_panels
+        + []
+    )
+
+    settings_panels = Page.settings_panels + []
+
     edit_handler = TabbedInterface(
         [
             ObjectList(content_panels, heading='Content'),
-            ObjectList(Page.promote_panels, heading='Promote'),
-            ObjectList(Page.settings_panels, heading='Settings', classname='settings'),
+            ObjectList(promote_panels, heading='Promote'),
+            ObjectList(settings_panels, heading='Settings', classname='settings'),
             # ObjectList(WPImportedPageMixin.wordpress_panels, heading='Debug'),
         ]
     )
@@ -87,13 +117,14 @@ class BlogPage(
         APIField('intro'),
         APIField('blog_date'),
         APIField('thumbnail_set'),
-        # APIField(
-        #     'authors'
-        # ),  # This will nest the relevant BlogPageAuthor objects in the API response
+        APIField(
+            'authors'
+        ),  # This will nest the relevant BlogPageAuthor objects in the API response
     ]
 
     graphql_fields = [
         GraphQLStreamfield('body'),
+        GraphQLForeignKey('involved', "blog.BlogInvolvementInfo"),
         GraphQLString('intro'),
         GraphQLString('blog_date'),
         GraphQLImage('thumb'),
@@ -120,3 +151,26 @@ class BlogPage(
 
     #     # own model fields
     #     self.body = data['body']
+
+
+class BlogInvolvementInfo(models.Model):
+    blog = ParentalKey(
+        'blog.BlogPage',
+        on_delete=models.CASCADE,
+        related_name='authors',
+        null=False,
+        blank=False,
+    )
+
+    author = models.OneToOneField(
+        TFAuthor,
+        null=False,
+        blank=False,
+        on_delete=models.DO_NOTHING,
+        unique=True,
+        default=TFAuthor,
+    )
+
+    graphql_fields=[
+        GraphQLForeignKey('author', TFAuthor)
+    ]

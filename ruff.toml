@@ -1,2 +1,5 @@
+exclude = [
+  "*/migrations/*"
+]
 [format]
 quote-style = "single"

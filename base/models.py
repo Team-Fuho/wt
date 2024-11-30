@@ -4,6 +4,7 @@ from wagtail.admin.panels import FieldPanel
 from django.db import models
 
 from wagtail.images.models import Image, AbstractImage, AbstractRendition
+from wagtail.snippets.models import register_snippet
 
 from urllib import parse
 from pathlib import PurePath
@@ -82,6 +83,7 @@ def urlpthn(weirdPath: str) -> str:
 
 RES_FROM_REND = re.compile(r'^\D{4,5}-(\d{1,8})\D(\d{1,8})')
 
+
 def img_obj(r: AbstractRendition):
     return {'url': r.full_url, 'res': [r.width, r.height]}
 
@@ -101,3 +103,19 @@ class TFRenditionGroup:
                 'res': [image.width, image.height],
             },
         }
+
+@register_snippet
+class TFAuthor(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField('name', max_length=127)
+    image = models.ForeignKey(
+        TFImage, null=True, blank=True, on_delete=models.SET_NULL, related_name='+'
+    )
+
+    panels = [FieldPanel('name'), FieldPanel('image')]
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = 'Authors'

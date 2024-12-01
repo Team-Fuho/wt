@@ -80,6 +80,8 @@ fragment PaginationView on PaginationType {
 
 query GalleryListView {
   pictures(page: 1, perPage: 10) {
+    pagination Ơ
+      ...PaginationView
     items {
       ...GalleryOuterView
     }

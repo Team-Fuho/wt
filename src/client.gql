@@ -78,15 +78,16 @@ fragment PaginationView on PaginationType {
   totalPages
 }
 
-query GalleryListView {
-  pictures(page: 1, perPage: 10) {
-    pagination Ơ
-      ...PaginationView
-    items {
-      ...GalleryOuterView
-    }
-  }
-}
+# query GalleryListView {
+#   pictures(page: 1, perPage: 10) {
+#     pagination {
+#       ...PaginationView
+#     }
+#     items {
+#       ...GalleryOuterView
+#     }
+#   }
+# }
 
 query GalleryPaginatedListView(
   $page: PositiveInt
@@ -103,16 +104,16 @@ query GalleryPaginatedListView(
   }
 }
 
-query BlogListView {
-  blogs(page: 1, perPage: 10) {
-    pagination {
-      ...PaginationView
-    }
-    items {
-      ...BlogPageOuterView
-    }
-  }
-}
+# query BlogListView {
+#   blogs(page: 1, perPage: 10) {
+#     pagination {
+#       ...PaginationView
+#     }
+#     items {
+#       ...BlogPageOuterView
+#     }
+#   }
+# }
 
 query BlogPaginatedListView(
   $page: PositiveInt

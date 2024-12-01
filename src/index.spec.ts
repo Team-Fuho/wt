@@ -33,6 +33,9 @@ async function exampleUsage() {
 
 const data = await exampleUsage()
 
-console.log("typesafe iterate test:", data.blogList?.items?.flatMap(t => t?.involved?.map(i => i?.name)))
+console.log(
+  'typesafe iterate test:',
+  data.blogList?.items?.flatMap((t) => t?.involved?.map((i) => i?.name))
+)
 
-console.log("tree view:", data, null, 5)
+console.log('tree view:', data, null, 5)

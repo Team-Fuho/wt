@@ -91,7 +91,22 @@ type BlogPage implements PageInterface {
   hasUnpublishedChanges: Boolean!
   id: ID
   intro: String
-  involved: BlogInvolvementInfo
+  involved(
+    """Filter by ID"""
+    id: ID
+    """Limit a number of resulting objects."""
+    limit: PositiveInt
+    """Number of records skipped from the beginning of the results set."""
+    offset: PositiveInt
+    """Use the Django queryset order format."""
+    order: String
+    """
+    Specify search operator (and/or), see: https://docs.wagtail.org/en/stable/topics/search/searching.html#search-operator
+    """
+    searchOperator: SearchOperatorEnum = AND
+    """Filter the results using Wagtail's search."""
+    searchQuery: String
+  ): [TFAuthor]
   lastPublishedAt: DateTime
   latestRevisionCreatedAt: DateTime
   live: Boolean!
@@ -1176,6 +1191,8 @@ type StructBlock implements StreamFieldInterface {
 
 type TFAuthor {
   id: ID
+  image: TFImage
+  name: String
 }
 
 type TFFuncGroup implements PageInterface {

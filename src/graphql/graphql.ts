@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { DocumentTypeDecoration } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -1273,6 +1274,48 @@ export type UrlBlock = StreamFieldInterface & {
   value: Scalars['String']['output'];
 };
 
+export type DefaultImageViewFragment = { __typename?: 'TFImage', id?: string | null, url: string, srcSet?: string | null, width: number, height: number, rendition?: { __typename?: 'TFRendition', id?: string | null, url: string, width: number, height: number } | null };
+
+export type BlogPageOuterViewFragment = { __typename?: 'BlogPage', id?: string | null, slug: string, title: string, intro?: string | null, seoTitle: string, involved?: Array<{ __typename?: 'TFAuthor', id?: string | null, name?: string | null, image?: { __typename?: 'TFImage', url: string, srcSet?: string | null } | null } | null> | null, thumb?: { __typename?: 'TFImage', id?: string | null, url: string, srcSet?: string | null, width: number, height: number, rendition?: { __typename?: 'TFRendition', id?: string | null, url: string, width: number, height: number } | null } | null };
+
+export type BlogPageInnerViewFragment = { __typename?: 'BlogPage', body?: Array<{ __typename?: 'BlockQuoteBlock', blockType: string } | { __typename?: 'BooleanBlock', blockType: string } | { __typename?: 'CharBlock', blockType: string } | { __typename?: 'ChoiceBlock', blockType: string } | { __typename?: 'DateBlock', blockType: string } | { __typename?: 'DateTimeBlock', blockType: string } | { __typename?: 'DecimalBlock', blockType: string } | { __typename?: 'DocumentChooserBlock', blockType: string } | { __typename?: 'EmailBlock', blockType: string } | { __typename?: 'EmbedBlock', blockType: string } | { __typename?: 'FloatBlock', blockType: string } | { __typename?: 'HeadingBlock', blockType: string, text?: string | null, importance?: string | null } | { __typename?: 'ImageBlock', blockType: string, caption?: string | null, link?: string | null, alignment?: string | null, image?: { __typename?: 'TFImage', id?: string | null, url: string, srcSet?: string | null, width: number, height: number, rendition?: { __typename?: 'TFRendition', id?: string | null, url: string, width: number, height: number } | null } | null } | { __typename?: 'ImageChooserBlock', blockType: string } | { __typename?: 'IntegerBlock', blockType: string } | { __typename?: 'ListBlock', blockType: string } | { __typename?: 'PageChooserBlock', blockType: string } | { __typename?: 'QuoteBlock', blockType: string, quote?: string | null, attribution?: string | null } | { __typename?: 'RawHTMLBlock', blockType: string } | { __typename?: 'RegexBlock', blockType: string } | { __typename?: 'RichTextBlock', blockType: string, value: string } | { __typename?: 'SnippetChooserBlock', blockType: string } | { __typename?: 'StaticBlock', blockType: string } | { __typename?: 'StreamBlock', blockType: string } | { __typename?: 'StreamFieldBlock', blockType: string } | { __typename?: 'StructBlock', blockType: string } | { __typename?: 'TFStreamBlocks', blockType: string } | { __typename?: 'TextBlock', blockType: string } | { __typename?: 'TimeBlock', blockType: string } | { __typename?: 'URLBlock', blockType: string } | null> | null };
+
+export type GalleryOuterViewFragment = { __typename?: 'Picture', id?: string | null, title: string, cap?: string | null, imageDate?: string | null, image?: { __typename?: 'TFImage', id?: string | null, url: string, srcSet?: string | null, width: number, height: number, rendition?: { __typename?: 'TFRendition', id?: string | null, url: string, width: number, height: number } | null } | null };
+
+export type PaginationViewFragment = { __typename?: 'PaginationType', total: any, count: any, perPage: any, currentPage: any, prevPage?: any | null, nextPage?: any | null, totalPages: any };
+
+export type GalleryPaginatedListViewQueryVariables = Exact<{
+  page?: InputMaybe<Scalars['PositiveInt']['input']>;
+  perPage?: InputMaybe<Scalars['PositiveInt']['input']>;
+  order?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type GalleryPaginatedListViewQuery = { __typename?: 'Query', pictures?: { __typename?: 'PicturePaginatedType', pagination?: { __typename?: 'PaginationType', total: any, count: any, perPage: any, currentPage: any, prevPage?: any | null, nextPage?: any | null, totalPages: any } | null, items?: Array<{ __typename?: 'Picture', id?: string | null, title: string, cap?: string | null, imageDate?: string | null, image?: { __typename?: 'TFImage', id?: string | null, url: string, srcSet?: string | null, width: number, height: number, rendition?: { __typename?: 'TFRendition', id?: string | null, url: string, width: number, height: number } | null } | null } | null> | null } | null };
+
+export type BlogPaginatedListViewQueryVariables = Exact<{
+  page?: InputMaybe<Scalars['PositiveInt']['input']>;
+  perPage?: InputMaybe<Scalars['PositiveInt']['input']>;
+  order?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type BlogPaginatedListViewQuery = { __typename?: 'Query', blogs?: { __typename?: 'BlogPagePaginatedType', pagination?: { __typename?: 'PaginationType', total: any, count: any, perPage: any, currentPage: any, prevPage?: any | null, nextPage?: any | null, totalPages: any } | null, items?: Array<{ __typename?: 'BlogPage', id?: string | null, slug: string, title: string, intro?: string | null, seoTitle: string, involved?: Array<{ __typename?: 'TFAuthor', id?: string | null, name?: string | null, image?: { __typename?: 'TFImage', url: string, srcSet?: string | null } | null } | null> | null, thumb?: { __typename?: 'TFImage', id?: string | null, url: string, srcSet?: string | null, width: number, height: number, rendition?: { __typename?: 'TFRendition', id?: string | null, url: string, width: number, height: number } | null } | null } | null> | null } | null };
+
+export type BlogPreviewViewQueryVariables = Exact<{
+  token?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type BlogPreviewViewQuery = { __typename?: 'Query', blog?: { __typename?: 'BlogPage', id?: string | null, slug: string, title: string, intro?: string | null, seoTitle: string, involved?: Array<{ __typename?: 'TFAuthor', id?: string | null, name?: string | null, image?: { __typename?: 'TFImage', url: string, srcSet?: string | null } | null } | null> | null, thumb?: { __typename?: 'TFImage', id?: string | null, url: string, srcSet?: string | null, width: number, height: number, rendition?: { __typename?: 'TFRendition', id?: string | null, url: string, width: number, height: number } | null } | null, body?: Array<{ __typename?: 'BlockQuoteBlock', blockType: string } | { __typename?: 'BooleanBlock', blockType: string } | { __typename?: 'CharBlock', blockType: string } | { __typename?: 'ChoiceBlock', blockType: string } | { __typename?: 'DateBlock', blockType: string } | { __typename?: 'DateTimeBlock', blockType: string } | { __typename?: 'DecimalBlock', blockType: string } | { __typename?: 'DocumentChooserBlock', blockType: string } | { __typename?: 'EmailBlock', blockType: string } | { __typename?: 'EmbedBlock', blockType: string } | { __typename?: 'FloatBlock', blockType: string } | { __typename?: 'HeadingBlock', blockType: string, text?: string | null, importance?: string | null } | { __typename?: 'ImageBlock', blockType: string, caption?: string | null, link?: string | null, alignment?: string | null, image?: { __typename?: 'TFImage', id?: string | null, url: string, srcSet?: string | null, width: number, height: number, rendition?: { __typename?: 'TFRendition', id?: string | null, url: string, width: number, height: number } | null } | null } | { __typename?: 'ImageChooserBlock', blockType: string } | { __typename?: 'IntegerBlock', blockType: string } | { __typename?: 'ListBlock', blockType: string } | { __typename?: 'PageChooserBlock', blockType: string } | { __typename?: 'QuoteBlock', blockType: string, quote?: string | null, attribution?: string | null } | { __typename?: 'RawHTMLBlock', blockType: string } | { __typename?: 'RegexBlock', blockType: string } | { __typename?: 'RichTextBlock', blockType: string, value: string } | { __typename?: 'SnippetChooserBlock', blockType: string } | { __typename?: 'StaticBlock', blockType: string } | { __typename?: 'StreamBlock', blockType: string } | { __typename?: 'StreamFieldBlock', blockType: string } | { __typename?: 'StructBlock', blockType: string } | { __typename?: 'TFStreamBlocks', blockType: string } | { __typename?: 'TextBlock', blockType: string } | { __typename?: 'TimeBlock', blockType: string } | { __typename?: 'URLBlock', blockType: string } | null> | null } | null };
+
+export type BlogLiveViewQueryVariables = Exact<{
+  slug?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type BlogLiveViewQuery = { __typename?: 'Query', blog?: { __typename?: 'BlogPage', id?: string | null, slug: string, title: string, intro?: string | null, seoTitle: string, involved?: Array<{ __typename?: 'TFAuthor', id?: string | null, name?: string | null, image?: { __typename?: 'TFImage', url: string, srcSet?: string | null } | null } | null> | null, thumb?: { __typename?: 'TFImage', id?: string | null, url: string, srcSet?: string | null, width: number, height: number, rendition?: { __typename?: 'TFRendition', id?: string | null, url: string, width: number, height: number } | null } | null, body?: Array<{ __typename?: 'BlockQuoteBlock', blockType: string } | { __typename?: 'BooleanBlock', blockType: string } | { __typename?: 'CharBlock', blockType: string } | { __typename?: 'ChoiceBlock', blockType: string } | { __typename?: 'DateBlock', blockType: string } | { __typename?: 'DateTimeBlock', blockType: string } | { __typename?: 'DecimalBlock', blockType: string } | { __typename?: 'DocumentChooserBlock', blockType: string } | { __typename?: 'EmailBlock', blockType: string } | { __typename?: 'EmbedBlock', blockType: string } | { __typename?: 'FloatBlock', blockType: string } | { __typename?: 'HeadingBlock', blockType: string, text?: string | null, importance?: string | null } | { __typename?: 'ImageBlock', blockType: string, caption?: string | null, link?: string | null, alignment?: string | null, image?: { __typename?: 'TFImage', id?: string | null, url: string, srcSet?: string | null, width: number, height: number, rendition?: { __typename?: 'TFRendition', id?: string | null, url: string, width: number, height: number } | null } | null } | { __typename?: 'ImageChooserBlock', blockType: string } | { __typename?: 'IntegerBlock', blockType: string } | { __typename?: 'ListBlock', blockType: string } | { __typename?: 'PageChooserBlock', blockType: string } | { __typename?: 'QuoteBlock', blockType: string, quote?: string | null, attribution?: string | null } | { __typename?: 'RawHTMLBlock', blockType: string } | { __typename?: 'RegexBlock', blockType: string } | { __typename?: 'RichTextBlock', blockType: string, value: string } | { __typename?: 'SnippetChooserBlock', blockType: string } | { __typename?: 'StaticBlock', blockType: string } | { __typename?: 'StreamBlock', blockType: string } | { __typename?: 'StreamFieldBlock', blockType: string } | { __typename?: 'StructBlock', blockType: string } | { __typename?: 'TFStreamBlocks', blockType: string } | { __typename?: 'TextBlock', blockType: string } | { __typename?: 'TimeBlock', blockType: string } | { __typename?: 'URLBlock', blockType: string } | null> | null } | null };
+
 export class TypedDocumentString<TResult, TVariables>
   extends String
   implements DocumentTypeDecoration<TResult, TVariables>
@@ -1287,3 +1330,345 @@ export class TypedDocumentString<TResult, TVariables>
     return this.value;
   }
 }
+export const DefaultImageViewFragmentDoc = new TypedDocumentString(`
+    fragment DefaultImageView on TFImage {
+  id
+  url
+  rendition(width: 1200, height: 630, format: "jpeg", jpegquality: 85) {
+    id
+    url
+    width
+    height
+  }
+  srcSet(sizes: [768, 1080], format: "webp")
+  width
+  height
+}
+    `, {"fragmentName":"DefaultImageView"}) as unknown as TypedDocumentString<DefaultImageViewFragment, unknown>;
+export const BlogPageOuterViewFragmentDoc = new TypedDocumentString(`
+    fragment BlogPageOuterView on BlogPage {
+  id
+  slug
+  title
+  intro
+  seoTitle
+  involved {
+    id
+    name
+    image {
+      url
+      srcSet(sizes: [8, 16, 32, 64], format: "webp")
+    }
+  }
+  thumb {
+    ...DefaultImageView
+  }
+}
+    fragment DefaultImageView on TFImage {
+  id
+  url
+  rendition(width: 1200, height: 630, format: "jpeg", jpegquality: 85) {
+    id
+    url
+    width
+    height
+  }
+  srcSet(sizes: [768, 1080], format: "webp")
+  width
+  height
+}`, {"fragmentName":"BlogPageOuterView"}) as unknown as TypedDocumentString<BlogPageOuterViewFragment, unknown>;
+export const BlogPageInnerViewFragmentDoc = new TypedDocumentString(`
+    fragment BlogPageInnerView on BlogPage {
+  body {
+    ... on StreamFieldInterface {
+      blockType
+    }
+    ... on RichTextBlock {
+      value
+    }
+    ... on ImageBlock {
+      caption
+      link
+      alignment
+      image {
+        ...DefaultImageView
+      }
+    }
+    ... on QuoteBlock {
+      quote
+      attribution
+    }
+    ... on HeadingBlock {
+      text
+      importance
+    }
+  }
+}
+    fragment DefaultImageView on TFImage {
+  id
+  url
+  rendition(width: 1200, height: 630, format: "jpeg", jpegquality: 85) {
+    id
+    url
+    width
+    height
+  }
+  srcSet(sizes: [768, 1080], format: "webp")
+  width
+  height
+}`, {"fragmentName":"BlogPageInnerView"}) as unknown as TypedDocumentString<BlogPageInnerViewFragment, unknown>;
+export const GalleryOuterViewFragmentDoc = new TypedDocumentString(`
+    fragment GalleryOuterView on Picture {
+  id
+  title
+  cap
+  image {
+    ...DefaultImageView
+  }
+  imageDate
+}
+    fragment DefaultImageView on TFImage {
+  id
+  url
+  rendition(width: 1200, height: 630, format: "jpeg", jpegquality: 85) {
+    id
+    url
+    width
+    height
+  }
+  srcSet(sizes: [768, 1080], format: "webp")
+  width
+  height
+}`, {"fragmentName":"GalleryOuterView"}) as unknown as TypedDocumentString<GalleryOuterViewFragment, unknown>;
+export const PaginationViewFragmentDoc = new TypedDocumentString(`
+    fragment PaginationView on PaginationType {
+  total
+  count
+  perPage
+  currentPage
+  prevPage
+  nextPage
+  totalPages
+}
+    `, {"fragmentName":"PaginationView"}) as unknown as TypedDocumentString<PaginationViewFragment, unknown>;
+export const GalleryPaginatedListViewDocument = new TypedDocumentString(`
+    query GalleryPaginatedListView($page: PositiveInt, $perPage: PositiveInt, $order: String) {
+  pictures(page: $page, perPage: $perPage, order: $order) {
+    pagination {
+      ...PaginationView
+    }
+    items {
+      ...GalleryOuterView
+    }
+  }
+}
+    fragment DefaultImageView on TFImage {
+  id
+  url
+  rendition(width: 1200, height: 630, format: "jpeg", jpegquality: 85) {
+    id
+    url
+    width
+    height
+  }
+  srcSet(sizes: [768, 1080], format: "webp")
+  width
+  height
+}
+fragment GalleryOuterView on Picture {
+  id
+  title
+  cap
+  image {
+    ...DefaultImageView
+  }
+  imageDate
+}
+fragment PaginationView on PaginationType {
+  total
+  count
+  perPage
+  currentPage
+  prevPage
+  nextPage
+  totalPages
+}`, {"hash":"a536f42f004859de3464fcf5dd21ec4a841a0ecd"}) as unknown as TypedDocumentString<GalleryPaginatedListViewQuery, GalleryPaginatedListViewQueryVariables>;
+export const BlogPaginatedListViewDocument = new TypedDocumentString(`
+    query BlogPaginatedListView($page: PositiveInt, $perPage: PositiveInt, $order: String) {
+  blogs(page: $page, perPage: $perPage, order: $order) {
+    pagination {
+      ...PaginationView
+    }
+    items {
+      ...BlogPageOuterView
+    }
+  }
+}
+    fragment DefaultImageView on TFImage {
+  id
+  url
+  rendition(width: 1200, height: 630, format: "jpeg", jpegquality: 85) {
+    id
+    url
+    width
+    height
+  }
+  srcSet(sizes: [768, 1080], format: "webp")
+  width
+  height
+}
+fragment BlogPageOuterView on BlogPage {
+  id
+  slug
+  title
+  intro
+  seoTitle
+  involved {
+    id
+    name
+    image {
+      url
+      srcSet(sizes: [8, 16, 32, 64], format: "webp")
+    }
+  }
+  thumb {
+    ...DefaultImageView
+  }
+}
+fragment PaginationView on PaginationType {
+  total
+  count
+  perPage
+  currentPage
+  prevPage
+  nextPage
+  totalPages
+}`, {"hash":"314def12f4134be8713458cf608c5f3a838f6c23"}) as unknown as TypedDocumentString<BlogPaginatedListViewQuery, BlogPaginatedListViewQueryVariables>;
+export const BlogPreviewViewDocument = new TypedDocumentString(`
+    query BlogPreviewView($token: String) {
+  blog(token: $token) {
+    ...BlogPageOuterView
+    ...BlogPageInnerView
+  }
+}
+    fragment DefaultImageView on TFImage {
+  id
+  url
+  rendition(width: 1200, height: 630, format: "jpeg", jpegquality: 85) {
+    id
+    url
+    width
+    height
+  }
+  srcSet(sizes: [768, 1080], format: "webp")
+  width
+  height
+}
+fragment BlogPageOuterView on BlogPage {
+  id
+  slug
+  title
+  intro
+  seoTitle
+  involved {
+    id
+    name
+    image {
+      url
+      srcSet(sizes: [8, 16, 32, 64], format: "webp")
+    }
+  }
+  thumb {
+    ...DefaultImageView
+  }
+}
+fragment BlogPageInnerView on BlogPage {
+  body {
+    ... on StreamFieldInterface {
+      blockType
+    }
+    ... on RichTextBlock {
+      value
+    }
+    ... on ImageBlock {
+      caption
+      link
+      alignment
+      image {
+        ...DefaultImageView
+      }
+    }
+    ... on QuoteBlock {
+      quote
+      attribution
+    }
+    ... on HeadingBlock {
+      text
+      importance
+    }
+  }
+}`, {"hash":"9124f0932cfba788e7712d56aa6912472676fd7a"}) as unknown as TypedDocumentString<BlogPreviewViewQuery, BlogPreviewViewQueryVariables>;
+export const BlogLiveViewDocument = new TypedDocumentString(`
+    query BlogLiveView($slug: String) {
+  blog(slug: $slug) {
+    ...BlogPageOuterView
+    ...BlogPageInnerView
+  }
+}
+    fragment DefaultImageView on TFImage {
+  id
+  url
+  rendition(width: 1200, height: 630, format: "jpeg", jpegquality: 85) {
+    id
+    url
+    width
+    height
+  }
+  srcSet(sizes: [768, 1080], format: "webp")
+  width
+  height
+}
+fragment BlogPageOuterView on BlogPage {
+  id
+  slug
+  title
+  intro
+  seoTitle
+  involved {
+    id
+    name
+    image {
+      url
+      srcSet(sizes: [8, 16, 32, 64], format: "webp")
+    }
+  }
+  thumb {
+    ...DefaultImageView
+  }
+}
+fragment BlogPageInnerView on BlogPage {
+  body {
+    ... on StreamFieldInterface {
+      blockType
+    }
+    ... on RichTextBlock {
+      value
+    }
+    ... on ImageBlock {
+      caption
+      link
+      alignment
+      image {
+        ...DefaultImageView
+      }
+    }
+    ... on QuoteBlock {
+      quote
+      attribution
+    }
+    ... on HeadingBlock {
+      text
+      importance
+    }
+  }
+}`, {"hash":"f7cfa66e4ba4865954ba9e9b97fa9bb12ec3047d"}) as unknown as TypedDocumentString<BlogLiveViewQuery, BlogLiveViewQueryVariables>;

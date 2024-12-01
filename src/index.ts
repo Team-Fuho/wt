@@ -1,7 +1,5 @@
 import {
-  GalleryListViewDocument,
   GalleryPaginatedListViewDocument,
-  BlogListViewDocument,
   BlogPaginatedListViewDocument,
   BlogLiveViewDocument,
   BlogPreviewViewDocument,
@@ -65,29 +63,23 @@ export default class WTClient {
    */
   async listPictures(page?: number, perPage?: number, order?: string) {
     return (
-      await (page && perPage
-        ? execute(this.config, GalleryPaginatedListViewDocument, {
-          page: page,
-          perPage: perPage,
-          order: order || '-id'
-        })
-        : execute(this.config, GalleryListViewDocument))
+      await execute(this.config, GalleryPaginatedListViewDocument, {
+        page: page,
+        perPage: perPage,
+        order: order || '-id'
+      })
     ).pictures
   }
 
   /**
    * List all blog page
    */
-  async listBlogs(page?: number, perPage?: number, order?: string) {
-    return (
-      await (page && perPage
-        ? execute(this.config, BlogPaginatedListViewDocument, {
-          page: page,
-          perPage: perPage,
-          order: order || '-id'
-        })
-        : execute(this.config, BlogListViewDocument))
-    ).blogs
+  async listBlogs(page = 0, perPage = 1024, order = '-id') {
+    return await execute(this.config, BlogPaginatedListViewDocument, {
+      page: page,
+      perPage: perPage,
+      order: order
+    })
   }
 
   /**

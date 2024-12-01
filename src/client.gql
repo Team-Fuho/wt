@@ -60,6 +60,7 @@ fragment BlogPageInnerView on BlogPage {
 
 fragment GalleryOuterView on Picture {
   id
+  title
   cap
   image {
     ...DefaultImageView
@@ -91,6 +92,9 @@ query GalleryPaginatedListView(
   $order: String
 ) {
   pictures(page: $page, perPage: $perPage, order: $order) {
+    pagination {
+      ...PaginationView
+    }
     items {
       ...GalleryOuterView
     }

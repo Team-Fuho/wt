@@ -1280,14 +1280,14 @@ export type BlogPageOuterViewFragment = { __typename?: 'BlogPage', id?: string |
 
 export type BlogPageInnerViewFragment = { __typename?: 'BlogPage', body?: Array<{ __typename?: 'BlockQuoteBlock', blockType: string } | { __typename?: 'BooleanBlock', blockType: string } | { __typename?: 'CharBlock', blockType: string } | { __typename?: 'ChoiceBlock', blockType: string } | { __typename?: 'DateBlock', blockType: string } | { __typename?: 'DateTimeBlock', blockType: string } | { __typename?: 'DecimalBlock', blockType: string } | { __typename?: 'DocumentChooserBlock', blockType: string } | { __typename?: 'EmailBlock', blockType: string } | { __typename?: 'EmbedBlock', blockType: string } | { __typename?: 'FloatBlock', blockType: string } | { __typename?: 'HeadingBlock', blockType: string, text?: string | null, importance?: string | null } | { __typename?: 'ImageBlock', blockType: string, caption?: string | null, link?: string | null, alignment?: string | null, image?: { __typename?: 'TFImage', id?: string | null, url: string, srcSet?: string | null, width: number, height: number, rendition?: { __typename?: 'TFRendition', id?: string | null, url: string, width: number, height: number } | null } | null } | { __typename?: 'ImageChooserBlock', blockType: string } | { __typename?: 'IntegerBlock', blockType: string } | { __typename?: 'ListBlock', blockType: string } | { __typename?: 'PageChooserBlock', blockType: string } | { __typename?: 'QuoteBlock', blockType: string, quote?: string | null, attribution?: string | null } | { __typename?: 'RawHTMLBlock', blockType: string } | { __typename?: 'RegexBlock', blockType: string } | { __typename?: 'RichTextBlock', blockType: string, value: string } | { __typename?: 'SnippetChooserBlock', blockType: string } | { __typename?: 'StaticBlock', blockType: string } | { __typename?: 'StreamBlock', blockType: string } | { __typename?: 'StreamFieldBlock', blockType: string } | { __typename?: 'StructBlock', blockType: string } | { __typename?: 'TFStreamBlocks', blockType: string } | { __typename?: 'TextBlock', blockType: string } | { __typename?: 'TimeBlock', blockType: string } | { __typename?: 'URLBlock', blockType: string } | null> | null };
 
-export type GalleryOuterViewFragment = { __typename?: 'Picture', id?: string | null, cap?: string | null, imageDate?: string | null, image?: { __typename?: 'TFImage', id?: string | null, url: string, srcSet?: string | null, width: number, height: number, rendition?: { __typename?: 'TFRendition', id?: string | null, url: string, width: number, height: number } | null } | null };
+export type GalleryOuterViewFragment = { __typename?: 'Picture', id?: string | null, title: string, cap?: string | null, imageDate?: string | null, image?: { __typename?: 'TFImage', id?: string | null, url: string, srcSet?: string | null, width: number, height: number, rendition?: { __typename?: 'TFRendition', id?: string | null, url: string, width: number, height: number } | null } | null };
 
 export type PaginationViewFragment = { __typename?: 'PaginationType', total: any, count: any, perPage: any, currentPage: any, prevPage?: any | null, nextPage?: any | null, totalPages: any };
 
 export type GalleryListViewQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GalleryListViewQuery = { __typename?: 'Query', pictures?: { __typename?: 'PicturePaginatedType', items?: Array<{ __typename?: 'Picture', id?: string | null, cap?: string | null, imageDate?: string | null, image?: { __typename?: 'TFImage', id?: string | null, url: string, srcSet?: string | null, width: number, height: number, rendition?: { __typename?: 'TFRendition', id?: string | null, url: string, width: number, height: number } | null } | null } | null> | null } | null };
+export type GalleryListViewQuery = { __typename?: 'Query', pictures?: { __typename?: 'PicturePaginatedType', items?: Array<{ __typename?: 'Picture', id?: string | null, title: string, cap?: string | null, imageDate?: string | null, image?: { __typename?: 'TFImage', id?: string | null, url: string, srcSet?: string | null, width: number, height: number, rendition?: { __typename?: 'TFRendition', id?: string | null, url: string, width: number, height: number } | null } | null } | null> | null } | null };
 
 export type GalleryPaginatedListViewQueryVariables = Exact<{
   page?: InputMaybe<Scalars['PositiveInt']['input']>;
@@ -1296,7 +1296,7 @@ export type GalleryPaginatedListViewQueryVariables = Exact<{
 }>;
 
 
-export type GalleryPaginatedListViewQuery = { __typename?: 'Query', pictures?: { __typename?: 'PicturePaginatedType', items?: Array<{ __typename?: 'Picture', id?: string | null, cap?: string | null, imageDate?: string | null, image?: { __typename?: 'TFImage', id?: string | null, url: string, srcSet?: string | null, width: number, height: number, rendition?: { __typename?: 'TFRendition', id?: string | null, url: string, width: number, height: number } | null } | null } | null> | null } | null };
+export type GalleryPaginatedListViewQuery = { __typename?: 'Query', pictures?: { __typename?: 'PicturePaginatedType', pagination?: { __typename?: 'PaginationType', total: any, count: any, perPage: any, currentPage: any, prevPage?: any | null, nextPage?: any | null, totalPages: any } | null, items?: Array<{ __typename?: 'Picture', id?: string | null, title: string, cap?: string | null, imageDate?: string | null, image?: { __typename?: 'TFImage', id?: string | null, url: string, srcSet?: string | null, width: number, height: number, rendition?: { __typename?: 'TFRendition', id?: string | null, url: string, width: number, height: number } | null } | null } | null> | null } | null };
 
 export type BlogListViewQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1430,6 +1430,7 @@ export const BlogPageInnerViewFragmentDoc = new TypedDocumentString(`
 export const GalleryOuterViewFragmentDoc = new TypedDocumentString(`
     fragment GalleryOuterView on Picture {
   id
+  title
   cap
   image {
     ...DefaultImageView
@@ -1483,15 +1484,19 @@ export const GalleryListViewDocument = new TypedDocumentString(`
 }
 fragment GalleryOuterView on Picture {
   id
+  title
   cap
   image {
     ...DefaultImageView
   }
   imageDate
-}`, {"hash":"c883aba22b509293b2e6b458e84bd51f0bd3eac2"}) as unknown as TypedDocumentString<GalleryListViewQuery, GalleryListViewQueryVariables>;
+}`, {"hash":"dc6f166b6a495237904fc0808701272da0725617"}) as unknown as TypedDocumentString<GalleryListViewQuery, GalleryListViewQueryVariables>;
 export const GalleryPaginatedListViewDocument = new TypedDocumentString(`
     query GalleryPaginatedListView($page: PositiveInt, $perPage: PositiveInt, $order: String) {
   pictures(page: $page, perPage: $perPage, order: $order) {
+    pagination {
+      ...PaginationView
+    }
     items {
       ...GalleryOuterView
     }
@@ -1512,12 +1517,22 @@ export const GalleryPaginatedListViewDocument = new TypedDocumentString(`
 }
 fragment GalleryOuterView on Picture {
   id
+  title
   cap
   image {
     ...DefaultImageView
   }
   imageDate
-}`, {"hash":"20af1500d74e7b94cd7d6301185e5e90a471e80f"}) as unknown as TypedDocumentString<GalleryPaginatedListViewQuery, GalleryPaginatedListViewQueryVariables>;
+}
+fragment PaginationView on PaginationType {
+  total
+  count
+  perPage
+  currentPage
+  prevPage
+  nextPage
+  totalPages
+}`, {"hash":"a536f42f004859de3464fcf5dd21ec4a841a0ecd"}) as unknown as TypedDocumentString<GalleryPaginatedListViewQuery, GalleryPaginatedListViewQueryVariables>;
 export const BlogListViewDocument = new TypedDocumentString(`
     query BlogListView {
   blogs(page: 1, perPage: 10) {

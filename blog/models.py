@@ -1,7 +1,4 @@
 from django.db import models
-from django import forms
-from django.utils import timezone
-
 from wagtail.models import Page
 from wagtail.fields import StreamField
 from wagtail.admin.panels import (
@@ -9,7 +6,6 @@ from wagtail.admin.panels import (
     ObjectList,
     MultiFieldPanel,
     MultipleChooserPanel,
-    InlinePanel,
     TabbedInterface,
 )
 from wagtail.api import APIField
@@ -19,7 +15,7 @@ from wagtail_headless_preview.models import HeadlessPreviewMixin
 from base.models import TFImage, TFRenditionGroup, TFAuthor
 from base.blocks import TFStreamBlocks
 
-from modelcluster.fields import ParentalKey, ParentalManyToManyField
+from modelcluster.fields import ParentalKey
 
 # from wagtail_wordpress_import.blocks import WPImportStreamBlocks
 # from wagtail_wordpress_import.models import WPImportedPageMixin
@@ -28,11 +24,14 @@ from grapple.models import (
     GraphQLString,
     GraphQLStreamfield,
     GraphQLImage,
+    GraphQLCollection,
+    GraphQLField,
     GraphQLForeignKey,
 )
 from grapple.helpers import register_paginated_query_field
 
-@register_paginated_query_field("blog")
+
+@register_paginated_query_field('blog')
 class BlogPage(
     # WPImportedPageMixin,
     HeadlessPreviewMixin,
@@ -124,7 +123,9 @@ class BlogPage(
 
     graphql_fields = [
         GraphQLStreamfield('body'),
-        GraphQLForeignKey('involved', "blog.BlogInvolvementInfo"),
+        GraphQLCollection(
+            GraphQLForeignKey, 'involved', TFAuthor, source='authors.author'
+        ),
         GraphQLString('intro'),
         GraphQLString('blog_date'),
         GraphQLImage('thumb'),
@@ -167,10 +168,7 @@ class BlogInvolvementInfo(models.Model):
         null=False,
         blank=False,
         on_delete=models.DO_NOTHING,
-        unique=True,
         default=TFAuthor,
     )
 
-    graphql_fields=[
-        GraphQLForeignKey('author', TFAuthor)
-    ]
+    graphql_fields = [GraphQLForeignKey('author', TFAuthor)]

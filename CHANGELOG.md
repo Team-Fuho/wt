@@ -2,6 +2,12 @@
 
 > logs are top-recent and using `## SEMVER - DD-MM-YY`
 
+## 2.2.1 - 1-12-2024
+
+### Added
+
+- Author involvement for `BlogPage`
+
 ## 2.2.0 - 1-12-2024
 
 Happy December. This update changed server schema a bit, but majorly .

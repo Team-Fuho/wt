@@ -13,6 +13,11 @@ from fuhoblog.settings.base import WAGTAILADMIN_BASE_URL
 
 from django.utils import timezone
 
+from grapple.models import (
+    GraphQLString,
+    GraphQLImage,
+)
+
 import re
 
 
@@ -104,6 +109,7 @@ class TFRenditionGroup:
             },
         }
 
+
 @register_snippet
 class TFAuthor(models.Model):
     id = models.AutoField(primary_key=True)
@@ -113,6 +119,8 @@ class TFAuthor(models.Model):
     )
 
     panels = [FieldPanel('name'), FieldPanel('image')]
+
+    graphql_fields = [GraphQLString('name'), GraphQLImage('image')]
 
     def __str__(self):
         return self.name

@@ -1,6 +1,6 @@
 {
   "name": "@team-fuho/wt",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "powered by `wagtail`. awesome!",
   "type": "module",
   "main": "dist/index.js",
@@ -22,15 +22,8 @@
     "@0no-co/graphqlsp": "^1.12.16",
     "@biomejs/biome": "1.8.1",
     "@graphql-codegen/cli": "^5.0.3",
-    "@graphql-codegen/schema-ast": "^4.1.0",
     "esbuild": "^0.24.0",
-    "graphql-codegen-typescript-client": "0.18.2",
-    "graphql-codegen-typescript-common": "0.18.2",
     "typescript": "^5.7.2"
-  },
-  "dependencies": {
-    "@graphql-typed-document-node/core": "^3.2.0",
-    "graphql": "^16.9.0"
   },
   "repository": {
     "type": "git",

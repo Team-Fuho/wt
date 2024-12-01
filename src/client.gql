@@ -18,6 +18,14 @@ fragment BlogPageOuterView on BlogPage {
   title
   intro
   seoTitle
+  involved {
+    id
+    name
+    image {
+      url
+      srcSet(sizes: [8, 16, 32, 64], format: "webp")
+    }
+  }
   thumb {
     ...DefaultImageView
   }

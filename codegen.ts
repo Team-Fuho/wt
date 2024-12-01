@@ -8,21 +8,24 @@ const config: CodegenConfig = {
     './src/graphql/': {
       preset: 'client',
       presetConfig: {
-        persistedDocuments: true,
+        persistedDocuments: {
+          hashAlgorithm: 'sha1'
+        },
         fragmentMasking: false,
+        avoidOptional: true,
+        enumAsType: true
       },
       config: {
         documentMode: 'string',
         dedupeFragments: true,
-        constEnums: true
       }
     },
-    './src/graphql/schema.graphql': {
-      plugins: ['schema-ast'],
-      config: {
-        includeDirectives: true
-      }
-    }
+    // './src/graphql/schema.graphql': {
+    //   plugins: ['schema-ast'],
+    //   config: {
+    //     includeDirectives: true
+    //   }
+    // }
   }
 }
 

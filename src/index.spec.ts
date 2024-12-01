@@ -31,4 +31,6 @@ async function exampleUsage() {
   }
 }
 
-console.log(await exampleUsage(), null, 5)
+const data = await exampleUsage()
+
+console.log(data, null, 5)

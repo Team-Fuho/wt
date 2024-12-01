@@ -16,6 +16,7 @@ fragment BlogPageOuterView on BlogPage {
   id
   slug
   title
+  intro
   seoTitle
   thumb {
     ...DefaultImageView
@@ -58,53 +59,71 @@ fragment GalleryOuterView on Picture {
   imageDate
 }
 
+fragment PaginationView on PaginationType {
+  total
+  count
+  perPage
+  currentPage
+  prevPage
+  nextPage
+  totalPages
+}
+
 query GalleryListView {
-  pages(contentType: "gallery.Picture") {
-    ...GalleryOuterView
+  pictures(page: 1, perPage: 10) {
+    items {
+      ...GalleryOuterView
+    }
   }
 }
 
 query GalleryPaginatedListView(
-  $offset: PositiveInt
-  $limit: PositiveInt
+  $page: PositiveInt
+  $perPage: PositiveInt
   $order: String
 ) {
-  pages(
-    contentType: "gallery.Picture"
-    offset: $offset
-    limit: $limit
-    order: $order
-  ) {
-    ...GalleryOuterView
+  pictures(page: $page, perPage: $perPage, order: $order) {
+    items {
+      ...GalleryOuterView
+    }
   }
 }
 
 query BlogListView {
-  pages(contentType: "blog.BlogPage") {
-    ...BlogPageOuterView
+  blogs(page: 1, perPage: 10) {
+    pagination {
+      ...PaginationView
+    }
+    items {
+      ...BlogPageOuterView
+    }
   }
 }
 
-query BlogPaginatedListView($offset: PositiveInt, $limit: PositiveInt, $order: String) {
-  pages(
-    contentType: "blog.BlogPage"
-    offset: $offset
-    limit: $limit
-    order: $order
-  ) {
-    ...BlogPageOuterView
+query BlogPaginatedListView(
+  $page: PositiveInt
+  $perPage: PositiveInt
+  $order: String
+) {
+  blogs(page: $page, perPage: $perPage, order: $order) {
+    pagination {
+      ...PaginationView
+    }
+    items {
+      ...BlogPageOuterView
+    }
   }
 }
 
 query BlogPreviewView($token: String) {
-  page(id: 0, token: $token) {
+  blog(token: $token) {
     ...BlogPageOuterView
     ...BlogPageInnerView
   }
 }
 
 query BlogLiveView($slug: String) {
-  page(slug: $slug) {
+  blog(slug: $slug) {
     ...BlogPageOuterView
     ...BlogPageInnerView
   }

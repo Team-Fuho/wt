@@ -11,7 +11,9 @@
         "name": "@0no-co/graphqlsp",
         "schema": "./src/graphql/schema.graphql"
       }
-    ]
+    ],
+    "resolveJsonModule": true,
+    "esModuleInterop": true
   },
   "include": ["src/**/*"],
   "exclude": ["**/*.spec.ts", "dist/**/*", "**/*.legacy.*"]

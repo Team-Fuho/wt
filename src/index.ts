@@ -8,6 +8,8 @@ import {
   type TypedDocumentString
 } from './graphql/graphql'
 
+// import persisted from './graphql/persisted-documents.json'
+
 export interface GraphQLClientConfig {
   endpoint: string
   headers?: Record<string, string>
@@ -18,6 +20,8 @@ async function execute<TResult, TVariables>(
   query: TypedDocumentString<TResult, TVariables>,
   ...[variables]: TVariables extends Record<string, never> ? [] : [TVariables]
 ): Promise<TResult> {
+  const hash = query.__meta__?.hash
+
   const response = await fetch(config.endpoint, {
     method: 'POST',
     headers: {
@@ -26,9 +30,10 @@ async function execute<TResult, TVariables>(
       ...config.headers
     },
     body: JSON.stringify({
+      // query: persisted[hash],
       query: query.trim(),
       variables: variables || {},
-      hash: query.__meta__?.hash
+      hash: hash
     })
   })
 
@@ -42,9 +47,7 @@ async function execute<TResult, TVariables>(
 
   if (!response || !responseObject.data) {
     console.log(responseObject)
-    throw new Error(
-      'WTClientRequestError: Malformed JSON data'
-    )
+    throw new Error('WTClientRequestError: Malformed JSON data')
   }
 
   return responseObject.data as TResult
@@ -60,27 +63,31 @@ export default class WTClient {
   /**
    * List all gallery image
    */
-  async listPictures(offset?: number, limit?: number, order?: string) {
-    return offset && limit
-      ? execute(this.config, GalleryPaginatedListViewDocument, {
-        offset,
-        limit,
-        order: order || "id"
-      })
-      : execute(this.config, GalleryListViewDocument)
+  async listPictures(page?: number, perPage?: number, order?: string) {
+    return (
+      await (page && perPage
+        ? execute(this.config, GalleryPaginatedListViewDocument, {
+          page: page,
+          perPage: perPage,
+          order: order || '-id'
+        })
+        : execute(this.config, GalleryListViewDocument))
+    ).pictures
   }
 
   /**
    * List all blog page
    */
-  async listBlogs(offset?: number, limit?: number, order?: string) {
-    return offset && limit
-      ? execute(this.config, BlogPaginatedListViewDocument, {
-        offset,
-        limit,
-        order: order || "id"
-      })
-      : execute(this.config, BlogListViewDocument)
+  async listBlogs(page?: number, perPage?: number, order?: string) {
+    return (
+      await (page && perPage
+        ? execute(this.config, BlogPaginatedListViewDocument, {
+          page: page,
+          perPage: perPage,
+          order: order || '-id'
+        })
+        : execute(this.config, BlogListViewDocument))
+    ).blogs
   }
 
   /**
@@ -88,17 +95,19 @@ export default class WTClient {
    * @param token urlparsed token query (added by wagtail addon)
    */
   async getBlogPreview(token: string) {
-    return execute(
-      {
-        ...this.config,
-        headers: {
-          ...this.config.headers,
-          Authorization: `Bearer ${token}`
-        }
-      },
-      BlogPreviewViewDocument,
-      { token }
-    )
+    return (
+      await execute(
+        {
+          ...this.config,
+          headers: {
+            ...this.config.headers,
+            Authorization: `Bearer ${token}`
+          }
+        },
+        BlogPreviewViewDocument,
+        { token }
+      )
+    ).blog
   }
 
   /**
@@ -106,6 +115,6 @@ export default class WTClient {
    * @param slug
    */
   async getBlogBySlug(slug: string) {
-    return execute(this.config, BlogLiveViewDocument, { slug })
+    return (await execute(this.config, BlogLiveViewDocument, { slug })).blog
   }
 }

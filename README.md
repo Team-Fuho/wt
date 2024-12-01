@@ -31,14 +31,27 @@ A pretty simple `wagtail` setup for simple kind of JUST BLOGGING, and scaling un
 
 ## Client
 
-### V2
+Here is the example `listBlog` query
 
-Migrated to GraphQL query system
-
-> [!NOTE]
-> As to avoid redirection that cause performance issue at scale, I won't enable trail-slash redirection. The graphql endpoint would be: `http://host/api/graphql/` (notice the trailing slash)
-
-### V1
-
-> [!IMPORTANT]
-> Deprecated
+```json
+{
+  "pagination": {
+    "total": 1,
+    "count": 1,
+    "perPage": 10,
+    "currentPage": 1,
+    "prevPage": null,
+    "nextPage": null,
+    "totalPages": 1
+  },
+  "items": [
+    {
+      "id": "3",
+      "slug": "hello-world",
+      "title": "Hello World",
+      "seoTitle": "Hello World",
+      "thumb": null
+    }
+  ]
+}
+```

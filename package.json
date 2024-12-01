@@ -22,6 +22,7 @@
     "@0no-co/graphqlsp": "^1.12.16",
     "@biomejs/biome": "1.8.1",
     "@graphql-codegen/cli": "^5.0.3",
+    "@graphql-typed-document-node/core": "^3.2.0",
     "esbuild": "^0.24.0",
     "typescript": "^5.7.2"
   },

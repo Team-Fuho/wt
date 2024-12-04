@@ -38,4 +38,6 @@ console.log(
   data.blogList?.items?.flatMap((t) => t?.involved?.map((i) => i?.name))
 )
 
+console.log(data.blogList?.items?.map((k) => k?.title))
+
 console.log('tree view:', data, null, 5)

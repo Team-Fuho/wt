@@ -8,6 +8,24 @@ import {
 
 // import persisted from './graphql/persisted-documents.json'
 
+// __typename is not a real field
+type NodeType<T> = { __typename: T }
+
+/**
+ * Assume on GraphQL Codegen abstraction.
+ * For query that has a lot of overload, this helps.
+ * The reason this is not wrapped in queries already, is because the root one is okay, but not the underlying.
+ * @param t `__typename` assumption
+ * @param v hinted object (must be hinted)
+ */
+export function assume<
+  Hinted,
+  Assumed extends Hinted & { __typename: string },
+  Infered extends Assumed['__typename']
+>(t: Infered, v: Hinted) {
+  return v as Hinted & NodeType<typeof t>
+}
+
 export interface GraphQLClientConfig {
   endpoint: string
   headers?: Record<string, string>
@@ -75,11 +93,13 @@ export default class WTClient {
    * List all blog page
    */
   async listBlogs(page = 0, perPage = 1024, order = '-id') {
-    return await execute(this.config, BlogPaginatedListViewDocument, {
-      page: page,
-      perPage: perPage,
-      order: order
-    })
+    return (
+      await execute(this.config, BlogPaginatedListViewDocument, {
+        page: page,
+        perPage: perPage,
+        order: order
+      })
+    ).blogs
   }
 
   /**
@@ -87,19 +107,7 @@ export default class WTClient {
    * @param token urlparsed token query (added by wagtail addon)
    */
   async getBlogPreview(token: string) {
-    return (
-      await execute(
-        {
-          ...this.config,
-          headers: {
-            ...this.config.headers,
-            Authorization: `Bearer ${token}`
-          }
-        },
-        BlogPreviewViewDocument,
-        { token }
-      )
-    ).blog
+    return (await execute(this.config, BlogPreviewViewDocument, { token })).blog
   }
 
   /**

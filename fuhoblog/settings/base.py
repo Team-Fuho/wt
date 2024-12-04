@@ -237,6 +237,7 @@ WAGTAILADMIN_RICH_TEXT_EDITORS = {
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 WAGTAILADMIN_BASE_URL = os.environ.setdefault('API_BASE', 'http://localhost:8000')
 BASE_URL = WAGTAILADMIN_BASE_URL
+CSRF_TRUSTED_ORIGINS = [BASE_URL]
 WAGTAIL_ALLOW_UNICODE_SLUGS = False
 WAGTAIL_USAGE_COUNT_ENABLED = True
 

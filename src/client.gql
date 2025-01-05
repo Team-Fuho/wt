@@ -1,3 +1,13 @@
+fragment DefaultPageView on PageInterface {
+  id
+  title
+  slug
+  seoTitle
+  # basic datetime
+  firstPublishedAt
+  lastPublishedAt
+}
+
 fragment DefaultImageView on TFImage {
   id
   url
@@ -13,11 +23,8 @@ fragment DefaultImageView on TFImage {
 }
 
 fragment BlogPageOuterView on BlogPage {
-  id
-  slug
-  title
+  ...DefaultPageView
   intro
-  seoTitle
   involved {
     id
     name
@@ -32,6 +39,7 @@ fragment BlogPageOuterView on BlogPage {
 }
 
 fragment BlogPageInnerView on BlogPage {
+  ...BlogPageOuterView
   body {
     ... on StreamFieldInterface {
       blockType
@@ -132,14 +140,12 @@ query BlogPaginatedListView(
 
 query BlogPreviewView($token: String) {
   blog(token: $token) {
-    ...BlogPageOuterView
     ...BlogPageInnerView
   }
 }
 
 query BlogLiveView($slug: String) {
   blog(slug: $slug) {
-    ...BlogPageOuterView
     ...BlogPageInnerView
   }
 }

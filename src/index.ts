@@ -79,27 +79,27 @@ export default class WTClient {
   /**
    * List all gallery image
    */
-  async listPictures(page?: number, perPage?: number, order?: string) {
-    return (
+  async listPictures(page?: number, perPage?: number, order = "-id") {
+    return assume("PicturePaginatedType", (
       await execute(this.config, GalleryPaginatedListViewDocument, {
-        page: page,
-        perPage: perPage,
-        order: order || '-id'
+        page,
+        perPage,
+        order
       })
-    ).pictures
+    ).pictures)
   }
 
   /**
    * List all blog page
    */
   async listBlogs(page = 0, perPage = 1024, order = '-id') {
-    return (
+    return assume("BlogPagePaginatedType", (
       await execute(this.config, BlogPaginatedListViewDocument, {
-        page: page,
-        perPage: perPage,
-        order: order
+        page,
+        perPage,
+        order
       })
-    ).blogs
+    ).blogs)
   }
 
   /**
@@ -107,7 +107,7 @@ export default class WTClient {
    * @param token urlparsed token query (added by wagtail addon)
    */
   async getBlogPreview(token: string) {
-    return (await execute(this.config, BlogPreviewViewDocument, { token })).blog
+    return assume("BlogPage", (await execute(this.config, BlogPreviewViewDocument, { token })).blog)
   }
 
   /**
@@ -115,6 +115,6 @@ export default class WTClient {
    * @param slug
    */
   async getBlogBySlug(slug: string) {
-    return (await execute(this.config, BlogLiveViewDocument, { slug })).blog
+    return assume("BlogPage", (await execute(this.config, BlogLiveViewDocument, { slug })).blog)
   }
 }

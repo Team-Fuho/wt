@@ -6,12 +6,12 @@ readme = "README.md"
 requires-python = ">=3.12"
 
 dependencies = [
-    "django>=4.2,<4.3",
-    "wagtail>=6,<7",
+    "django",
+    "wagtail>7",
     "gunicorn==22",
     "elasticsearch==7.13.4",
-    "wagtail-localize==1.9",
-    "wagtail-modeladmin==2.0",
+    "wagtail-localize",
+    "wagtail-modeladmin",
     "python-dotenv",
     "sentry-sdk[django]",
     "wagtail-grapple>=0.27.0",

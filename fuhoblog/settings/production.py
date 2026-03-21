@@ -4,9 +4,11 @@ import os
 
 import sentry_sdk
 
-if os.environ.get('SENTRY_DSN') is not None:
+sentry_dsn = os.environ.get('SENTRY_DSN', '').strip().strip('"').strip("'")
+
+if sentry_dsn:
     sentry_sdk.init(
-        dsn=os.environ.get('SENTRY_DSN'),
+        dsn=sentry_dsn,
         # Set traces_sample_rate to 1.0 to capture 100%
         # of transactions for performance monitoring.
         traces_sample_rate=1.0,

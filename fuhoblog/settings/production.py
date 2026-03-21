@@ -71,13 +71,16 @@ if aws_access_key_id and aws_secret_access_key and aws_storage_bucket_name:
     STORAGES = deepcopy(STORAGES)  # noqa: F405
     STORAGES['default'] = {
         'BACKEND': 'storages.backends.s3.S3Storage',
+        'OPTIONS': {
+            'location': 'media',
+        },
     }
 
     if AWS_S3_CUSTOM_DOMAIN:
-        MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
+        MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
     elif AWS_S3_ENDPOINT_URL:
         MEDIA_URL = (
-            f"{AWS_S3_ENDPOINT_URL.rstrip('/')}/{AWS_STORAGE_BUCKET_NAME}/"
+            f"{AWS_S3_ENDPOINT_URL.rstrip('/')}/{AWS_STORAGE_BUCKET_NAME}/media/"
         )
 
 try:

@@ -2,8 +2,6 @@ FROM python:3.12-slim
 
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
-    DJANGO_SETTINGS_MODULE=fuhoblog.settings.production \
-    DJANGO_FORCEPROD=True \
     WAGTAIL_ENV=production \
     PORT=8000
 
@@ -35,6 +33,7 @@ USER wagtailuser
 EXPOSE 8000
 
 CMD . .venv/bin/activate && \
+    export DJANGO_SETTINGS_MODULE=fuhoblog.settings.production DJANGO_FORCEPROD=True && \
     python manage.py migrate --noinput && \
     .venv/bin/gunicorn --bind 0.0.0.0:8000 \
     --workers 4 --access-logfile - --error-logfile - \

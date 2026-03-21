@@ -9,8 +9,10 @@ from grapple import urls as grapple_urls
 
 from .api import api_router
 from .err import test_error_route
+from .health import healthz
 
 urlpatterns = [
+    path('healthz/', healthz),
     path('django-admin/', admin.site.urls),
     path('admin/', include(wagtailadmin_urls)),
     path('documents/', include(wagtaildocs_urls)),

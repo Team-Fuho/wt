@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from copy import deepcopy
 import os
 import dj_database_url
 import dotenv
@@ -78,13 +79,14 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
     # 'grapple.middleware.GrappleMiddleware'
     # 'django.middleware.locale.LocaleMiddleware',
     # 'wagtail.core.middleware.SiteMiddleware',
@@ -178,16 +180,20 @@ STATICFILES_DIRS = [
     os.path.join(PROJECT_DIR, 'static'),
 ]
 
-# ManifestStaticFilesStorage is recommended in production, to prevent outdated
-# JavaScript / CSS assets being served from cache (e.g. after a Wagtail upgrade).
-# See https://docs.djangoproject.com/en/3.2/ref/contrib/staticfiles/#manifeststaticfilesstorage
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
-
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+STORAGES = {
+    'default': {
+        'BACKEND': 'django.core.files.storage.FileSystemStorage',
+    },
+    'staticfiles': {
+        'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
+    },
+}
 
 
 # Wagtail settings
@@ -235,7 +241,7 @@ WAGTAILADMIN_RICH_TEXT_EDITORS = {
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-WAGTAILADMIN_BASE_URL = os.environ.setdefault('API_BASE', 'http://localhost:8000')
+WAGTAILADMIN_BASE_URL = os.environ.get('API_BASE', 'http://localhost:8000')
 BASE_URL = WAGTAILADMIN_BASE_URL
 CSRF_TRUSTED_ORIGINS = [BASE_URL]
 WAGTAIL_ALLOW_UNICODE_SLUGS = False
@@ -252,7 +258,7 @@ GRAPPLE = {
 
 WAGTAIL_HEADLESS_PREVIEW = {
     'CLIENT_URLS': {
-        'default': os.environ.setdefault('PREVIEW_BASE', 'https://teamfuho.net')
+        'default': os.environ.get('PREVIEW_BASE', 'https://teamfuho.net')
     },
     'SERVE_BASE_URL': None,
     'REDIRECT_ON_PREVIEW': False,  # set to True to redirect to the preview instead of using the Wagtail default mechanism

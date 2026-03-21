@@ -1,5 +1,6 @@
 from .base import *  # noqa: F403
 
+from copy import deepcopy
 import os
 
 import sentry_sdk
@@ -39,7 +40,45 @@ if opensearch_host:
         }
     }
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    host.strip() for host in os.environ.get('ALLOWED_HOSTS', '*').split(',')
+    if host.strip()
+]
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+USE_X_FORWARDED_HOST = True
+
+aws_access_key_id = os.environ.get('AWS_ACCESS_KEY_ID')
+aws_secret_access_key = os.environ.get('AWS_SECRET_ACCESS_KEY')
+aws_storage_bucket_name = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+aws_s3_endpoint_url = os.environ.get('AWS_S3_ENDPOINT_URL')
+aws_s3_custom_domain = os.environ.get('AWS_S3_CUSTOM_DOMAIN')
+
+if aws_access_key_id and aws_secret_access_key and aws_storage_bucket_name:
+    AWS_ACCESS_KEY_ID = aws_access_key_id
+    AWS_SECRET_ACCESS_KEY = aws_secret_access_key
+    AWS_STORAGE_BUCKET_NAME = aws_storage_bucket_name
+    AWS_S3_ENDPOINT_URL = aws_s3_endpoint_url
+    AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME', 'auto')
+    AWS_S3_ADDRESSING_STYLE = os.environ.get('AWS_S3_ADDRESSING_STYLE', 'path')
+    AWS_DEFAULT_ACL = None
+    AWS_S3_FILE_OVERWRITE = False
+    AWS_QUERYSTRING_AUTH = (
+        os.environ.get('AWS_QUERYSTRING_AUTH', 'False') == 'True'
+    )
+    AWS_S3_CUSTOM_DOMAIN = aws_s3_custom_domain
+
+    STORAGES = deepcopy(STORAGES)  # noqa: F405
+    STORAGES['default'] = {
+        'BACKEND': 'storages.backends.s3.S3Storage',
+    }
+
+    if AWS_S3_CUSTOM_DOMAIN:
+        MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
+    elif AWS_S3_ENDPOINT_URL:
+        MEDIA_URL = (
+            f"{AWS_S3_ENDPOINT_URL.rstrip('/')}/{AWS_STORAGE_BUCKET_NAME}/"
+        )
 
 try:
     from .local import * # type: ignore  # noqa: F403

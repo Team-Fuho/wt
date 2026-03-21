@@ -1,7 +1,6 @@
 from .base import *  # noqa: F403
 
 import os
-from urllib.parse import urlparse
 
 import sentry_sdk
 
@@ -24,19 +23,19 @@ if SECRET_KEY == '':  # noqa: F405
 DATABASES = DATABASES  # noqa: F405
 WAGTAILSEARCH_BACKENDS = WAGTAILSEARCH_BACKENDS  # noqa: F405
 
-if os.environ['OPENSEARCH_HOST'] is not None:
+opensearch_host = os.environ.get('OPENSEARCH_HOST')
+
+if opensearch_host:
     WAGTAILSEARCH_BACKENDS = {
         'default': {
             'BACKEND': 'wagtail.search.backends.elasticsearch7',
-            'URLS': [os.environ['OPENSEARCH_HOST']],
+            'URLS': [opensearch_host],
             'INDEX': 'fuhoblog',
             'TIMEOUT': 5,
             'OPTIONS': {},
             'INDEX_SETTINGS': {},
         }
     }
-else:
-    print('Did not tried using OPENSEARCH despite tried to load PRODUCTION config')
 
 ALLOWED_HOSTS = ['*']
 

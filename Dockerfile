@@ -2,6 +2,8 @@ FROM python:3.12-slim
 
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
+    DJANGO_SETTINGS_MODULE=fuhoblog.settings.production \
+    DJANGO_FORCEPROD=True \
     WAGTAIL_ENV=production \
     PORT=8000
 
